@@ -6,8 +6,6 @@
 package com.libraweb.utils.listener;
 
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -19,26 +17,21 @@ import com.libraweb.utils.db.DBConnectionManager;
  */
 
 public class ContextListener implements ServletContextListener {
-    @Override
-    public void contextInitialized(ServletContextEvent sce) {
-        ServletContext sc = sce.getServletContext();
-    	
-    	String url = sc.getInitParameter("");
-    	String u = sc.getInitParameter("databaseUsername");
-    	String p = sc.getInitParameter("databasePassword");
-    	
-    	//create database connection from init parameters and set it to context
-        try {
-            DBConnectionManager con = new DBConnectionManager(url, u, p);
-            sc.setAttribute("DBConnection", con);
-            System.out.println("Database connection initialized for Application.");
-        } catch (SQLException e) {
+
+    public void contextInitialized(ServletContextEvent event) {
         
-        }
-            
+        ServletContext sc = event.getServletContext();
+        String url = "jdbc:derby://localhost:1527/UserDB";
+        //String url = sc.getInitParameter("jdbcDriverURL") + "://" + sc.getInitParameter("dbHostName") + ":" + sc.getInitParameter("dbPort") + "/" + sc.getInitParameter("dbName");
+    	String username = sc.getInitParameter("databaseUsername");
+    	String password = sc.getInitParameter("databasePassword");
+    	//create database connection from init parameters and set it to context
+        DBConnectionManager con = new DBConnectionManager(url, username, password);
+        
+        sc.setAttribute("DBConnection", con);
+        System.out.println("Database connection initialized for Application.");
     }
 
-    @Override
     public void contextDestroyed(ServletContextEvent sce) {
         ServletContext sc = sce.getServletContext();
     	DBConnectionManager con = (DBConnectionManager) sc.getAttribute("DBConnection");

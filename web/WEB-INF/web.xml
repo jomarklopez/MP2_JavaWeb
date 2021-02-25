@@ -10,7 +10,7 @@
     </context-param>
     <servlet>
         <servlet-name>LoginServlet</servlet-name>
-        <servlet-class>com.libraweb.LoginServlet</servlet-class>
+        <servlet-class>com.libraweb.controller.LoginServlet</servlet-class>
         <init-param>
             <param-name>databaseUsername</param-name>
             <param-value>app</param-value>
@@ -28,22 +28,25 @@
             <param-value>jdbc:derby</param-value>
         </init-param>
         <init-param>
-            <param-name>databaseHostName</param-name>
+            <param-name>dbHostName</param-name>
             <param-value>localhost</param-value>
         </init-param>
         <init-param>
-            <param-name>databasePort</param-name>
+            <param-name>dbPort</param-name>
             <param-value>1527</param-value>
         </init-param>
         <init-param>
-            <param-name>databaseName</param-name>
+            <param-name>dbName</param-name>
             <param-value>UserDB</param-value>
         </init-param>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
-        <url-pattern>/LoginServlet.do</url-pattern>
+        <url-pattern>/LoginServlet</url-pattern>
     </servlet-mapping>
+    <listener>
+        <listener-class>com.libraweb.utils.listener.ContextListener</listener-class>
+    </listener>
     <error-page>
         <exception-type>model.AuthenticationException</exception-type>
         <location>/authenticationException.jsp</location>
