@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.libraweb.utils;
+package com.libraweb.utils.db;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -13,13 +13,13 @@ import java.sql.SQLException;
  *
  * @author Patrick
  */
-public class DbManager{
+public class DBConnectionManager{
     String url;
     String user;
     String pass;
     Connection c;
     
-    public DbManager(String url, String user, String pass) throws SQLException{
+    public DBConnectionManager(String url, String user, String pass) throws SQLException{
         url = this.url;
         user = this.url;
         pass = this.url;

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.libraweb.utils;
+package com.libraweb.utils.listener;
 
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -11,11 +11,13 @@ import java.util.logging.Logger;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
+import com.libraweb.utils.db.DBConnectionManager;
 
 /**
  *
  * @author Patrick
  */
+
 public class ContextListener implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent sce) {
@@ -27,8 +29,8 @@ public class ContextListener implements ServletContextListener {
     	
     	//create database connection from init parameters and set it to context
         try {
-            DbManager dbManager = new DbManager(url, u, p);
-            sc.setAttribute("DbManager", dbManager);
+            DBConnectionManager con = new DBConnectionManager(url, u, p);
+            sc.setAttribute("DBConnection", con);
             System.out.println("Database connection initialized for Application.");
         } catch (SQLException e) {
         
@@ -39,9 +41,9 @@ public class ContextListener implements ServletContextListener {
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
         ServletContext sc = sce.getServletContext();
-    	DbManager dbManager = (DbManager) sc.getAttribute("DbManager");
+    	DBConnectionManager con = (DBConnectionManager) sc.getAttribute("DBConnection");
         try{
-            dbManager.closeConnection();
+            con.closeConnection();
         } catch (SQLException e){
             
         }
