@@ -28,10 +28,10 @@ public class LoginServlet extends HttpServlet{
             
         } 
         catch (SQLException sqle){
-            System.out.println("SQLException error occured - " + sqle.getMessage());
+            System.out.println("SQLException error occured: " + sqle.getMessage());
         } 
         catch (ClassNotFoundException cnfe){
-            System.out.println("ClassNotFoundException error occured - " + cnfe.getMessage());
+            System.out.println("ClassNotFoundException error occured: " + cnfe.getMessage());
         }
     }
     
