@@ -2,7 +2,7 @@
 
 <html>
     <head>
-        <title>Testtest</title>
+        <title>Libra Web App</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -28,12 +28,48 @@
                 <div class="line libra-line-6"></div>
                 <div class="line libra-line-7"></div>
             </div>
+            <h2>Project: LIBRA</h2>
         </header>
-        <div class="nav">
-            <form action="LoginServlet" method="post">  
-                Name:   <input type="text" name="name"><br>  
-                Password:   <input type="password" name="password"><br>  
-                <input class="btn"type="submit" value="Sign In">  
+        <div class="login-container">
+            <form action="LoginServlet" method="post" autocomplete="off" class="form">
+                <div class='control block-cube block-input'>
+                    <input name='username' placeholder='Username' type='text'>
+                    <div class='bg-top'>
+                        <div class='bg-inner'></div>
+                    </div>
+                    <div class='bg-right'>
+                        <div class='bg-inner'></div>
+                    </div>
+                    <div class='bg'>
+                        <div class='bg-inner'></div>
+                    </div>
+                </div>
+              <div class='control block-cube block-input'>
+                <input name='password' placeholder='Password' type='password'>
+                <div class='bg-top'>
+                  <div class='bg-inner'></div>
+                </div>
+                <div class='bg-right'>
+                  <div class='bg-inner'></div>
+                </div>
+                <div class='bg'>
+                  <div class='bg-inner'></div>
+                </div>
+              </div>
+              <button class='btn block-cube block-cube-hover' type='button'>
+                <div class='bg-top'>
+                  <div class='bg-inner'></div>
+                </div>
+                <div class='bg-right'>
+                  <div class='bg-inner'></div>
+                </div>
+                <div class='bg'>
+                  <div class='bg-inner'></div>
+                </div>
+                <div class='text'>
+                  Log In
+                </div>
+              </button>
             </form>
         </div>
         <div class='stars'></div>
