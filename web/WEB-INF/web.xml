@@ -53,12 +53,12 @@
         <location>/authenticationException.jsp</location>
     </error-page>
     <error-page>
-        <exception-type>model.NullValueException</exception-type>
-        <location>/noLoginCredentials.jsp</location>
+        <error-code>404</error-code>
+        <location>/error_4.jsp</location>
     </error-page>
     <error-page>
-        <error-code>404</error-code>
-        <location>/notFoundPage.jsp</location>
+        <exception-type>model.NullValueException</exception-type>
+        <location>/noLoginCredentials.jsp</location>
     </error-page>
     <session-config>
         <session-timeout>
