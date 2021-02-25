@@ -7,6 +7,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import com.libraweb.routers.UserRouter;
 import com.libraweb.utils.db.DBConnectionManager;
+
 public class LoginServlet extends HttpServlet{
     
     
@@ -44,16 +45,20 @@ public class LoginServlet extends HttpServlet{
             throws ServletException, IOException {
             response.setContentType("text/html");
             
-            PrintWriter out = response.getWriter();  
             DBConnectionManager db = (DBConnectionManager) getServletContext().getAttribute("DBConnection"); 
+
+            Connection con = db.getConnection(); 
+            UserRouter userRouter = new UserRouter();
             
-            System.out.println(getServletContext().getAttribute("DBConnection"));
-            Connection con = db.getConnection();  
+            userRouter.authenticateUser(con, email, password);
+        /*  For db connection testing purposes only
+            PrintWriter out = response.getWriter();   
             if (con != null) {  
                 out.println("Database is connected");  
             } else {  
                 out.println("Database is not connected");  
             }  
+        */
     }
 
     /**

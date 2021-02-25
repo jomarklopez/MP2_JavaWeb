@@ -8,37 +8,37 @@
         <param-name>footer</param-name>
         <param-value>Footer Text</param-value>
     </context-param>
+    <context-param>
+            <param-name>databaseUsername</param-name>
+            <param-value>app</param-value>
+    </context-param>
+    <context-param>
+        <param-name>databasePassword</param-name>
+        <param-value>app</param-value>
+    </context-param>
+    <context-param>
+        <param-name>databaseDriver</param-name>
+        <param-value>org.apache.derby.jdbc.ClientDriver</param-value>
+    </context-param>
+    <context-param>
+        <param-name>jdbcDriverURL</param-name>
+        <param-value>jdbc:derby</param-value>
+    </context-param>
+    <context-param>
+        <param-name>dbHostName</param-name>
+        <param-value>localhost</param-value>
+    </context-param>
+    <context-param>
+        <param-name>dbPort</param-name>
+        <param-value>1527</param-value>
+    </context-param>
+    <context-param>
+        <param-name>dbName</param-name>
+        <param-value>UserDB</param-value>
+    </context-param>
     <servlet>
         <servlet-name>LoginServlet</servlet-name>
         <servlet-class>com.libraweb.controller.LoginServlet</servlet-class>
-        <init-param>
-            <param-name>databaseUsername</param-name>
-            <param-value>app</param-value>
-        </init-param>
-        <init-param>
-            <param-name>databasePassword</param-name>
-            <param-value>app</param-value>
-        </init-param>
-        <init-param>
-            <param-name>databaseDriver</param-name>
-            <param-value>org.apache.derby.jdbc.ClientDriver</param-value>
-        </init-param>
-        <init-param>
-            <param-name>jdbcDriverURL</param-name>
-            <param-value>jdbc:derby</param-value>
-        </init-param>
-        <init-param>
-            <param-name>dbHostName</param-name>
-            <param-value>localhost</param-value>
-        </init-param>
-        <init-param>
-            <param-name>dbPort</param-name>
-            <param-value>1527</param-value>
-        </init-param>
-        <init-param>
-            <param-name>dbName</param-name>
-            <param-value>UserDB</param-value>
-        </init-param>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>

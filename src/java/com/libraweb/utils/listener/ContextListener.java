@@ -19,21 +19,20 @@ import com.libraweb.utils.db.DBConnectionManager;
 public class ContextListener implements ServletContextListener {
 
     public void contextInitialized(ServletContextEvent event) {
-        
+    
         ServletContext sc = event.getServletContext();
-        String url = "jdbc:derby://localhost:1527/UserDB";
-        //String url = sc.getInitParameter("jdbcDriverURL") + "://" + sc.getInitParameter("dbHostName") + ":" + sc.getInitParameter("dbPort") + "/" + sc.getInitParameter("dbName");
-    	String username = sc.getInitParameter("databaseUsername");
+        String url = sc.getInitParameter("jdbcDriverURL") + "://" + sc.getInitParameter("dbHostName") + ":" + sc.getInitParameter("dbPort") + "/" + sc.getInitParameter("dbName");
+    	   System.out.println(sc.getInitParameter("jdbcDriverURL"));
+        String username = sc.getInitParameter("databaseUsername");
     	String password = sc.getInitParameter("databasePassword");
     	//create database connection from init parameters and set it to context
         DBConnectionManager con = new DBConnectionManager(url, username, password);
         
         sc.setAttribute("DBConnection", con);
-        System.out.println("Database connection initialized for Application.");
     }
 
-    public void contextDestroyed(ServletContextEvent sce) {
-        ServletContext sc = sce.getServletContext();
+    public void contextDestroyed(ServletContextEvent event) {
+        ServletContext sc = event.getServletContext();
     	DBConnectionManager con = (DBConnectionManager) sc.getAttribute("DBConnection");
         try{
             con.closeConnection();

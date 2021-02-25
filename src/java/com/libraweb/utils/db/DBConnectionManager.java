@@ -8,29 +8,29 @@ package com.libraweb.utils.db;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
  * @author Patrick
  */
 public class DBConnectionManager{
-    private Connection con = null;
+    private Connection con;
     
     public DBConnectionManager(String url, String user, String pass) {
         try {
             Class.forName("org.apache.derby.jdbc.ClientDriver");
+            //System.out.println("WAWAWAW");
             this.con = DriverManager.getConnection(url, user, pass);
-            System.out.println(this.con);
+            //System.out.println(this.con);
         } catch (SQLException e) {
-                e.printStackTrace();
+            System.out.println(e);
         } catch (ClassNotFoundException ex) {
-                ex.printStackTrace();        }
+            ex.printStackTrace();        
+        }
     }
     
     public Connection getConnection(){
-        return this.con;
+        return con;
     }
     
     public void closeConnection() throws SQLException {
