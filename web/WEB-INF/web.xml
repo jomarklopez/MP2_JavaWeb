@@ -4,9 +4,68 @@
 	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	 xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
 	 version="3.1">
+    <context-param>
+        <param-name>header</param-name>
+        <param-value>Header Text</param-value>
+    </context-param>
+    <context-param>
+        <param-name>footer</param-name>
+        <param-value>Footer Text</param-value>
+    </context-param>
+    <servlet>
+        <servlet-name>LoginServlet</servlet-name>
+        <servlet-class>controller.LoginServlet</servlet-class>
+        <init-param>
+            <param-name>databaseUsername</param-name>
+            <param-value>app</param-value>
+        </init-param>
+        <init-param>
+            <param-name>databasePassword</param-name>
+            <param-value>app</param-value>
+        </init-param>
+        <init-param>
+            <param-name>databaseDriver</param-name>
+            <param-value>org.apache.derby.jdbc.ClientDriver</param-value>
+  	</init-param>
+        <init-param>
+            <param-name>jdbcDriverURL</param-name>
+            <param-value>jdbc:derby</param-value>
+  	</init-param>  	
+  	<init-param>
+            <param-name>databaseHostName</param-name>
+            <param-value>localhost</param-value>
+  	</init-param>
+  	<init-param>
+            <param-name>databasePort</param-name>
+            <param-value>1527</param-value>
+  	</init-param>	
+  	<init-param>
+            <param-name>databaseName</param-name>
+            <param-value>UserDB</param-value>
+  	</init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LoginServlet</servlet-name>
+        <url-pattern>/LoginServlet.do</url-pattern>
+    </servlet-mapping>
+    <error-page>
+        <exception-type>model.AuthenticationException</exception-type>
+        <location>/authenticationException.jsp</location>
+    </error-page>
+    <error-page>
+        <exception-type>model.NullValueException</exception-type>
+        <location>/noLoginCredentials.jsp</location>
+    </error-page>
+    <error-page>
+        <error-code>404</error-code>
+        <location>/notFoundPage.jsp</location>
+    </error-page>
     <session-config>
         <session-timeout>
-            30
+            2
         </session-timeout>
     </session-config>
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
 </web-app>
