@@ -22,8 +22,12 @@ public class ContextListener implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent sce) {
         ServletContext sc = sce.getServletContext();
-    	
-    	String url = sc.getInitParameter("");
+        try {
+            Class.forName(sc.getInitParameter("databaseDriver"));
+        } catch (ClassNotFoundException ex) {
+            
+        }
+    	String url = "jdbc:derby://localhost:1527/UserDB";
     	String u = sc.getInitParameter("databaseUsername");
     	String p = sc.getInitParameter("databasePassword");
     	
