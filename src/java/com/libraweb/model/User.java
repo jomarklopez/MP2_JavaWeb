@@ -12,7 +12,7 @@ package com.libraweb.model;
 public class User {
 
     private String name;
-    private String pass;
+    private String password;
     private String role;
 
     public void setName(String name) {
@@ -22,15 +22,15 @@ public class User {
     public String getName() {
         return name;
     }
-
-    public void setPass(String pass) {
-        this.pass = pass;
-    }
-
-    public String getPass() {
-        return pass;
-    }
     
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
     public void setRole(String role) {
         this.role = role;
     }

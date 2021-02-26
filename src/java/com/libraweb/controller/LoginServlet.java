@@ -1,8 +1,8 @@
 package com.libraweb.controller;
 
+import com.libraweb.utils.listeners.UserContextListener;
 import com.libraweb.model.*;
-import com.libraweb.listener.*;
-import com.libraweb.exceptions.*;
+import com.libraweb.utils.exceptions.*;
 import java.sql.*;
 import java.io.*;
 import javax.servlet.*;
@@ -18,21 +18,16 @@ public class LoginServlet extends HttpServlet{
             super.init(config);
 
             try {	
-                    Class.forName(config.getInitParameter("databaseDriver"));
-                    String username = config.getInitParameter("databaseUsername");
-                    String password = config.getInitParameter("databasePassword");
-                    StringBuffer url = new StringBuffer(config.getInitParameter("jdbcDriverURL"))
-                            .append("://")
-                            .append(config.getInitParameter("databaseHostName"))
-                            .append(":")
-                            .append(config.getInitParameter("databasePort"))
-                            .append("/")
-                            .append(config.getInitParameter("databaseName"));
-                    
-                    con = DriverManager.getConnection(url.toString(),username,password);
+                Class.forName(config.getInitParameter("databaseDriver"));
+                String username = config.getInitParameter("databaseUsername");
+                String password = config.getInitParameter("databasePassword");
+                String url = config.getInitParameter("jdbcDriverURL") + "://" + config.getInitParameter("dbHostName") + ":" + config.getInitParameter("dbPort") + "/" + config.getInitParameter("dbName");
+
+                con = DriverManager.getConnection(url,username,password);
             } catch (SQLException sqle){
                     System.out.println("SQLException error occured - " 
                     + sqle.getMessage());
+                    throw new ServletException(sqle);
             } catch (ClassNotFoundException nfe){
                     System.out.println("ClassNotFoundException error occured - " 
                     + nfe.getMessage());
@@ -49,40 +44,27 @@ public class LoginServlet extends HttpServlet{
         
         try {
             User user = userRouter.authenticateUser(con, username, password);
-             
-            if (user == null) {
-                response.sendRedirect("error_1.jsp");
-            }
-            if(username.equals(user.getName()) && password.equals(user.getPass())){
-                ServletContext sc = getServletContext();
-                sc.setAttribute("user", user);
-                UserContextListener ucl = new UserContextListener();
-                ucl.contextInitialized(new ServletContextEvent(sc));       
-                
-                HttpSession session = request.getSession();
-                session.setAttribute("username", user.getName());
+            
+            
+            ServletContext sc = getServletContext();
+            sc.setAttribute("username", user.getName());
+            sc.setAttribute("role", user.getRole());
+            UserContextListener ucl = new UserContextListener();
+            ucl.contextInitialized(new ServletContextEvent(sc));       
 
-                RequestDispatcher success = request.getRequestDispatcher("success.jsp");
-                success.forward(request, response);
-            }
-            else if(username.equals(user.getName()) || !password.equals(user.getPass())){
-                response.sendRedirect("error_2.jsp");
-            }
-            else if(!username.equals(user.getName()) || !password.equals(user.getPass())){
-                throw new AuthenticationException();
-            }
-            else if(username.isEmpty() && password.isEmpty()){
-                throw new NullValueException();
-            }
-        }
-        catch(NullValueException nve){
-            throw new ServletException("Null Value Exception", nve);
-        }
-        catch(AuthenticationException ae){
-            throw new ServletException("Authentication Exception", ae);
-        }
-        catch (SQLException | ClassNotFoundException ex) {
+            HttpSession session = request.getSession();
+            session.setAttribute("username", user.getName());
+
+            RequestDispatcher success = request.getRequestDispatcher("success.jsp");
+            success.forward(request, response);
+        } catch (SQLException | ClassNotFoundException ex) {
             System.out.println("LoginServlet Error: "+ ex.getMessage());
+        } catch (AuthException ex) {
+            request.setAttribute("errorMessage", ex.getMessage());
+            throw new ServletException(ex);
+        } catch (NullValueException ex) {
+            request.setAttribute("errorMessage", ex.getMessage());
+            throw new ServletException(ex);
         }
     }
     
