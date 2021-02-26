@@ -19,7 +19,7 @@
             
             if(session.getAttribute("username") == null)
             {
-                response.sendRedirect("login.jsp");
+                response.sendRedirect("index.jsp");
             }
         %>
         <h1>Hello! <%
