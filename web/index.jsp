@@ -56,7 +56,7 @@
                         <div class='bg-inner'></div>
                     </div>
                 </div>
-                <button class='btn block-cube block-cube-hover' type='submit'>
+                <button class='btn block-cube block-cube-hover' type='submit' name="role" value="admin">
                     <div class='bg-top'>
                         <div class='bg-inner'></div>
                     </div>
@@ -67,7 +67,21 @@
                         <div class='bg-inner'></div>
                     </div>
                     <div class='text'>
-                      Log In
+                      Log In as Admin
+                    </div>
+                </button>
+                <button class='btn block-cube block-cube-hover' type='submit' name="role" value="guest">
+                    <div class='bg-top'>
+                        <div class='bg-inner'></div>
+                    </div>
+                    <div class='bg-right'>
+                        <div class='bg-inner'></div>
+                    </div>
+                    <div class='bg'>
+                        <div class='bg-inner'></div>
+                    </div>
+                    <div class='text'>
+                      Log In as Guest
                     </div>
                 </button>
             </form>

@@ -10,24 +10,31 @@ import com.libraweb.model.User;
 
 public class UserRouter {
     
-    public User authenticateUser(Connection con, String email, String password) throws SQLException,
+    public User authenticateUser(Connection con, String username, String password, String role) throws SQLException,
             ClassNotFoundException {
         
-        // Connection connection = DB manager 
-        
-        String sql = "SELECT * FROM userDB WHERE email = ? and password = ?";
+        String sql = "SELECT * FROM USER_INFO WHERE username = ? AND password = ? AND role = ?";
         PreparedStatement statement = con.prepareStatement(sql);
+        statement.setString(1, username);
+        statement.setString(2, password);
+        statement.setString(3, role);
  
-        ResultSet result = statement.executeQuery();
- 
+        ResultSet res = statement.executeQuery();
         User user = null;
- 
-        if (result.next()) {
+        
+        if (res.next()) {
             user = new User();
-            user.setName(result.getString("name"));
-            user.setEmail(email);
+            System.out.println("asdasd");
+            user.setName(res.getString("username"));
+            user.setRole(res.getString("role"));
         }
         
+        
+        res.close();
+        statement.close();
+        con.close();
+        System.out.println("CLOSED");
+ 
         return user;
     }
 }
