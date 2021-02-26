@@ -44,18 +44,6 @@
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/LoginServlet</url-pattern>
     </servlet-mapping>
-    <error-page>
-        <exception-type>model.AuthenticationException</exception-type>
-        <location>/authenticationException.jsp</location>
-    </error-page>
-    <error-page>
-        <error-code>404</error-code>
-        <location>/error_4.jsp</location>
-    </error-page>
-    <error-page>
-        <exception-type>model.NullValueException</exception-type>
-        <location>/noLoginCredentials.jsp</location>
-    </error-page>
     <session-config>
         <session-timeout>
             2
@@ -64,4 +52,20 @@
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
+    <error-page>
+        <exception-type>com.libraweb.utils.exceptions.AuthException</exception-type>
+        <location>/authenticationException.jsp</location>
+    </error-page>
+    <error-page>
+        <exception-type>com.libraweb.utils.exceptions.NullValueException</exception-type>
+        <location>/nullValueException.jsp</location>
+    </error-page>
+    <error-page>
+        <error-code>404</error-code>
+        <location>/error_4.jsp</location>
+    </error-page>
+    <error-page>
+        <error-code>500</error-code>
+        <location>/error_5.jsp</location>
+    </error-page>
 </web-app>

@@ -1,31 +1,41 @@
 package com.libraweb.controller;
 
-//import model.*;
-import com.libraweb.model.User;
+import com.libraweb.utils.listeners.UserContextListener;
+import com.libraweb.model.*;
+import com.libraweb.utils.exceptions.*;
 import java.sql.*;
 import java.io.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import com.libraweb.routers.UserRouter;
+import java.net.ConnectException;
 
 public class LoginServlet extends HttpServlet{
     
     Connection con;
     
+    @Override
     public void init(ServletConfig config) throws ServletException {
             super.init(config);
 
             try {	
-                    Class.forName(config.getInitParameter("databaseDriver"));
-                    String username = config.getInitParameter("databaseUsername");
-                    String password = config.getInitParameter("databasePassword");
-                    String url = config.getInitParameter("jdbcDriverURL") + "://" + config.getInitParameter("dbHostName") + ":" + config.getInitParameter("dbPort") + "/" + config.getInitParameter("dbName");
-                    
-                    con = DriverManager.getConnection(url,username,password);
-                    System.out.println("DB connected!");
+                Class.forName(config.getInitParameter("databaseDriver"));
+                String username = config.getInitParameter("databaseUsername");
+                String password = config.getInitParameter("databasePassword");
+                StringBuffer url = new StringBuffer(config.getInitParameter("jdbcDriverURL"))
+                        .append("://")
+                        .append(config.getInitParameter("dbHostName"))
+                        .append(":")
+                        .append(config.getInitParameter("dbPort"))
+                        .append("/")
+                        .append(config.getInitParameter("dbName"));
+
+                con = DriverManager.getConnection(url.toString(),username,password);
             } catch (SQLException sqle){
                     System.out.println("SQLException error occured - " 
                     + sqle.getMessage());
+                    throw new ServletException();
+                    
             } catch (ClassNotFoundException nfe){
                     System.out.println("ClassNotFoundException error occured - " 
                     + nfe.getMessage());
@@ -34,23 +44,33 @@ public class LoginServlet extends HttpServlet{
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            
-        // Retrieve user input
+        
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-
+        
         UserRouter userRouter = new UserRouter();
+        
         try {
             User user = userRouter.authenticateUser(con, username, password);
-            System.out.println(user.getName());
-            String destPage = "login.jsp";
-            
-            //RequestDispatcher dispatcher = request.getRequestDispatcher(destPage);
-            //dispatcher.forward(request, response);
-             
-        } catch (Exception e) {
-            System.out.println("servlet "+ e);
-            // This is where error is thrown
+            ServletContext sc = getServletContext();
+            sc.setAttribute("username", user.getName());
+            sc.setAttribute("role", user.getRole());
+            UserContextListener ucl = new UserContextListener();
+            ucl.contextInitialized(new ServletContextEvent(sc));       
+
+            HttpSession session = request.getSession();
+            session.setAttribute("username", user.getName());
+
+            RequestDispatcher success = request.getRequestDispatcher("success.jsp");
+            success.forward(request, response);
+        } catch (SQLException | ClassNotFoundException ex) {
+            System.out.println("LoginServlet Error: "+ ex.getMessage());
+        } catch (AuthException ex) {
+            request.setAttribute("errorMessage", ex.getMessage());
+            throw new ServletException();
+        } catch (NullValueException ex) {
+            request.setAttribute("errorMessage", ex.getMessage());
+            throw new ServletException();
         }
     }
     

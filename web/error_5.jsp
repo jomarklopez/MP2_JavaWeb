@@ -9,12 +9,12 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Error Page</title>
+        <title>500</title>
         <link rel="stylesheet" href="errorstyle.css" />
     </head>
     <body>
         <h1><center><% out.print(getServletContext().getInitParameter("header")); %></center></h1>
-        <h1>Incorrect password</h1>
+        <h1>ERROR 500</h1>
         <h1><center><% out.print(getServletContext().getInitParameter("footer")); %></center></h1>
     </body>
 </html>
