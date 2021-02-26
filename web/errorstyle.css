@@ -1,0 +1,11 @@
+html {
+    height: 100%;
+    background: radial-gradient(ellipse at bottom, #08102f 0%, #090A0F 100%);
+}
+
+.container {
+    text-align: center;
+}
+.error-message {
+    color: white;
+}
