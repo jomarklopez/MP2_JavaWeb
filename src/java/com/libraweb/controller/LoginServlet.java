@@ -8,7 +8,6 @@ import java.io.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import com.libraweb.routers.UserRouter;
-import java.net.ConnectException;
 
 public class LoginServlet extends HttpServlet{
     
@@ -22,20 +21,13 @@ public class LoginServlet extends HttpServlet{
                 Class.forName(config.getInitParameter("databaseDriver"));
                 String username = config.getInitParameter("databaseUsername");
                 String password = config.getInitParameter("databasePassword");
-                StringBuffer url = new StringBuffer(config.getInitParameter("jdbcDriverURL"))
-                        .append("://")
-                        .append(config.getInitParameter("dbHostName"))
-                        .append(":")
-                        .append(config.getInitParameter("dbPort"))
-                        .append("/")
-                        .append(config.getInitParameter("dbName"));
+                String url = config.getInitParameter("jdbcDriverURL") + "://" + config.getInitParameter("dbHostName") + ":" + config.getInitParameter("dbPort") + "/" + config.getInitParameter("dbName");
 
-                con = DriverManager.getConnection(url.toString(),username,password);
+                con = DriverManager.getConnection(url,username,password);
             } catch (SQLException sqle){
                     System.out.println("SQLException error occured - " 
                     + sqle.getMessage());
-                    throw new ServletException();
-                    
+                    throw new ServletException(sqle);
             } catch (ClassNotFoundException nfe){
                     System.out.println("ClassNotFoundException error occured - " 
                     + nfe.getMessage());
@@ -67,10 +59,10 @@ public class LoginServlet extends HttpServlet{
             System.out.println("LoginServlet Error: "+ ex.getMessage());
         } catch (AuthException ex) {
             request.setAttribute("errorMessage", ex.getMessage());
-            throw new ServletException();
+            throw new ServletException(ex);
         } catch (NullValueException ex) {
             request.setAttribute("errorMessage", ex.getMessage());
-            throw new ServletException();
+            throw new ServletException(ex);
         }
     }
     
