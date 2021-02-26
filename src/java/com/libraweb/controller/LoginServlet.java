@@ -22,6 +22,7 @@ public class LoginServlet extends HttpServlet{
                     String url = config.getInitParameter("jdbcDriverURL") + "://" + config.getInitParameter("dbHostName") + ":" + config.getInitParameter("dbPort") + "/" + config.getInitParameter("dbName");
                     
                     con = DriverManager.getConnection(url,username,password);
+                    System.out.println("DB connected!");
             } catch (SQLException sqle){
                     System.out.println("SQLException error occured - " 
                     + sqle.getMessage());
@@ -35,27 +36,21 @@ public class LoginServlet extends HttpServlet{
             throws ServletException, IOException {
             
         // Retrieve user input
-        String username = getInitParameter("name");
-        String password = getInitParameter("password");
-        String role = getInitParameter("role");
-        
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+
         UserRouter userRouter = new UserRouter();
         try {
-            User user = userRouter.authenticateUser(con, username, password, role);
+            User user = userRouter.authenticateUser(con, username, password);
+            System.out.println(user.getName());
             String destPage = "login.jsp";
+            
+            //RequestDispatcher dispatcher = request.getRequestDispatcher(destPage);
+            //dispatcher.forward(request, response);
              
-            if (user != null) {
-                System.out.println(user);
-                HttpSession session = request.getSession();
-                session.setAttribute("user", user);
-                destPage = "home.jsp";
-            }
-             
-            RequestDispatcher dispatcher = request.getRequestDispatcher(destPage);
-            dispatcher.forward(request, response);
-             
-        } catch (SQLException | ClassNotFoundException ex) {
-            System.out.println("LoginServlet: "+ ex);
+        } catch (Exception e) {
+            System.out.println("servlet "+ e);
+            // This is where error is thrown
         }
     }
     

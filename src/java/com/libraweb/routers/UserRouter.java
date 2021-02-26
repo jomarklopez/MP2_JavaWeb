@@ -10,31 +10,37 @@ import com.libraweb.model.User;
 
 public class UserRouter {
     
-    public User authenticateUser(Connection con, String username, String password, String role) throws SQLException,
-            ClassNotFoundException {
-        
-        String sql = "SELECT * FROM USER_INFO WHERE username = ? AND password = ? AND role = ?";
+    public User authenticateUser(Connection con, String usernameInput, String passwordInput) throws SQLException,
+            ClassNotFoundException,
+            Exception {
+
+        String sql = "SELECT * FROM USER_INFO WHERE username = ?";
         PreparedStatement statement = con.prepareStatement(sql);
-        statement.setString(1, username);
-        statement.setString(2, password);
-        statement.setString(3, role);
- 
+        statement.setString(1, usernameInput);
+        // Executes query
         ResultSet res = statement.executeQuery();
         User user = null;
-        
-        if (res.next()) {
-            user = new User();
-            System.out.println("asdasd");
-            user.setName(res.getString("username"));
-            user.setRole(res.getString("role"));
+
+        // If resultset is not empty returns a user then check the password if it matches
+        if (res.next() == false) {
+            throw new Exception("User does not exist");
+        } else {
+          do {
+            if (res.getString("password").equals(passwordInput)) {
+                user = new User();
+                user.setName(res.getString("username"));
+                user.setRole(res.getString("role"));
+            } else {
+                throw new Exception("Check your password");
+            }
+          } while (res.next());
         }
-        
         
         res.close();
         statement.close();
         con.close();
-        System.out.println("CLOSED");
  
+        // If login is successful then return user object
         return user;
     }
 }
