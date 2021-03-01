@@ -16,11 +16,11 @@ public class UserRouter {
             ClassNotFoundException, AuthException, NullValueException {
 
         if(usernameInput.equals("") && passwordInput.equals("")) {
-            throw new NullValueException("Username and Password cannot be blank");
+            throw new NullValueException("Username and Password cannot be blank.");
         } else if (usernameInput.equals("")) {
-            throw new NullValueException("Username cannot be blank");
+            throw new NullValueException("Username cannot be blank.");
         } else if (passwordInput.equals("")) {
-            throw new NullValueException("Password cannot be blank");
+            throw new NullValueException("Password cannot be blank.");
         }
         
         String sql = "SELECT * FROM USER_INFO WHERE username = ?";
@@ -33,7 +33,7 @@ public class UserRouter {
         // If resultset is not empty returns a user then check the password if it matches
         // Error-3
         if (res.next() == false) {
-            throw new AuthException("User does not exist");
+            throw new AuthException("User does not exist.");
         } else {
           do {
             if (res.getString("password").equals(passwordInput)) {
@@ -43,15 +43,11 @@ public class UserRouter {
                 user.setRole(res.getString("role"));
             } else {
                 // Error-2
-                throw new AuthException("Check your password");
+                throw new AuthException("Check your password.");
             }
           } while (res.next());
         }
         
-        res.close();
-        statement.close();
-        con.close();
- 
         // If login is successful then return user object
         return user;
     }

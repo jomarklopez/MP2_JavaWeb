@@ -41,6 +41,6 @@ public class User {
     
     @Override
     public String toString() {
-        return "Welcome " + name + ",your role is: " + role + " to our web application!";
+        return "Welcome " + name + ", your role is: " + role + ", to our web application!";
     }
 }

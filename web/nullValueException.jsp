@@ -16,7 +16,7 @@
                 out.println(request.getAttribute("errorMessage"));
             }%>
             </h1>
-            <form method="get" action="/ICS2609_MP2">
+            <form method="get" action="index.jsp">
                 <button class="button" type="submit">Back</button>
             </form>
         </div>
