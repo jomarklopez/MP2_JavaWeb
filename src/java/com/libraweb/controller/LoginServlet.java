@@ -45,8 +45,7 @@ public class LoginServlet extends HttpServlet{
         try {
             User user = userRouter.authenticateUser(con, username, password);
             ServletContext sc = getServletContext();
-            sc.setAttribute("username", user.getName());
-            sc.setAttribute("role", user.getRole());
+            sc.setAttribute("user", user);
             UserContextListener ucl = new UserContextListener();
             ucl.contextInitialized(new ServletContextEvent(sc));       
 

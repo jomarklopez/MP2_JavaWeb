@@ -10,7 +10,7 @@ public class UserContextListener implements ServletContextListener {
         ServletContext sc = event.getServletContext();
         User user = new User();
         user = (User) sc.getAttribute("user");
-        sc.setAttribute("user", user);
+        sc.setAttribute("userVerified", user);
     }
     
     @Override

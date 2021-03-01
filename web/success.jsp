@@ -6,6 +6,9 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<%@ page import="com.libraweb.controller.*" %>
+<%@ page import="com.libraweb.model.*" %>
+<%@ page import="com.libraweb.utils.listeners.*" %>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -23,13 +26,10 @@
             }
         %>
         <h1>
-            Hello! <%
-            ServletContext sc = request.getServletContext();
-            sc.getAttribute("role");
-            %>: 
-            <%
-            sc.getAttribute("username");
-            %></h1>
+            Hello! <% 
+                    ServletContext sc = getServletContext();
+                    out.println((User)sc.getAttribute("userVerified"));
+                %></h1>
             <a href="LogoutServlet">Logout</a>
     </body>
 </html>

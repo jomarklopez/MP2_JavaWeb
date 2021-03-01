@@ -39,4 +39,8 @@ public class User {
         return role;
     }
     
+    @Override
+    public String toString() {
+        return "Welcome " + name + ",your role is: " + role + " to our web application!";
+    }
 }
