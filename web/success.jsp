@@ -30,5 +30,6 @@
             <%
             sc.getAttribute("username");
             %></h1>
+            <a href="LogoutServlet">Logout</a>
     </body>
 </html>
