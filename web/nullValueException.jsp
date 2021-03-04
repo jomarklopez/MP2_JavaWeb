@@ -5,12 +5,16 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Null Value Exception</title>
+        <link href="https://fonts.googleapis.com/css2?family=Jura:wght@300&display=swap" rel="stylesheet">     
         <link rel="stylesheet" href="errorstyle.css" />
     </head>
     <body>
-        <div><% out.print(getServletContext().getInitParameter("header")); %></div>
+        <header>
+            <h3>
+                <% out.print(getServletContext().getInitParameter("company")); %>
+            </h3>            
+        </header>
         <div class="container">
-            
             <h1 class="error-message">
             <%if(null != request.getAttribute("errorMessage")) {
                 out.println(request.getAttribute("errorMessage"));
@@ -20,6 +24,15 @@
                 <button class="button" type="submit">Back</button>
             </form>
         </div>
-        <h1><center><% out.print(getServletContext().getInitParameter("footer")); %></center></h1>
+        <footer>
+            <p>
+                Made with <3 by: <% out.print(getServletContext().getInitParameter("company")); %>
+                &nbsp;&nbsp;&nbsp;
+                Reach us: <% out.print(getServletContext().getInitParameter("companyEmail")); %>
+            </p>
+            <p>
+                © <% out.print(getServletContext().getInitParameter("copyrightYear")); %>
+            </p>
+        </footer>
     </body>
 </html>

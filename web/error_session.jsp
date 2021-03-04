@@ -1,6 +1,6 @@
 <%-- 
-    Document   : error_2
-    Created on : 02 26, 21, 3:26:05 PM
+    Document   : authenticationException
+    Created on : 02 25, 21, 2:41:15 PM
     Author     : Patrick
 --%>
 
@@ -9,7 +9,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>500</title>
+        <title>Unauthorized</title>
         <link href="https://fonts.googleapis.com/css2?family=Jura:wght@300&display=swap" rel="stylesheet">     
         <link rel="stylesheet" href="errorstyle.css" />
     </head>
@@ -19,7 +19,7 @@
                 <% out.print(getServletContext().getInitParameter("company")); %>
             </h3>            
         </header>
-        <h1>ERROR 500</h1>
+        <h1>Please login</h1>
         <footer>
             <p>
                 Made with <3 by: <% out.print(getServletContext().getInitParameter("company")); %>

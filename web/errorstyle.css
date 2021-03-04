@@ -3,9 +3,41 @@ html {
     background: radial-gradient(ellipse at bottom, #08102f 0%, #090A0F 100%);
 }
 
+
+header {
+    font-family: 'Jura', sans-serif;
+    font-size: 50px;
+    text-align: center;
+    color: white;
+    cursor:default;
+}
+
+header h3 {
+    margin: 0px;
+    padding-left: 10px;
+    text-align: left;
+}
+
+footer {
+    font-family: 'Jura', sans-serif;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    color: white;
+    text-align: center;
+}
+
 .container {
     text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%)
 }
 .error-message {
     color: white;
+    
+    font-family: 'Jura', sans-serif;
 }

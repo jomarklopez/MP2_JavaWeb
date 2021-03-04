@@ -12,7 +12,10 @@
     </head>
     <body>
         <header>
-            <div class="libra-container">
+            <h3>
+                <% out.print(getServletContext().getInitParameter("company")); %>
+            </h3>            
+                <div class="libra-container">
                 <div class='star libra-star-1'></div>
                 <div class='star libra-star-2'></div>
                 <div class='star libra-star-3'></div>
@@ -74,4 +77,14 @@
         </div>
         <div class='stars'></div>
         <div class='stars2'></div>
+        <footer>
+            <p>
+                Made with <3 by: <% out.print(getServletContext().getInitParameter("company")); %>
+                &nbsp;&nbsp;&nbsp;
+                Reach us: <% out.print(getServletContext().getInitParameter("companyEmail")); %>
+            </p>
+            <p>
+                © <% out.print(getServletContext().getInitParameter("copyrightYear")); %>
+            </p>
+        </footer>
 </html>

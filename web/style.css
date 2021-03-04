@@ -17,6 +17,22 @@ header {
     cursor:default;
 }
 
+header h3 {
+    margin: 0px;
+    padding-left: 10px;
+    text-align: left;
+}
+
+footer {
+    font-family: 'Jura', sans-serif;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    color: white;
+    text-align: center;
+}
+
 .stars {
     width: 2px;
     height: 2px;
@@ -68,135 +84,135 @@ header {
 }
 
 .libra-star-2 {
-  right: 32%;
-  top: 84.5%;
-  width: 4px;
-  height: 4px;
-  background: #f4ccbf;
-  -webkit-animation: twinkle 0.5s alternate infinite;
-          animation: twinkle 0.5s alternate infinite;
-  -webkit-animation-delay: 4.09091s;
-          animation-delay: 4.09091s;
+    right: 32%;
+    top: 84.5%;
+    width: 4px;
+    height: 4px;
+    background: #f4ccbf;
+    -webkit-animation: twinkle 0.5s alternate infinite;
+            animation: twinkle 0.5s alternate infinite;
+    -webkit-animation-delay: 4.09091s;
+            animation-delay: 4.09091s;
 }
 
 .libra-star-3 {
-  background: #f4ccbf;
-  width: 4px;
-  height: 4px;
-  left: 30%;
-  top: 97%;
-  -webkit-animation: twinkle 0.75s alternate infinite;
-          animation: twinkle 0.75s alternate infinite;
-  -webkit-animation-delay: 1.77143s;
-          animation-delay: 1.77143s;
+    background: #f4ccbf;
+    width: 4px;
+    height: 4px;
+    left: 30%;
+    top: 97%;
+    -webkit-animation: twinkle 0.75s alternate infinite;
+            animation: twinkle 0.75s alternate infinite;
+    -webkit-animation-delay: 1.77143s;
+            animation-delay: 1.77143s;
 }
 
 .libra-star-4 {
-  width: 5px;
-  height: 5px;
-  left: 53%;
-  top: 16.8%;
-  background: #b6c8ff;
-  -webkit-animation: twinkle 0.5s alternate infinite;
-          animation: twinkle 0.5s alternate infinite;
-  -webkit-animation-delay: 1.55357s;
-          animation-delay: 1.55357s;
+    width: 5px;
+    height: 5px;
+    left: 53%;
+    top: 16.8%;
+    background: #b6c8ff;
+    -webkit-animation: twinkle 0.5s alternate infinite;
+            animation: twinkle 0.5s alternate infinite;
+    -webkit-animation-delay: 1.55357s;
+            animation-delay: 1.55357s;
 }
 
 .libra-star-5 {
-  background: #f4aaaa;
-  width: 4px;
-  height: 4px;
-  left: 32%;
-  top: 40%;
-  -webkit-animation: twinkle 0.75s alternate infinite;
-          animation: twinkle 0.75s alternate infinite;
-  -webkit-animation-delay: 0.88462s;
-          animation-delay: 0.88462s;
+    background: #f4aaaa;
+    width: 4px;
+    height: 4px;
+    left: 32%;
+    top: 40%;
+    -webkit-animation: twinkle 0.75s alternate infinite;
+            animation: twinkle 0.75s alternate infinite;
+    -webkit-animation-delay: 0.88462s;
+            animation-delay: 0.88462s;
 }
 
 .libra-star-6 {
-  background: #f4aaaa;
-  width: 6px;
-  height: 6px;
-  left: 10%;
-  top: 48.5%;
-  -webkit-animation: twinkle 0.5s alternate infinite;
-          animation: twinkle 0.5s alternate infinite;
-  -webkit-animation-delay: 0.66s;
-          animation-delay: 0.66s;
+    background: #f4aaaa;
+    width: 6px;
+    height: 6px;
+    left: 10%;
+    top: 48.5%;
+    -webkit-animation: twinkle 0.5s alternate infinite;
+            animation: twinkle 0.5s alternate infinite;
+    -webkit-animation-delay: 0.66s;
+            animation-delay: 0.66s;
 }
 
 .libra-star-7 {
-  background: #b6c8f9;
-  width: 5px;
-  height: 5px;
-  left: 29%;
-  bottom: -4%;
-  -webkit-animation: twinkle 0.75s alternate infinite;
-          animation: twinkle 0.75s alternate infinite;
-  -webkit-animation-delay: 0.03279s;
-          animation-delay: 0.03279s;
+    background: #b6c8f9;
+    width: 5px;
+    height: 5px;
+    left: 29%;
+    bottom: -4%;
+    -webkit-animation: twinkle 0.75s alternate infinite;
+            animation: twinkle 0.75s alternate infinite;
+    -webkit-animation-delay: 0.03279s;
+            animation-delay: 0.03279s;
 }
 
 .line {
-  width: 1px;
-  height: 1px;
-  position: absolute;
-  background: rgba(246,218,230,0.65);
-  -webkit-animation: line 7s alternate infinite;
-          animation: line 7s alternate infinite;
-  -webkit-animation-delay: 1s;
-          animation-delay: 1s;
+    width: 1px;
+    height: 1px;
+    position: absolute;
+    background: rgba(246,218,230,0.65);
+    -webkit-animation: line 7s alternate infinite;
+            animation: line 7s alternate infinite;
+    -webkit-animation-delay: 1s;
+            animation-delay: 1s;
 }
 
 .libra-line-1 {
-  height: 215px;
-  transform: rotate(-10deg);
-  top: 21.5%;
-  left: 60.2%;
+    height: 215px;
+    transform: rotate(-10deg);
+    top: 21.5%;
+    left: 60.2%;
 }
 
 .libra-line-2 {
-  height: 105px;
-  transform: rotate(-42deg);
-  top: 17%;
-  left: 68.5%;
+    height: 105px;
+    transform: rotate(-42deg);
+    top: 17%;
+    left: 68.5%;
 }
 
 .libra-line-3 {
-  height: 119px;
-  transform: rotate(20deg);
-  top: 49%;
-  left: 75.5%;
+    height: 119px;
+    transform: rotate(20deg);
+    top: 49%;
+    left: 75.5%;
 }
 
 .libra-line-4 {
-  height: 75px;
-  transform: rotate(-142deg);
-  top: 19%;
-  left: 43%;
+    height: 75px;
+    transform: rotate(-142deg);
+    top: 19%;
+    left: 43%;
 }
 
 .libra-line-5 {
-  height: 48px;
-  transform: rotate(69deg);
-  top: 38.2%;
-  left: 21.5%;
+    height: 48px;
+    transform: rotate(69deg);
+    top: 38.2%;
+    left: 21.5%;
 }
 
 .libra-line-6 {
-  height: 101px;
-  transform: rotate(69deg);
-  top: 77.5%;
-  left: 48%;
+    height: 101px;
+    transform: rotate(69deg);
+    top: 77.5%;
+    left: 48%;
 }
 
 .libra-line-7 {
-  height: 8px;
-  transform: rotate(9deg);
-  top: 99.5%;
-  left: 29.8%;
+    height: 8px;
+    transform: rotate(9deg);
+    top: 99.5%;
+    left: 29.8%;
 }
 
 /* the keyframes! */

@@ -12,7 +12,6 @@ import com.libraweb.routers.UserRouter;
 public class LoginServlet extends HttpServlet{
     
     Connection con;
-    
     @Override
     public void init(ServletConfig config) throws ServletException {
             super.init(config);
@@ -43,12 +42,19 @@ public class LoginServlet extends HttpServlet{
         UserRouter userRouter = new UserRouter();
         
         try {
+            // Authenticate user by calling method which returns a User object
             User user = userRouter.authenticateUser(con, username, password);
+            
+            System.out.println("ASDASDASD");
+            // We then send that user object to the servlet context
             ServletContext sc = getServletContext();
             sc.setAttribute("user", user);
+            
+            // Add user to context listener for other servlets to be made in the future
             UserContextListener ucl = new UserContextListener();
             ucl.contextInitialized(new ServletContextEvent(sc));       
 
+            // Since user is logged in we can no proceed to success page
             HttpSession session = request.getSession();
             session.setAttribute("username", user.getName());
 

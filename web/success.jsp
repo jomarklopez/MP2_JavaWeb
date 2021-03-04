@@ -15,6 +15,11 @@
         <title>JSP Page</title>
     </head>
     <body>
+        <header>
+            <h3>
+                <% out.print(getServletContext().getInitParameter("company")); %>
+            </h3>            
+        </header>
         <%
             response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); //HTTP 1.1
             response.setHeader("Pragma", "no-cache"); //HTTP 1.0
@@ -22,14 +27,24 @@
             
             if(session.getAttribute("username") == null)
             {
-                response.sendRedirect("index.jsp");
-            }
+                response.sendRedirect("error_session.jsp");
+            } 
         %>
         <h1>
             Hello! <% 
                     ServletContext sc = getServletContext();
-                    out.println((User)sc.getAttribute("userVerified"));
+                    out.println(sc.getAttribute("userVerified"));
                 %></h1>
             <a href="LogoutServlet">Logout</a>
+        <footer>
+            <p>
+                Made with <3 by: <% out.print(getServletContext().getInitParameter("company")); %>
+                &nbsp;&nbsp;&nbsp;
+                Reach us: <% out.print(getServletContext().getInitParameter("companyEmail")); %>
+            </p>
+            <p>
+                © <% out.print(getServletContext().getInitParameter("copyrightYear")); %>
+            </p>
+        </footer>
     </body>
 </html>
