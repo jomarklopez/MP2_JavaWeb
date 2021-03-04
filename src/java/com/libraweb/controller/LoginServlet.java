@@ -46,17 +46,20 @@ public class LoginServlet extends HttpServlet{
             User user = userRouter.authenticateUser(con, username, password);
             
             // We then send that user object to the servlet context
-            ServletContext sc = getServletContext();
-            sc.setAttribute("user", user);
+            /*ServletContext sc = getServletContext();
+            sc.setAttribute("user", user);*/
             
             // Add user to context listener for other servlets to be made in the future
-            UserContextListener ucl = new UserContextListener();
-            ucl.contextInitialized(new ServletContextEvent(sc));       
+            /*UserContextListener ucl = new UserContextListener();
+            ucl.contextInitialized(new ServletContextEvent(sc));*/
 
-            // Since user is logged in we can no proceed to success page
+            // Since user is logged in we can now proceed to success page
             HttpSession session = request.getSession();
             session.setAttribute("username", user.getName());
-
+            
+            request.setAttribute("username", user.getName());
+            request.setAttribute("role", user.getRole());
+            
             RequestDispatcher success = request.getRequestDispatcher("success.jsp");
             success.forward(request, response);
         } catch (SQLException | ClassNotFoundException ex) {

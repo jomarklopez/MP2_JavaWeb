@@ -33,19 +33,10 @@
             } 
         %>
         <h1>
-            Hello! <% ServletContext sc = getServletContext();
-                    out.println(sc.getAttribute("username")); %>. You are 
+            Hello! <% //ServletContext sc = getServletContext();
+                    out.println((String)request.getAttribute("username")); %>. You have the role of:
                     <% 
-                        switch(sc.getAttribute("role").toString()) {
-                          case "admin":
-                            out.println("an ADMIN");
-                            break;
-                          case "guest":
-                            out.println("a GUEST");
-                            break;
-                          default:
-                            out.println("assigned with no role, please contact an administrator of the website.");
-                        }
+                        out.println((String)request.getAttribute("role"));
                     %>
         </h1>
             <a href="LogoutServlet">Logout</a>
