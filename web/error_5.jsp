@@ -19,7 +19,14 @@
                 <% out.print(getServletContext().getInitParameter("company")); %>
             </h3>            
         </header>
-        <h1>ERROR 500</h1>
+        <div class="container">
+            <h1 class="error-message">
+                ERROR 500
+            </h1>
+            <form method="get" action="index.jsp">
+                <button class="button" type="submit">Go to Login</button>
+            </form>
+        </div>
         <footer>
             <p>
                 Made with <3 by: <% out.print(getServletContext().getInitParameter("company")); %>

@@ -12,6 +12,8 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link href="https://fonts.googleapis.com/css2?family=Jura:wght@300&display=swap" rel="stylesheet">     
+        <link rel="stylesheet" href="style.css" />
         <title>JSP Page</title>
     </head>
     <body>
@@ -31,10 +33,21 @@
             } 
         %>
         <h1>
-            Hello! <% 
-                    ServletContext sc = getServletContext();
-                    out.println(sc.getAttribute("userVerified"));
-                %></h1>
+            Hello! <% ServletContext sc = getServletContext();
+                    out.println(sc.getAttribute("username")); %>. You are 
+                    <% 
+                        switch(sc.getAttribute("role").toString()) {
+                          case "admin":
+                            out.println("an ADMIN");
+                            break;
+                          case "guest":
+                            out.println("a GUEST");
+                            break;
+                          default:
+                            out.println("assigned with no role, please contact an administrator of the website.");
+                        }
+                    %>
+        </h1>
             <a href="LogoutServlet">Logout</a>
         <footer>
             <p>

@@ -45,7 +45,6 @@ public class LoginServlet extends HttpServlet{
             // Authenticate user by calling method which returns a User object
             User user = userRouter.authenticateUser(con, username, password);
             
-            System.out.println("ASDASDASD");
             // We then send that user object to the servlet context
             ServletContext sc = getServletContext();
             sc.setAttribute("user", user);
