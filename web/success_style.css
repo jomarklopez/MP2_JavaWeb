@@ -35,7 +35,7 @@ footer {
     margin-right: -50%;
     transform: translate(-50%, -50%)
 }
-.error-message {
+.welcome-message {
     color: white;
     font-family: 'Jura', sans-serif;
 }

@@ -13,8 +13,8 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link href="https://fonts.googleapis.com/css2?family=Jura:wght@300&display=swap" rel="stylesheet">     
-        <link rel="stylesheet" href="style.css" />
-        <title>JSP Page</title>
+        <link rel="stylesheet" href="success_style.css" />
+        <title>Welcome</title>
     </head>
     <body>
         <header>
@@ -29,17 +29,22 @@
             
             if(session.getAttribute("username") == null)
             {
+                System.out.println(session.getAttribute("username"));
                 response.sendRedirect("error_session.jsp");
             } 
         %>
-        <h1>
+        <div class="container">
+            <h1 class="welcome-message">
             Hello! <% //ServletContext sc = getServletContext();
-                    out.println((String)request.getAttribute("username")); %>. You have the role of:
+                    out.println((String)session.getAttribute("username")); %>. You have the role of:
                     <% 
-                        out.println((String)request.getAttribute("role"));
+                        out.println((String)session.getAttribute("role"));
                     %>
-        </h1>
-            <a href="LogoutServlet">Logout</a>
+            </h1>
+            <form method="get" action="LogoutServlet">
+                <button class="button" type="submit">Logout</button>
+            </form>
+        </div>
         <footer>
             <p>
                 Made with <3 by: <% out.print(getServletContext().getInitParameter("company")); %>

@@ -56,9 +56,9 @@ public class LoginServlet extends HttpServlet{
             // Since user is logged in we can now proceed to success page
             HttpSession session = request.getSession();
             session.setAttribute("username", user.getName());
-            
-            request.setAttribute("username", user.getName());
-            request.setAttribute("role", user.getRole());
+            session.setAttribute("role", user.getRole());
+            //request.setAttribute("username", user.getName());
+            //request.setAttribute("role", user.getRole());
             
             RequestDispatcher success = request.getRequestDispatcher("success.jsp");
             success.forward(request, response);
