@@ -21,7 +21,7 @@
         </header>
         <div class="container">
             <h1 class="error-message">
-                Unauthorized: Please login
+                Unauthorized: Please login.
             </h1>
             <form method="get" action="index.jsp">
                 <button class="button" type="submit">Go to Login</button>
