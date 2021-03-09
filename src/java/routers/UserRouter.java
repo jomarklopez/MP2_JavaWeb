@@ -9,6 +9,7 @@ import java.sql.*;
 import model.User;
 import exceptions.AuthException;
 import exceptions.NullValueException;
+import utils.Security;
 
 public class UserRouter {
     
@@ -26,17 +27,19 @@ public class UserRouter {
         String sql = "SELECT * FROM USER_INFO WHERE username = ?";
         PreparedStatement statement = con.prepareStatement(sql);
         statement.setString(1, usernameInput);
+        // Encrypting the Password
+        String encryptedPassword = Security.encrypt(passwordInput);
         // Executes query
         ResultSet res = statement.executeQuery();
         User user = null;
-        
+              
         // If resultset is not empty returns a user then check the password if it matches
         // Error-3
         if (res.next() == false) {
             throw new AuthException("User does not exist.");
         } else {
           do {
-            if (res.getString("password").equals(passwordInput)) {
+            if (res.getString("password").equals(encryptedPassword)) {
                 user = new User();
                 user.setName(res.getString("username"));
                 user.setPassword(res.getString("password"));
