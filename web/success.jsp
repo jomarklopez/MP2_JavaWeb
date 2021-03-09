@@ -27,9 +27,8 @@
             response.setHeader("Pragma", "no-cache"); //HTTP 1.0
             response.setHeader("Expires", "0"); //Proxies
             
-            if(session.getAttribute("username") == null)
+            if(session.getAttribute("username") == null && session.getAttribute("role") == null)
             {
-                System.out.println(session.getAttribute("username"));
                 response.sendRedirect("error_session.jsp");
             } 
         %>
