@@ -1,13 +1,13 @@
-package com.libraweb.controller;
+package controller;
 
-import com.libraweb.utils.listeners.UserContextListener;
-import com.libraweb.model.*;
-import com.libraweb.utils.exceptions.*;
+import exceptions.NullValueException;
+import exceptions.AuthException;
+import model.User;
 import java.sql.*;
 import java.io.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
-import com.libraweb.routers.UserRouter;
+import routers.UserRouter;
 
 public class LoginServlet extends HttpServlet{
     

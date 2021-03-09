@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.libraweb.model;
+package model;
 
+import utils.Security;
 /**
  *
  * @author jlopez
@@ -24,7 +25,8 @@ public class User {
     }
     
     public void setPassword(String password) {
-        this.password = password;
+        // Encrypt password
+        this.password = Security.encrypt(password);
     }
 
     public String getPassword() {
@@ -38,5 +40,4 @@ public class User {
     public String getRole() {
         return role;
     }
-    
 }

@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.libraweb.routers;
+package routers;
 
 import java.sql.*;
-import com.libraweb.model.User;
-import com.libraweb.utils.exceptions.AuthException;
-import com.libraweb.utils.exceptions.NullValueException;
+import model.User;
+import exceptions.AuthException;
+import exceptions.NullValueException;
 
 public class UserRouter {
     

@@ -1,5 +1,5 @@
 
-package com.libraweb.utils.exceptions;
+package exceptions;
 
 public class NullValueException extends Exception {
     public NullValueException(String errorMessage) {
