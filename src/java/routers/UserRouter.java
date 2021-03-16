@@ -54,4 +54,19 @@ public class UserRouter {
         // If login is successful then return user object
         return user;
     }
+    
+    public void createUser(Connection con, String usernameInput, String passwordInput) {
+        
+        String query = "INSERT INTO USER_INFO VALUES (?,?,'guest')";
+        try {
+            PreparedStatement statement = con.prepareStatement(query);
+  
+            statement.setString(1, usernameInput);
+            statement.setString(2, Security.decrypt(passwordInput));
+            
+            int c = statement.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
 }
