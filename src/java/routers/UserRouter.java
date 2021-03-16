@@ -62,7 +62,7 @@ public class UserRouter {
             PreparedStatement statement = con.prepareStatement(query);
   
             statement.setString(1, usernameInput);
-            statement.setString(2, Security.decrypt(passwordInput));
+            statement.setString(2, Security.encrypt(passwordInput));
             
             int c = statement.executeUpdate();
         } catch (Exception e) {
