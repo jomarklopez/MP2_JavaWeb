@@ -23,12 +23,12 @@ public class UserRouter {
         } else if (passwordInput.equals("")) {
             throw new NullValueException("Password cannot be blank.");
         }
+        // Encrypting the Password
+        String encryptedPassword = Security.encrypt(passwordInput);
         
         String sql = "SELECT * FROM USER_INFO WHERE username = ?";
         PreparedStatement statement = con.prepareStatement(sql);
         statement.setString(1, usernameInput);
-        // Encrypting the Password
-        String encryptedPassword = Security.encrypt(passwordInput);
         // Executes query
         ResultSet res = statement.executeQuery();
         User user = null;

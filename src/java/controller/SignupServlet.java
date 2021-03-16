@@ -62,6 +62,9 @@ public class SignupServlet extends HttpServlet
                 System.out.println("SQLException error occured - " 
                 + sqle.getMessage());
                 throw new ServletException(sqle);
+        } catch (NullValueException ex) {
+            request.setAttribute("errorMessage", ex.getMessage());
+            throw new ServletException(ex);
         }
     }
 }
