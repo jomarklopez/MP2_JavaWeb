@@ -11,7 +11,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>404</title>
         <link href="https://fonts.googleapis.com/css2?family=Jura:wght@300&display=swap" rel="stylesheet">     
-        <link rel="stylesheet" href="errorstyle.css" />
+        <link rel="stylesheet" href="error_style.css" />
     </head>
     <body>
         <header>

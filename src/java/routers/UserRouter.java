@@ -55,18 +55,16 @@ public class UserRouter {
         return user;
     }
     
-    public void createUser(Connection con, String usernameInput, String passwordInput) {
+    public void createUser(Connection con, String usernameInput, String passwordInput) throws SQLException {
         
         String query = "INSERT INTO USER_INFO VALUES (?,?,'guest')";
-        try {
+        
             PreparedStatement statement = con.prepareStatement(query);
   
             statement.setString(1, usernameInput);
-            statement.setString(2, Security.decrypt(passwordInput));
+            statement.setString(2, Security.encrypt(passwordInput));
             
             int c = statement.executeUpdate();
-        } catch (Exception e) {
-            System.out.println(e);
-        }
+            
     }
 }

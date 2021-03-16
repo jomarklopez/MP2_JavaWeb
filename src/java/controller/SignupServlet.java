@@ -56,8 +56,12 @@ public class SignupServlet extends HttpServlet
         String password = request.getParameter("password");
         
         UserRouter userRouter = new UserRouter();
-        
-        userRouter.createUser(con, username, password);
-
+        try {
+            userRouter.createUser(con, username, password);
+        } catch (SQLException sqle){
+                System.out.println("SQLException error occured - " 
+                + sqle.getMessage());
+                throw new ServletException(sqle);
+        }
     }
 }

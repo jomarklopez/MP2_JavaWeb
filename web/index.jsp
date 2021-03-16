@@ -59,7 +59,7 @@
                         <div class='bg-inner'></div>
                     </div>
                 </div>
-                <button class='btn block-cube block-cube-hover' type='submit' name="role" value="admin">
+                <button class='btn block-cube block-cube-hover' type='submit' name="login">
                     <div class='bg-top'>
                         <div class='bg-inner'></div>
                     </div>
@@ -71,6 +71,22 @@
                     </div>
                     <div class='text'>
                       Log In
+                    </div>
+                </button>
+            </form>
+            <form action="signup.jsp" method="get" class="form">
+                <button class='btn block-cube block-cube-hover' type='submit' name="signup">
+                    <div class='bg-top'>
+                        <div class='bg-inner'></div>
+                    </div>
+                    <div class='bg-right'>
+                        <div class='bg-inner'></div>
+                    </div>
+                    <div class='bg'>
+                        <div class='bg-inner'></div>
+                    </div>
+                    <div class='text'>
+                      Sign Up
                     </div>
                 </button>
             </form>
