@@ -55,16 +55,23 @@ public class UserRouter {
         return user;
     }
     
-    public void createUser(Connection con, String usernameInput, String passwordInput) throws SQLException {
+    public void createUser(Connection con, String usernameInput, String passwordInput) throws SQLException, NullValueException {
+        
+        if(usernameInput.equals("") && passwordInput.equals("")) {
+            throw new NullValueException("Username and Password cannot be blank.");
+        } else if (usernameInput.equals("")) {
+            throw new NullValueException("Username cannot be blank.");
+        } else if (passwordInput.equals("")) {
+            throw new NullValueException("Password cannot be blank.");
+        }
         
         String query = "INSERT INTO USER_INFO VALUES (?,?,'guest')";
-        
-            PreparedStatement statement = con.prepareStatement(query);
+        PreparedStatement statement = con.prepareStatement(query);
   
-            statement.setString(1, usernameInput);
-            statement.setString(2, Security.encrypt(passwordInput));
+        statement.setString(1, usernameInput);
+        statement.setString(2, Security.encrypt(passwordInput));
             
-            int c = statement.executeUpdate();
+        int c = statement.executeUpdate();
             
     }
 }
