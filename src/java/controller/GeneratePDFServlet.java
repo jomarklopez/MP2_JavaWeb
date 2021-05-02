@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
 import java.io.FileNotFoundException;
@@ -41,6 +42,7 @@ public class GeneratePDFServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         
         Document doc = new Document();
+        doc.setPageSize(PageSize.LETTER.rotate());
         
         try {
             PdfWriter.getInstance(doc, new FileOutputStream("Test.pdf"));
