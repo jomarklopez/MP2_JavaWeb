@@ -55,7 +55,7 @@ public class SignupServlet extends HttpServlet
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         
-        UserRouter userRouter = new UserRouter();
+        UserRouter userRouter = new UserRouter();    
         try {
             userRouter.createUser(con, username, password);
             RequestDispatcher success = request.getRequestDispatcher("signup_success.jsp");

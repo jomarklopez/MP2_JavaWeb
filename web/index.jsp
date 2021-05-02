@@ -1,3 +1,4 @@
+<%@page import="nl.captcha.Captcha"%>
 <!DOCTYPE html>
 
 <html>
@@ -98,6 +99,10 @@
                     <input name='username' placeholder='Username' type='text'>
                     <input id='pw' name='password' placeholder='Password' type='password'>
                     <input id='pw2' name='passwordconfirm' placeholder='Retype Password' type='password'>
+                    <div>
+                        <img src="/CaptchaServlet"/>
+                        <input id ='ans' name="answer" type="text" placeholder="Enter"/>
+                    </div>
                     <button id='signupBtn' class='btn' onclick='validatePassword()' type='button' name="signup">
                           Sign Up
                     </button>
@@ -107,6 +112,7 @@
         </div>
         <div class='stars'></div>
         <div class='stars2'></div>
+        <% Captcha captcha = (Captcha) session.getAttribute(Captcha.NAME); %>
         <footer>
             <p>
                 Made with <3 by: <% out.print(getServletContext().getInitParameter("company")); %>
@@ -147,11 +153,14 @@
             function validatePassword() {
                 const password = document.getElementById("pw").value
                 const password2 = document.getElementById("pw2").value
+                const answer = document.getElementById("ans").value
+                
                 if (password != password2) {
                     alert('Password do not match. Confirm your password again')
                 } else {
                     signupForm.submit();
                 }
+                
             }
         </script>
     </body>
