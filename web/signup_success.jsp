@@ -19,26 +19,12 @@
                 <% out.print(getServletContext().getInitParameter("company")); %>
             </h3>            
         </header>
-        <%
-            response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); //HTTP 1.1
-            response.setHeader("Pragma", "no-cache"); //HTTP 1.0
-            response.setHeader("Expires", "0"); //Proxies
-            
-            if(session.getAttribute("username") == null && session.getAttribute("role") == null)
-            {
-                response.sendRedirect("error_session.jsp");
-            } 
-        %>
         <div class="container">
             <h1 class="welcome-message">
-            Hello! <% //ServletContext sc = getServletContext();
-                    out.println((String)session.getAttribute("username")); %>. You have the role of:
-                    <% 
-                        out.println((String)session.getAttribute("role"));
-                    %>
+            SIGN UP SUCCESSFUL
             </h1>
             <form method="get" action="LogoutServlet">
-                <button class="button" type="submit">Logout</button>
+                <button class="button" type="submit">Click here to login</button>
             </form>
         </div>
         <footer>
