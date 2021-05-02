@@ -58,30 +58,26 @@ public class GeneratePDFServlet extends HttpServlet {
         String calendarDigitForm = calendarDate.replaceAll("[^a-zA-Z0-9]", "");
         
         try {
-            PdfWriter.getInstance(doc, new FileOutputStream(calendarDigitForm));
-            
             HttpSession session = request.getSession();
             String username = (String)session.getAttribute("username");
             String role = (String)session.getAttribute("role");
+            
+            PdfWriter.getInstance(doc, new FileOutputStream(calendarDigitForm));
+            
             doc.open();
-            Paragraph paragraph = new Paragraph();
-            String firstname = "Lawrence";
-            String lastname = "Decamora";
-            paragraph.add(new Paragraph(lastname + ", " + firstname));
             //Print username in PDF (No. 1 Requirement)
-            paragraph.add(new Paragraph("A PDF document by: " + username));
+            doc.add(new Paragraph("A PDF document by: " + username));
             //Print date and time the report was generated in PDF (No. 2 Requirement)
-            paragraph.add(new Paragraph("Date and Time is: " + calendarDate));
+            doc.add(new Paragraph("Date and Time is: " + calendarDate));
             //Print page x of y (No. 4 Requirement)
-            paragraph.add(new Paragraph("Page " + calendarDate + " of " + "endPage"));
+            doc.add(new Paragraph("Page " + calendarDate + " of " + "endPage"));
             //Print header and footer in PDF (No. 6 Requirement)
             //Header
-            paragraph.add(new Paragraph(getServletContext().getInitParameter("company")));
+            doc.add(new Paragraph(getServletContext().getInitParameter("company")));
             //Footer
-            paragraph.add(new Paragraph(getServletContext().getInitParameter("company")));
-            paragraph.add(new Paragraph(getServletContext().getInitParameter("companyEmail")));
-            paragraph.add(new Paragraph(getServletContext().getInitParameter("copyrightYear")));
-            doc.add(paragraph);
+            doc.add(new Paragraph(getServletContext().getInitParameter("company")));
+            doc.add(new Paragraph(getServletContext().getInitParameter("companyEmail")));
+            doc.add(new Paragraph(getServletContext().getInitParameter("copyrightYear")));
             
             doc.close();
             
@@ -90,19 +86,6 @@ public class GeneratePDFServlet extends HttpServlet {
             //Logger.getLogger(HelloWorldExample.class.getName()).log(Level.SEVERE, null, ex);
         } catch (DocumentException ex) {
             ex.printStackTrace();
-        }
-        
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet GeneratePDFServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet GeneratePDFServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
         }
     }
 
