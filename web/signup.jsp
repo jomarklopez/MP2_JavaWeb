@@ -1,4 +1,5 @@
 <%@page import="nl.captcha.Captcha"%>
+<%@page import="nl.captcha.Captcha"%>
 <!DOCTYPE html>
 
 <html>
@@ -10,6 +11,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Jura:wght@300&display=swap" rel="stylesheet">     
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
         <link rel="stylesheet" href="style.css" />
+        
     </head>
     <body>
         <header>
@@ -33,34 +35,18 @@
                 <div class="line libra-line-7"></div>
             </div>
             <h2>Project: LIBRA</h2>
-        </header>
-        <div class="login-container">
-            <form action="LoginServlet" method="post" autocomplete="off" class="form">
-                <div class='control block-cube block-input'>
-                    <input name='username' placeholder='Username' type='text'>
-                    <div class='bg-top'>
-                        <div class='bg-inner'></div>
-                    </div>
-                    <div class='bg-right'>
-                        <div class='bg-inner'></div>
-                    </div>
-                    <div class='bg'>
-                        <div class='bg-inner'></div>
-                    </div>
-                </div>
-                <div class='control block-cube block-input'>
-                    <input name='password' placeholder='Password' type='password'>
-                    <div class='bg-top'>
-                        <div class='bg-inner'></div>
-                    </div>
-                    <div class='bg-right'>
-                        <div class='bg-inner'></div>
-                    </div>
-                    <div class='bg'>
-                        <div class='bg-inner'></div>
-                    </div>
-                </div>
-                <button class='btn block-cube block-cube-hover' type='submit' name="login">
+            <% 
+            Captcha captcha = (Captcha) session.getAttribute(Captcha.NAME);
+            request.setCharacterEncoding("UTF-8"); 
+            String answer = request.getParameter("answer");
+            if (captcha.isCorrect(answer)) { %>
+            <div class="login-container">
+                <form id='signupForm' action="SignupServlet" method="post" autocomplete="off" class="form">
+                  <input id='us' name='username' placeholder='Username' type='text'>
+                  <input id='pw' name='password' placeholder='Password' type='password'>
+                  <input id='pw2' name='passwordconfirm' placeholder='Retype Password' type='password'>
+                </form>
+                <button id='mdlBtn' class='btn block-cube block-cube-hover' type='button' name="signup" onclick="validatePassword()">
                     <div class='bg-top'>
                         <div class='bg-inner'></div>
                     </div>
@@ -71,30 +57,31 @@
                         <div class='bg-inner'></div>
                     </div>
                     <div class='text'>
-                      Log In
+                      Sign Up
                     </div>
                 </button>
-            </form>
-            <!-- The Modal -->
-            <button onclick="window.location='captcha.jsp'" id='mdlBtn'class='btn block-cube block-cube-hover' type='button' name="captcha">
+            </div>
+            <% } else { %>
+            <h2>Captcha entered is wrong</h2>
+            <button id='mdlBtn' onclick="history.back()" class='btn block-cube block-cube-hover' type='submit' name="login">
                 <div class='bg-top'>
-                    <div class='bg-inner'></div>
-                </div>
-                <div class='bg-right'>
-                    <div class='bg-inner'></div>
-                </div>
-                <div class='bg'>
-                    <div class='bg-inner'></div>
-                </div>
-                <div class='text'>
-                  Sign Up
-                </div>
+                        <div class='bg-inner'></div>
+                    </div>
+                    <div class='bg-right'>
+                        <div class='bg-inner'></div>
+                    </div>
+                    <div class='bg'>
+                        <div class='bg-inner'></div>
+                    </div>
+                    <div class='text'>
+                      Go back to Login Page
+                    </div>
             </button>
-        <div class='stars'></div>
-        <div class='stars2'></div>
+           <% }%>
+        </header>
         <footer>
             <p>
-                Made with ? by: <% out.print(getServletContext().getInitParameter("company")); %>
+                Made with <3 by: <% out.print(getServletContext().getInitParameter("company")); %>
                 &nbsp;&nbsp;&nbsp;
                 Reach us: <% out.print(getServletContext().getInitParameter("companyEmail")); %>
             </p>
@@ -102,5 +89,21 @@
                 © <% out.print(getServletContext().getInitParameter("copyrightYear")); %>
             </p>
         </footer>
+        <script>
+            // Get the modal
+            var signupForm = document.getElementById("signupForm");
+
+            
+            function validatePassword() {
+                const password = document.getElementById("pw").value
+                const password2 = document.getElementById("pw2").value
+                const username  = document.getElementById("us").value
+                if (password != password2) {
+                    alert('Password do not match. Confirm your password again')
+                } else {
+                    signupForm.submit();
+                }
+            }
+        </script>
     </body>
 </html>
