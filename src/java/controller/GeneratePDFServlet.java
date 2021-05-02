@@ -52,11 +52,13 @@ public class GeneratePDFServlet extends HttpServlet {
         //My code for no. 8 requirement of MP3
         DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         Calendar calendar = Calendar.getInstance();
+        //Current date according to the DateFormat
         String calendarDate = df.format(calendar.getTime());
+        //Current date in digit only form ex. "20210501081012"
         String calendarDigitForm = calendarDate.replaceAll("[^a-zA-Z0-9]", "");
         
         try {
-            PdfWriter.getInstance(doc, new FileOutputStream("Test.pdf"));
+            PdfWriter.getInstance(doc, new FileOutputStream(calendarDigitForm));
             
             HttpSession session = request.getSession();
             String username = (String)session.getAttribute("username");
