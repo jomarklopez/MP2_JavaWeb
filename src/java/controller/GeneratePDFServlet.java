@@ -17,9 +17,11 @@ import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfReader;
 import com.itextpdf.text.pdf.PdfWriter;
+import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.OutputStream;
 import javax.servlet.http.HttpSession;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -43,8 +45,11 @@ public class GeneratePDFServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        
+        response.setHeader("Expires", "0");
+        response.setHeader("Cache-Control", "must-revalidate, post-check=0, pre-check=0");
+        response.setHeader("Pragma", "public");
+        response.setContentType("application/pdf");
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
         Document doc = new Document();
         //Print PDF in landscape form (No. 5 Requirement)
         doc.setPageSize(PageSize.LETTER.rotate());
@@ -58,11 +63,10 @@ public class GeneratePDFServlet extends HttpServlet {
         String calendarDigitForm = calendarDate.replaceAll("[^a-zA-Z0-9]", "");
         
         try {
+            PdfWriter.getInstance(doc, baos);
             HttpSession session = request.getSession();
             String username = (String)session.getAttribute("username");
             String role = (String)session.getAttribute("role");
-            
-            PdfWriter.getInstance(doc, new FileOutputStream(calendarDigitForm));
             
             doc.open();
             //Print username in PDF (No. 1 Requirement)
@@ -80,6 +84,10 @@ public class GeneratePDFServlet extends HttpServlet {
             doc.add(new Paragraph(getServletContext().getInitParameter("copyrightYear")));
             
             doc.close();
+            OutputStream os = response.getOutputStream();
+            baos.writeTo(os);
+            os.flush();
+            os.close();
             
         } catch (FileNotFoundException ex) {
             ex.printStackTrace();
