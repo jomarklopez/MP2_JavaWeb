@@ -98,6 +98,10 @@
                     <input name='username' placeholder='Username' type='text'>
                     <input id='pw' name='password' placeholder='Password' type='password'>
                     <input id='pw2' name='passwordconfirm' placeholder='Retype Password' type='password'>
+                    <img id="captcha" src="/ICS2609_MP2/Captcha" width="150"/>
+                        <input type="text" name="answer" /><br>
+                        <input type="submit" value="Submit">
+                    </form>
                     <button id='signupBtn' class='btn' onclick='validatePassword()' type='button' name="signup">
                           Sign Up
                     </button>

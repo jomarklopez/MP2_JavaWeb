@@ -32,11 +32,25 @@
         <div class="container">
             <h1 class="welcome-message">
             Hello! <% //ServletContext sc = getServletContext();
-                    out.println((String)session.getAttribute("username")); %>. You have the role of:
+                    String role = (String)session.getAttribute("role");
+                    String username = (String)session.getAttribute("username");
+                    
+                    out.println(username); %>. You have the role of:
                     <% 
-                        out.println((String)session.getAttribute("role"));
+                        out.println(role);
                     %>
             </h1>
+            <% 
+                if(role.equals("admin")) {
+                   %> 
+                   <form method="get" action="LogoutServlet">
+                        <button class="button" type="submit">Print all records</button>
+                    </form>
+                <%}%>
+            
+            <form method="get" action="LogoutServlet">
+                <button class="button" type="submit">Print my records</button>
+            </form>
             <form method="get" action="LogoutServlet">
                 <button class="button" type="submit">Logout</button>
             </form>
