@@ -32,8 +32,8 @@
         <div class="container">
             <h1 class="welcome-message">
             Hello! <% //ServletContext sc = getServletContext();
-                    String role = (String)session.getAttribute("role");
                     String username = (String)session.getAttribute("username");
+                    String role = (String)session.getAttribute("role");
                     
                     out.println(username); %>. You have the role of:
                     <% 

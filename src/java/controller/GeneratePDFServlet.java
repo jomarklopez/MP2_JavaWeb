@@ -19,6 +19,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.http.HttpSession;
+import model.User;
 /**
  *
  * @author jomarklopez
@@ -37,19 +39,30 @@ public class GeneratePDFServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        Document docs = new Document();
+        
+        Document doc = new Document();
+        
         try {
-            PdfWriter.getInstance(docs, new FileOutputStream(args[0]));
+            PdfWriter.getInstance(doc, new FileOutputStream("Test.pdf"));
+            
+            HttpSession session = request.getSession();
+            String username = (String)session.getAttribute("username");
+            String role = (String)session.getAttribute("role");
+            doc.open();
+            Paragraph paragraph = new Paragraph();
+            String firstname = "Lawrence";
+            String lastname = "Decamora";
+            paragraph.add(new Paragraph(lastname + ", " + firstname));
+            paragraph.add(new Paragraph("A hello world PDF document. by: " + username));
+            doc.close();
+            
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(HelloWorldExample.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        docs.open();
-        String firstname = "Lawrence";
-        String lastname = "Decamora";
-        docs.add(new Paragraph(lastname + ", " + firstname));
-        // docs.add(new Paragraph("line 2"));
-        docs.add(new Paragraph("A hello world PDF document. by: Lawrence"));
-        docs.close();
+            ex.printStackTrace();
+            //Logger.getLogger(HelloWorldExample.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (DocumentException ex) {
+            ex.printStackTrace();
+
+        
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
