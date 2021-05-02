@@ -43,12 +43,12 @@
             <% 
                 if(role.equals("admin")) {
                    %> 
-                   <form method="get" action="LogoutServlet">
+                   <form method="get" action="GeneratePDFServlet">
                         <button class="button" type="submit">Print all records</button>
                     </form>
                 <%}%>
             
-            <form method="get" action="LogoutServlet">
+            <form method="get" action="GeneratePDFServlet">
                 <button class="button" type="submit">Print my records</button>
             </form>
             <form method="get" action="LogoutServlet">

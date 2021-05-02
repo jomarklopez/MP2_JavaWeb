@@ -61,7 +61,7 @@ public class GeneratePDFServlet extends HttpServlet {
             //Logger.getLogger(HelloWorldExample.class.getName()).log(Level.SEVERE, null, ex);
         } catch (DocumentException ex) {
             ex.printStackTrace();
-
+        }
         
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
