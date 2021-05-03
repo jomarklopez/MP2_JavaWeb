@@ -109,9 +109,11 @@ public class GeneratePDFServlet extends HttpServlet {
             PdfWriter.getInstance(doc, baos);
             //Print PDF in landscape form (No. 5 Requirement)
             doc.setPageSize(PageSize.LETTER.rotate());
+            doc.open();
             //Print header and footer in PDF (No. 6 Requirement)
             /*Rectangle rect = new Rectangle(30, 30, 550, 800);
             PdfWriter.setBoxSize("format", rect);
+            
             HeaderFooterPageEvent event = new HeaderFooterPageEvent();
             PdfWriter.setPageEvent(event);*/
             //Name PDF in a digit form according to date (No. 8 Requirement)
