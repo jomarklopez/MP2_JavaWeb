@@ -87,7 +87,7 @@ public class GeneratePDFServlet extends HttpServlet {
         response.setContentType("application/pdf");
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         
-        //My code for no. 8 requirement of MP3
+        //Code to generate a calendar digit form for No. 8 requirement of MP3
         DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         Calendar calendar = Calendar.getInstance();
         //Current date according to the DateFormat
@@ -112,17 +112,18 @@ public class GeneratePDFServlet extends HttpServlet {
             //Print PDF in landscape form (No. 5 Requirement)
             Rectangle rect = new Rectangle(PageSize.LETTER.rotate());
             //Print header and footer in PDF (No. 6 Requirement)
-            writer.setBoxSize("format", rect);
             doc.setPageSize(rect);
+            writer.setBoxSize("format", rect);
             HeaderFooterPageEvent event = new HeaderFooterPageEvent();
             writer.setPageEvent(event);
+            //Name PDF in a digit form according to date (No. 8 Requirement)
             doc.addTitle(calendarDigitForm);
             //Print username in PDF (No. 1 Requirement)
             doc.add(new Paragraph("A PDF document by: " + username));
             //Print date and time the report was generated in PDF (No. 2 Requirement)
             doc.add(new Paragraph("Date and Time is: " + calendarDate));
             
-            //Print all records
+            //Print records (No. 7 Requirement)
             if (recordtype.equals("allrecords")) {
                 PdfPTable table = new PdfPTable(2);
                 for(int i = 0; i < users.size(); i++){
@@ -169,9 +170,7 @@ public class GeneratePDFServlet extends HttpServlet {
     @Override
     public void onEndPage(PdfWriter writer,Document document) {
     	Rectangle rect = writer.getBoxSize("format");
-        ColumnText.showTextAligned(writer.getDirectContent(),Element.ALIGN_CENTER, new Phrase(getServletContext().getInitParameter("company")), rect.getTop(), 0, 0);
-        ColumnText.showTextAligned(writer.getDirectContent(),Element.ALIGN_CENTER, new Phrase(getServletContext().getInitParameter("companyEmail")), rect.getTop(), rect.getLeft(), 0);
-        ColumnText.showTextAligned(writer.getDirectContent(),Element.ALIGN_CENTER, new Phrase(getServletContext().getInitParameter("copyrightYear")), rect.getTop(), rect.getRight(), 0);
+        ColumnText.showTextAligned(writer.getDirectContent(),Element.ALIGN_CENTER, new Phrase(getServletContext().getInitParameter("company") + getServletContext().getInitParameter("companyEmail") + getServletContext().getInitParameter("copyrightYear")), rect.getTop(), 0, 0);
     }
 } 
 
