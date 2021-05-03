@@ -106,7 +106,7 @@ public class GeneratePDFServlet extends HttpServlet {
             
             // Generate pdf 
             Document doc = new Document();
-            PdfWriter writer = PdfWriter.getInstance(doc, baos);
+            PdfWriter.getInstance(doc, baos);
             //Print PDF in landscape form (No. 5 Requirement)
             doc.setPageSize(PageSize.LETTER.rotate());
             //Print header and footer in PDF (No. 6 Requirement)
