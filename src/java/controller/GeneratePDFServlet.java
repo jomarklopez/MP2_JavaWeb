@@ -100,6 +100,8 @@ public class GeneratePDFServlet extends HttpServlet {
             //Print records (No. 7 Requirement)
             if (recordtype.equals("allrecords")) {
                 PdfPTable table = new PdfPTable(2);
+                table.addCell("USERNAME");
+                table.addCell("ROLE");
                 for(int i = 0; i < users.size(); i++){
                     table.addCell(users.get(i).getName());
                     table.addCell(users.get(i).getRole());
@@ -107,6 +109,8 @@ public class GeneratePDFServlet extends HttpServlet {
                 doc.add(table);
             } else if (recordtype.equals("userrecord")) {
                 PdfPTable table = new PdfPTable(2);
+                table.addCell("USERNAME");
+                table.addCell("ROLE");
                 table.addCell(username);
                 table.addCell(role);
                 doc.add(table);
@@ -224,7 +228,7 @@ public class GeneratePDFServlet extends HttpServlet {
                 totalWidth, 6, 0);
     }*/
     public void onEndPage(PdfWriter writer,Document document) {
-        ColumnText.showTextAligned(writer.getDirectContent(),Element.ALIGN_CENTER, new Phrase(getServletContext().getInitParameter("company")), 30, 750, 0);
+        ColumnText.showTextAligned(writer.getDirectContent(),Element.ALIGN_CENTER, new Phrase(getServletContext().getInitParameter("company")), 395, 570, 0);
         ColumnText.showTextAligned(writer.getDirectContent(),Element.ALIGN_CENTER, new Phrase(getServletContext().getInitParameter("company") + " " + getServletContext().getInitParameter("companyEmail") + " " + getServletContext().getInitParameter("copyrightYear")), 300, 30, 0);
         ColumnText.showTextAligned(writer.getDirectContent(),Element.ALIGN_CENTER, new Phrase("Page " + document.getPageNumber()), 550, 30, 0);
         }
