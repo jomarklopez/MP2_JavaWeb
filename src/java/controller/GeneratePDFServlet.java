@@ -223,10 +223,11 @@ public class GeneratePDFServlet extends HttpServlet {
                 new Phrase(String.valueOf(writer.getPageNumber()), new Font(Font.FontFamily.HELVETICA, 8)),
                 totalWidth, 6, 0);
     }*/
-    /*public void onEndPage(PdfWriter writer,Document document) {
-        ColumnText.showTextAligned(writer.getDirectContent(),Element.ALIGN_CENTER, new Phrase(getServletContext().getInitParameter("company") + getServletContext().getInitParameter("companyEmail") + getServletContext().getInitParameter("copyrightYear")), 300, 30, 0);
+    public void onEndPage(PdfWriter writer,Document document) {
+        ColumnText.showTextAligned(writer.getDirectContent(),Element.ALIGN_CENTER, new Phrase(getServletContext().getInitParameter("company")), 30, 750, 0);
+        ColumnText.showTextAligned(writer.getDirectContent(),Element.ALIGN_CENTER, new Phrase(getServletContext().getInitParameter("company") + " " + getServletContext().getInitParameter("companyEmail") + " " + getServletContext().getInitParameter("copyrightYear")), 300, 30, 0);
         ColumnText.showTextAligned(writer.getDirectContent(),Element.ALIGN_CENTER, new Phrase("Page " + document.getPageNumber()), 550, 30, 0);
-        }*/
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
