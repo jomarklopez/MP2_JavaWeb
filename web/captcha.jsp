@@ -41,7 +41,7 @@
             <h2>Enter Captcha</h2>
         </header>
         <form action="signup.jsp" method="post" autocomplete="off" class="form">
-            <img id="captcha" src="/ICS2609_MP2/Captcha" width="250"/>
+            <img id="captcha" src="/MP2_JavaWeb/Captcha" width="250"/>
             <br><input id='answer' type="text" name="answer" /><br><br><br>
             <button class='btn block-cube block-cube-hover' type='submit' name="login">
                 <div class='bg-top'>

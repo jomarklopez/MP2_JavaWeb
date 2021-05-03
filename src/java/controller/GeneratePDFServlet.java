@@ -96,6 +96,7 @@ public class GeneratePDFServlet extends HttpServlet {
             doc.add(new Paragraph("A PDF document by: " + username));
             //Print date and time the report was generated in PDF (No. 2 Requirement)
             doc.add(new Paragraph("The current date and time: " + calendarDate));
+            doc.add(new Paragraph("    "));
             
             //Print records (No. 7 Requirement)
             if (recordtype.equals("allrecords")) {
@@ -103,15 +104,21 @@ public class GeneratePDFServlet extends HttpServlet {
                 table.addCell("USERNAME");
                 table.addCell("ROLE");
                 for(int i = 0; i < users.size(); i++){
-                    table.addCell(users.get(i).getName());
-                    table.addCell(users.get(i).getRole());
+                    if (username.equals(users.get(i).getName())) {
+                        table.addCell(users.get(i).getName() + "*");
+                        table.addCell(users.get(i).getRole());
+                    }
+                    else {
+                        table.addCell(users.get(i).getName());
+                        table.addCell(users.get(i).getRole());
+                    }
                 }
                 doc.add(table);
             } else if (recordtype.equals("userrecord")) {
                 PdfPTable table = new PdfPTable(2);
                 table.addCell("USERNAME");
                 table.addCell("ROLE");
-                table.addCell(username);
+                table.addCell(username + "*");
                 table.addCell(role);
                 doc.add(table);
             }
