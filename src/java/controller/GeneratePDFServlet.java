@@ -13,11 +13,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.Rectangle;
+import com.itextpdf.text.pdf.ColumnText;
 import com.itextpdf.text.pdf.PdfReader;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfPageEventHelper;
 import exceptions.NullValueException;
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
@@ -103,10 +108,14 @@ public class GeneratePDFServlet extends HttpServlet {
             // Generate pdf 
             
             Document doc = new Document();
-            PdfWriter.getInstance(doc, baos);
+            PdfWriter writer = PdfWriter.getInstance(doc, baos);
             //Print PDF in landscape form (No. 5 Requirement)
-            doc.setPageSize(PageSize.LETTER.rotate());
-            doc.open();
+            Rectangle rect = new Rectangle(PageSize.LETTER.rotate());
+            //Print header and footer in PDF (No. 6 Requirement)
+            writer.setBoxSize("format", rect);
+            doc.setPageSize(rect);
+            HeaderFooterPageEvent event = new HeaderFooterPageEvent();
+            writer.setPageEvent(event);
             doc.addTitle(calendarDigitForm);
             //Print username in PDF (No. 1 Requirement)
             doc.add(new Paragraph("A PDF document by: " + username));
@@ -139,7 +148,6 @@ public class GeneratePDFServlet extends HttpServlet {
             
         } catch (FileNotFoundException ex) {
             ex.printStackTrace();
-            //Logger.getLogger(HelloWorldExample.class.getName()).log(Level.SEVERE, null, ex);
         } catch (DocumentException ex) {
             ex.printStackTrace();
         } catch (SQLException sqle){
@@ -151,6 +159,21 @@ public class GeneratePDFServlet extends HttpServlet {
             throw new ServletException(ex);
         }
     }
+    
+    public class HeaderFooterPageEvent extends PdfPageEventHelper {
+    @Override
+    public void onStartPage(PdfWriter writer,Document document) {
+    	Rectangle rect = writer.getBoxSize("format");
+        ColumnText.showTextAligned(writer.getDirectContent(),Element.ALIGN_CENTER, new Phrase(getServletContext().getInitParameter("company")), rect.getTop(), 0, 0);
+    }
+    @Override
+    public void onEndPage(PdfWriter writer,Document document) {
+    	Rectangle rect = writer.getBoxSize("format");
+        ColumnText.showTextAligned(writer.getDirectContent(),Element.ALIGN_CENTER, new Phrase(getServletContext().getInitParameter("company")), rect.getTop(), 0, 0);
+        ColumnText.showTextAligned(writer.getDirectContent(),Element.ALIGN_CENTER, new Phrase(getServletContext().getInitParameter("companyEmail")), rect.getTop(), rect.getLeft(), 0);
+        ColumnText.showTextAligned(writer.getDirectContent(),Element.ALIGN_CENTER, new Phrase(getServletContext().getInitParameter("copyrightYear")), rect.getTop(), rect.getRight(), 0);
+    }
+} 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
