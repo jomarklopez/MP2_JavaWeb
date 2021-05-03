@@ -104,15 +104,13 @@ public class GeneratePDFServlet extends HttpServlet {
             UserRouter userRouter = new UserRouter();
             List<User> users = userRouter.getAllUsers(con);
             
-            
             // Generate pdf 
-            
             Document doc = new Document();
             PdfWriter writer = PdfWriter.getInstance(doc, baos);
             //Print PDF in landscape form (No. 5 Requirement)
-            Rectangle rect = new Rectangle(PageSize.LETTER.rotate());
+            doc.setPageSize(PageSize.LETTER.rotate());
             //Print header and footer in PDF (No. 6 Requirement)
-            doc.setPageSize(rect);
+            Rectangle rect = new Rectangle(30, 30, 550, 800);
             writer.setBoxSize("format", rect);
             HeaderFooterPageEvent event = new HeaderFooterPageEvent();
             writer.setPageEvent(event);
@@ -165,12 +163,12 @@ public class GeneratePDFServlet extends HttpServlet {
     @Override
     public void onStartPage(PdfWriter writer,Document document) {
     	Rectangle rect = writer.getBoxSize("format");
-        ColumnText.showTextAligned(writer.getDirectContent(),Element.ALIGN_CENTER, new Phrase(getServletContext().getInitParameter("company")), rect.getTop(), 0, 0);
+        ColumnText.showTextAligned(writer.getDirectContent(),Element.ALIGN_CENTER, new Phrase(getServletContext().getInitParameter("company")), rect.getRight() / 2, rect.getTop(), 0);
     }
     @Override
     public void onEndPage(PdfWriter writer,Document document) {
     	Rectangle rect = writer.getBoxSize("format");
-        ColumnText.showTextAligned(writer.getDirectContent(),Element.ALIGN_CENTER, new Phrase(getServletContext().getInitParameter("company") + getServletContext().getInitParameter("companyEmail") + getServletContext().getInitParameter("copyrightYear")), rect.getTop(), 0, 0);
+        ColumnText.showTextAligned(writer.getDirectContent(),Element.ALIGN_CENTER, new Phrase(getServletContext().getInitParameter("company") + getServletContext().getInitParameter("companyEmail") + getServletContext().getInitParameter("copyrightYear")), rect.getRight() / 2, rect.getTop(), 0);
     }
 } 
 
