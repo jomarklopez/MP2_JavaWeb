@@ -111,8 +111,6 @@ public class GeneratePDFServlet extends HttpServlet {
             doc.setPageSize(PageSize.LETTER.rotate());
             doc.open();
             //Print header and footer in PDF (No. 6 Requirement)
-            Rectangle rect = new Rectangle(30, 30, 550, 800);
-            writer.setBoxSize("format", rect);
             HeaderFooterPageEvent event = new HeaderFooterPageEvent();
             writer.setPageEvent(event);
             //Name PDF in a digit form according to date (No. 8 Requirement)
@@ -163,13 +161,12 @@ public class GeneratePDFServlet extends HttpServlet {
     public class HeaderFooterPageEvent extends PdfPageEventHelper {
     @Override
     public void onStartPage(PdfWriter writer,Document document) {
-    	Rectangle rect = writer.getBoxSize("format");
-        ColumnText.showTextAligned(writer.getDirectContent(),Element.ALIGN_CENTER, new Phrase(getServletContext().getInitParameter("company")), rect.getRight() / 2, rect.getTop(), 0);
+        ColumnText.showTextAligned(writer.getDirectContent(),Element.ALIGN_CENTER, new Phrase(getServletContext().getInitParameter("company")), 30, 800, 0);
         }
     @Override
     public void onEndPage(PdfWriter writer,Document document) {
-    	Rectangle rect = writer.getBoxSize("format");
-        ColumnText.showTextAligned(writer.getDirectContent(),Element.ALIGN_CENTER, new Phrase(getServletContext().getInitParameter("company") + getServletContext().getInitParameter("companyEmail") + getServletContext().getInitParameter("copyrightYear")), rect.getRight() / 2, rect.getTop(), 0);
+        ColumnText.showTextAligned(writer.getDirectContent(),Element.ALIGN_CENTER, new Phrase(getServletContext().getInitParameter("company") + getServletContext().getInitParameter("companyEmail") + getServletContext().getInitParameter("copyrightYear")), 300, 30, 0);
+        ColumnText.showTextAligned(writer.getDirectContent(),Element.ALIGN_CENTER, new Phrase("Page " + document.getPageNumber()), 550, 30, 0);
         }
     }
 
