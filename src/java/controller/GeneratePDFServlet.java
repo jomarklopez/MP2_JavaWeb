@@ -164,13 +164,13 @@ public class GeneratePDFServlet extends HttpServlet {
     public void onStartPage(PdfWriter writer,Document document) {
     	Rectangle rect = writer.getBoxSize("format");
         ColumnText.showTextAligned(writer.getDirectContent(),Element.ALIGN_CENTER, new Phrase(getServletContext().getInitParameter("company")), rect.getRight() / 2, rect.getTop(), 0);
-    }
+        }
     @Override
     public void onEndPage(PdfWriter writer,Document document) {
     	Rectangle rect = writer.getBoxSize("format");
         ColumnText.showTextAligned(writer.getDirectContent(),Element.ALIGN_CENTER, new Phrase(getServletContext().getInitParameter("company") + getServletContext().getInitParameter("companyEmail") + getServletContext().getInitParameter("copyrightYear")), rect.getRight() / 2, rect.getTop(), 0);
+        }
     }*/
-} 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
