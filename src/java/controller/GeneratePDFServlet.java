@@ -161,7 +161,7 @@ public class GeneratePDFServlet extends HttpServlet {
     public class HeaderFooterPageEvent extends PdfPageEventHelper {
     @Override
     public void onStartPage(PdfWriter writer,Document document) {
-        ColumnText.showTextAligned(writer.getDirectContent(),Element.ALIGN_CENTER, new Phrase(getServletContext().getInitParameter("company")), 30, 800, 0);
+        ColumnText.showTextAligned(writer.getDirectContent(),Element.ALIGN_CENTER, new Phrase(getServletContext().getInitParameter("company")), 30, 750, 0);
         }
     @Override
     public void onEndPage(PdfWriter writer,Document document) {
