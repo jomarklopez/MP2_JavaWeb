@@ -111,9 +111,9 @@ public class GeneratePDFServlet extends HttpServlet {
             doc.setPageSize(PageSize.LETTER.rotate());
             //Print header and footer in PDF (No. 6 Requirement)
             /*Rectangle rect = new Rectangle(30, 30, 550, 800);
-            writer.setBoxSize("format", rect);
+            PdfWriter.setBoxSize("format", rect);
             HeaderFooterPageEvent event = new HeaderFooterPageEvent();
-            writer.setPageEvent(event);*/
+            PdfWriter.setPageEvent(event);*/
             //Name PDF in a digit form according to date (No. 8 Requirement)
             doc.addTitle(calendarDigitForm);
             //Print username in PDF (No. 1 Requirement)
