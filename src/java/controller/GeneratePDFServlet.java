@@ -110,10 +110,10 @@ public class GeneratePDFServlet extends HttpServlet {
             //Print PDF in landscape form (No. 5 Requirement)
             doc.setPageSize(PageSize.LETTER.rotate());
             //Print header and footer in PDF (No. 6 Requirement)
-            Rectangle rect = new Rectangle(30, 30, 550, 800);
+            /*Rectangle rect = new Rectangle(30, 30, 550, 800);
             writer.setBoxSize("format", rect);
             HeaderFooterPageEvent event = new HeaderFooterPageEvent();
-            writer.setPageEvent(event);
+            writer.setPageEvent(event);*/
             //Name PDF in a digit form according to date (No. 8 Requirement)
             doc.addTitle(calendarDigitForm);
             //Print username in PDF (No. 1 Requirement)
@@ -159,7 +159,7 @@ public class GeneratePDFServlet extends HttpServlet {
         }
     }
     
-    public class HeaderFooterPageEvent extends PdfPageEventHelper {
+    /*public class HeaderFooterPageEvent extends PdfPageEventHelper {
     @Override
     public void onStartPage(PdfWriter writer,Document document) {
     	Rectangle rect = writer.getBoxSize("format");
@@ -169,7 +169,7 @@ public class GeneratePDFServlet extends HttpServlet {
     public void onEndPage(PdfWriter writer,Document document) {
     	Rectangle rect = writer.getBoxSize("format");
         ColumnText.showTextAligned(writer.getDirectContent(),Element.ALIGN_CENTER, new Phrase(getServletContext().getInitParameter("company") + getServletContext().getInitParameter("companyEmail") + getServletContext().getInitParameter("copyrightYear")), rect.getRight() / 2, rect.getTop(), 0);
-    }
+    }*/
 } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
