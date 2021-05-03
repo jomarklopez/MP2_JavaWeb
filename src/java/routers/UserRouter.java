@@ -9,6 +9,10 @@ import java.sql.*;
 import model.User;
 import exceptions.AuthException;
 import exceptions.NullValueException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import utils.Security;
 
 public class UserRouter {
@@ -72,6 +76,28 @@ public class UserRouter {
         statement.setString(2, Security.encrypt(passwordInput));
             
         int c = statement.executeUpdate();
+    }
+    
+    public List<User> getAllUsers(Connection con) throws SQLException, NullValueException {
+        List<User> users = new ArrayList<>();
+        try {
+            String query = "SELECT * FROM USER_INFO";
+            PreparedStatement statement = con.prepareStatement(query);
+            ResultSet rs = statement.executeQuery();
+            ResultSetMetaData md = rs.getMetaData();
             
+            while (rs.next()) {
+                User user = new User();
+                user.setName(rs.getString("USERNAME"));
+                user.setRole(rs.getString("ROLE"));
+                users.add(user);
+            }
+            statement.close();
+            rs.close();
+        } catch(SQLException e) {
+            System.out.println("Error in getting all records "+e);
+        } 
+        
+        return users;
     }
 }

@@ -12,6 +12,7 @@
         <param-name>companyEmail</param-name>
         <param-value>papayacorp@gmail.com</param-value>
     </context-param>
+    
     <servlet>
         <servlet-name>LoginServlet</servlet-name>
         <servlet-class>controller.LoginServlet</servlet-class>
@@ -48,6 +49,7 @@
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/LoginServlet</url-pattern>
     </servlet-mapping>
+    
     <servlet>
         <servlet-name>LogoutServlet</servlet-name>
         <servlet-class>controller.LogoutServlet</servlet-class>
@@ -56,6 +58,7 @@
         <servlet-name>LogoutServlet</servlet-name>
         <url-pattern>/LogoutServlet</url-pattern>
     </servlet-mapping>
+    
     <servlet>
         <servlet-name>SignupServlet</servlet-name>
         <servlet-class>controller.SignupServlet</servlet-class>
@@ -92,14 +95,44 @@
         <servlet-name>SignupServlet</servlet-name>
         <url-pattern>/SignupServlet</url-pattern>
     </servlet-mapping>
+    
     <servlet>
         <servlet-name>GeneratePDFServlet</servlet-name>
         <servlet-class>controller.GeneratePDFServlet</servlet-class>
+        <init-param>
+            <param-name>jdbcDriverURL</param-name>
+            <param-value>jdbc:derby</param-value>
+        </init-param>
+        <init-param>
+            <param-name>databaseUsername</param-name>
+            <param-value>app</param-value>
+        </init-param>
+        <init-param>
+            <param-name>databasePassword</param-name>
+            <param-value>app</param-value>
+        </init-param>
+        <init-param>
+            <param-name>databaseDriver</param-name>
+            <param-value>org.apache.derby.jdbc.ClientDriver</param-value>
+        </init-param>
+        <init-param>
+            <param-name>dbHostName</param-name>
+            <param-value>localhost</param-value>
+        </init-param>
+        <init-param>
+            <param-name>dbPort</param-name>
+            <param-value>1527</param-value>
+        </init-param>
+        <init-param>
+            <param-name>dbName</param-name>
+            <param-value>UserDB</param-value>
+        </init-param>
     </servlet>
     <servlet-mapping>
         <servlet-name>GeneratePDFServlet</servlet-name>
         <url-pattern>/GeneratePDFServlet</url-pattern>
     </servlet-mapping>
+    
     <servlet>
         <servlet-name>Captcha</servlet-name>
         <servlet-class>controller.CaptchaServlet</servlet-class>
@@ -108,6 +141,7 @@
         <servlet-name>Captcha</servlet-name>
         <url-pattern>/Captcha</url-pattern>
     </servlet-mapping>
+    
     <session-config>
         <session-timeout>
             2

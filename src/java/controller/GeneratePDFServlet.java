@@ -17,15 +17,24 @@ import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfReader;
 import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.text.pdf.PdfPTable;
+import exceptions.NullValueException;
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import javax.servlet.http.HttpSession;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.List;
+import javax.servlet.ServletConfig;
+import model.User;
+import routers.UserRouter;
 
 /**
  *
@@ -33,7 +42,29 @@ import java.util.Calendar;
  */
 
 public class GeneratePDFServlet extends HttpServlet {
+    
+    Connection con;
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+            super.init(config);
 
+            try {	
+                Class.forName(config.getInitParameter("databaseDriver"));
+                String username = config.getInitParameter("databaseUsername");
+                String password = config.getInitParameter("databasePassword");
+                String url = config.getInitParameter("jdbcDriverURL") + "://" + config.getInitParameter("dbHostName") + ":" + config.getInitParameter("dbPort") + "/" + config.getInitParameter("dbName");
+
+                con = DriverManager.getConnection(url,username,password);
+            } catch (SQLException sqle){
+                    System.out.println("SQLException error occured - " 
+                    + sqle.getMessage());
+                    throw new ServletException(sqle);
+            } catch (ClassNotFoundException nfe){
+                    System.out.println("ClassNotFoundException error occured - " 
+                    + nfe.getMessage());
+            }
+    }
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -50,9 +81,6 @@ public class GeneratePDFServlet extends HttpServlet {
         response.setHeader("Pragma", "public");
         response.setContentType("application/pdf");
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        Document doc = new Document();
-        //Print PDF in landscape form (No. 5 Requirement)
-        doc.setPageSize(PageSize.LETTER.rotate());
         
         //My code for no. 8 requirement of MP3
         DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
@@ -63,25 +91,45 @@ public class GeneratePDFServlet extends HttpServlet {
         String calendarDigitForm = calendarDate.replaceAll("[^a-zA-Z0-9]", "");
         
         try {
-            PdfWriter.getInstance(doc, baos);
             HttpSession session = request.getSession();
             String username = (String)session.getAttribute("username");
             String role = (String)session.getAttribute("role");
+            String recordtype = request.getParameter("recordtype");
             
+            UserRouter userRouter = new UserRouter();
+            List<User> users = userRouter.getAllUsers(con);
+            
+            
+            // Generate pdf 
+            
+            Document doc = new Document();
+            PdfWriter.getInstance(doc, baos);
+            //Print PDF in landscape form (No. 5 Requirement)
+            doc.setPageSize(PageSize.LETTER.rotate());
             doc.open();
+            doc.addTitle(calendarDigitForm);
             //Print username in PDF (No. 1 Requirement)
             doc.add(new Paragraph("A PDF document by: " + username));
             //Print date and time the report was generated in PDF (No. 2 Requirement)
             doc.add(new Paragraph("Date and Time is: " + calendarDate));
+            
+            //Print all records
+            if (recordtype.equals("allrecords")) {
+                PdfPTable table = new PdfPTable(2);
+                for(int i = 0; i < users.size(); i++){
+                    table.addCell(users.get(i).getName());
+                    table.addCell(users.get(i).getRole());
+                }
+                doc.add(table);
+            } else if (recordtype.equals("userrecord")) {
+                PdfPTable table = new PdfPTable(2);
+                table.addCell(username);
+                table.addCell(role);
+                doc.add(table);
+            }
+            
             //Print page x of y (No. 4 Requirement)
             doc.add(new Paragraph("Page " + calendarDate + " of " + "endPage"));
-            //Print header and footer in PDF (No. 6 Requirement)
-            //Header
-            doc.add(new Paragraph(getServletContext().getInitParameter("company")));
-            //Footer
-            doc.add(new Paragraph(getServletContext().getInitParameter("company")));
-            doc.add(new Paragraph(getServletContext().getInitParameter("companyEmail")));
-            doc.add(new Paragraph(getServletContext().getInitParameter("copyrightYear")));
             
             doc.close();
             OutputStream os = response.getOutputStream();
@@ -94,6 +142,13 @@ public class GeneratePDFServlet extends HttpServlet {
             //Logger.getLogger(HelloWorldExample.class.getName()).log(Level.SEVERE, null, ex);
         } catch (DocumentException ex) {
             ex.printStackTrace();
+        } catch (SQLException sqle){
+                System.out.println("SQLException error occured - " 
+                + sqle.getMessage());
+                throw new ServletException(sqle);
+        } catch (NullValueException ex) {
+            request.setAttribute("errorMessage", ex.getMessage());
+            throw new ServletException(ex);
         }
     }
 

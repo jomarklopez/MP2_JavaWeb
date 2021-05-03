@@ -43,12 +43,14 @@
             <% 
                 if(role.equals("admin")) {
                    %> 
-                   <form method="get" action="GeneratePDFServlet">
+                   <form method="get" action="GeneratePDFServlet" target="_blank">
+                       <input type="hidden" name="recordtype" value="allrecords">
                         <button class="button" type="submit">Print all records</button>
                     </form>
                 <%}%>
             
-            <form method="get" action="GeneratePDFServlet">
+            <form method="get" action="GeneratePDFServlet" target="_blank">
+                <input type="hidden" name="recordtype" value="userrecord">
                 <button class="button" type="submit">Print my records</button>
             </form>
             <form method="get" action="LogoutServlet">
