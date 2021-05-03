@@ -85,11 +85,14 @@ public class GeneratePDFServlet extends HttpServlet {
             Document doc = new Document();
             PdfWriter writer = PdfWriter.getInstance(doc, baos);
             //Print PDF in landscape form (No. 5 Requirement)
-            doc.setPageSize(PageSize.LETTER.rotate());
-            doc.open();
+            Rectangle pdf = new Rectangle(PageSize.LETTER.rotate());
+            doc.setPageSize(pdf);
+            Rectangle container = new Rectangle(160, 20, 700, 582);
+            writer.setBoxSize("format", container);
             //Print header and footer in PDF (No. 6 Requirement)
             HeaderFooterPageEvent event = new HeaderFooterPageEvent();
             writer.setPageEvent(event);
+            doc.open();
             //Name PDF in a digit form according to date (No. 8 Requirement)
             doc.addTitle(calendarDigitForm);
             //Print username in PDF (No. 1 Requirement)
@@ -122,9 +125,7 @@ public class GeneratePDFServlet extends HttpServlet {
                 table.addCell(role);
                 doc.add(table);
             }
-            
-            //Print page x of y (No. 4 Requirement)
-            
+
             doc.close();
             OutputStream os = response.getOutputStream();
             baos.writeTo(os);
@@ -146,98 +147,12 @@ public class GeneratePDFServlet extends HttpServlet {
     }
     
     public class HeaderFooterPageEvent extends PdfPageEventHelper {
-    
-    /*private PdfTemplate t;
-    private Image total;
-
-    @Override
-    public void onOpenDocument(PdfWriter writer, Document document) {
-        t = writer.getDirectContent().createTemplate(30, 16);
-        try {
-            total = Image.getInstance(t);
-            total.setRole(PdfName.ARTIFACT);
-        } catch (DocumentException de) {
-            throw new ExceptionConverter(de);
-        }
-    }
-    
-    @Override
-    public void onEndPage(PdfWriter writer, Document document) {
-        addHeader(writer);
-        addFooter(writer);
-    }
-
-    private void addHeader(PdfWriter writer){
-        PdfPTable header = new PdfPTable(1);
-        try {
-            // Set Format
-            header.setWidths(new int[]{24});
-            header.setTotalWidth(527);
-            header.setLockedWidth(true);
-            header.getDefaultCell().setFixedHeight(40);
-            header.getDefaultCell().setBorder(Rectangle.BOTTOM);
-            header.getDefaultCell().setBorderColor(BaseColor.BLACK);
-
-            // Add text
-            PdfPCell text = new PdfPCell();
-            text.setPaddingBottom(15);
-            text.setPaddingLeft(10);
-            text.setBorder(Rectangle.BOTTOM);
-            text.addElement(new Phrase(getServletContext().getInitParameter("company"), new Font(Font.FontFamily.HELVETICA, 12)));
-            header.addCell(text);
-
-            // Write content
-            header.writeSelectedRows(0, 0, 34, 750, writer.getDirectContent());
-        } catch(DocumentException de) {
-            throw new ExceptionConverter(de);
-        }
-    }
-
-    private void addFooter(PdfWriter writer){
-        PdfPTable footer = new PdfPTable(3);
-        try {
-            // Set Format
-            footer.setWidths(new int[]{24, 2, 1});
-            footer.setTotalWidth(527);
-            footer.setLockedWidth(true);
-            footer.getDefaultCell().setFixedHeight(40);
-            footer.getDefaultCell().setBorder(Rectangle.TOP);
-            footer.getDefaultCell().setBorderColor(BaseColor.BLACK);
-
-            // Add company
-            footer.addCell(new Phrase(getServletContext().getInitParameter("company"), new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD)));
-
-            // Add current page count
-            footer.getDefaultCell().setHorizontalAlignment(Element.ALIGN_RIGHT);
-            footer.addCell(new Phrase(String.format("Page %d of", writer.getPageNumber()), new Font(Font.FontFamily.HELVETICA, 8)));
-
-            // Add total page count
-            PdfPCell totalPageCount = new PdfPCell(total);
-            totalPageCount.setBorder(Rectangle.TOP);
-            totalPageCount.setBorderColor(BaseColor.LIGHT_GRAY);
-            footer.addCell(totalPageCount);
-
-            // Write Page
-            PdfContentByte canvas = writer.getDirectContent();
-            canvas.beginMarkedContentSequence(PdfName.ARTIFACT);
-            footer.writeSelectedRows(0, 0, 34, 40, canvas);
-            canvas.endMarkedContentSequence();
-        } catch(DocumentException de) {
-            throw new ExceptionConverter(de);
-        }
-    }
-
-    public void onCloseDocument(PdfWriter writer, Document document) {
-        int totalLength = String.valueOf(writer.getPageNumber()).length();
-        int totalWidth = totalLength * 5;
-        ColumnText.showTextAligned(t, Element.ALIGN_RIGHT,
-                new Phrase(String.valueOf(writer.getPageNumber()), new Font(Font.FontFamily.HELVETICA, 8)),
-                totalWidth, 6, 0);
-    }*/
-    public void onEndPage(PdfWriter writer,Document document) {
-        ColumnText.showTextAligned(writer.getDirectContent(),Element.ALIGN_CENTER, new Phrase(getServletContext().getInitParameter("company")), 395, 570, 0);
-        ColumnText.showTextAligned(writer.getDirectContent(),Element.ALIGN_CENTER, new Phrase(getServletContext().getInitParameter("company") + " " + getServletContext().getInitParameter("companyEmail") + " " + getServletContext().getInitParameter("copyrightYear")), 300, 30, 0);
-        ColumnText.showTextAligned(writer.getDirectContent(),Element.ALIGN_CENTER, new Phrase("Page " + document.getPageNumber()), 550, 30, 0);
+        public void onEndPage(PdfWriter writer,Document document) {
+            Rectangle rect = writer.getBoxSize("format");
+            ColumnText.showTextAligned(writer.getDirectContent(),Element.ALIGN_CENTER, new Phrase(getServletContext().getInitParameter("company")), rect.getRight() / 2, rect.getTop(), 0);
+            ColumnText.showTextAligned(writer.getDirectContent(),Element.ALIGN_CENTER, new Phrase(getServletContext().getInitParameter("company") + "," + getServletContext().getInitParameter("companyEmail") + "," + getServletContext().getInitParameter("copyrightYear")), rect.getLeft(), rect.getBottom(), 0);
+            //Print page x of y (No. 4 Requirement)
+            ColumnText.showTextAligned(writer.getDirectContent(),Element.ALIGN_CENTER, new Phrase("Page " + document.getPageNumber()), rect.getRight(), rect.getBottom(), 0);
         }
     }
 
