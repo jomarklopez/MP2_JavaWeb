@@ -87,8 +87,6 @@ public class GeneratePDFServlet extends HttpServlet {
             //Print PDF in landscape form (No. 5 Requirement)
             Rectangle pdf = new Rectangle(PageSize.LETTER.rotate());
             doc.setPageSize(pdf);
-            /*Rectangle container = new Rectangle(160, 20, 700, 582);
-            writer.setBoxSize("format", container);*/
             //Print header and footer in PDF (No. 6 Requirement)
             HeaderFooterPageEvent event = new HeaderFooterPageEvent();
             writer.setPageEvent(event);
@@ -147,15 +145,6 @@ public class GeneratePDFServlet extends HttpServlet {
     }
     
     public class HeaderFooterPageEvent extends PdfPageEventHelper {
-
-        /*public void onEndPage(PdfWriter writer,Document document) {
-            Rectangle rect = writer.getBoxSize("format");
-            ColumnText.showTextAligned(writer.getDirectContent(),Element.ALIGN_CENTER, new Phrase(getServletContext().getInitParameter("company")), rect.getRight() / 2, rect.getTop(), 0);
-            ColumnText.showTextAligned(writer.getDirectContent(),Element.ALIGN_CENTER, new Phrase(getServletContext().getInitParameter("company") + "," + getServletContext().getInitParameter("companyEmail") + "," + getServletContext().getInitParameter("copyrightYear")), rect.getLeft(), rect.getBottom(), 0);
-            //Print page x of y (No. 4 Requirement)
-            ColumnText.showTextAligned(writer.getDirectContent(),Element.ALIGN_CENTER, new Phrase("Page " + document.getPageNumber()), rect.getRight(), rect.getBottom(), 0);
-        }*/
-        
         private PdfTemplate t;
         private Image total;
 
