@@ -160,9 +160,9 @@
         
         var signupForm = document.getElementById("signupForm");
 
-        const prem = "premium"
-        const free = "free"
-        const review = "review+"
+        const prem = "Premium"
+        const free = "Free"
+        const review = "Review+"
         
         function validatePassword() {
             const password = document.getElementById("pw").value
