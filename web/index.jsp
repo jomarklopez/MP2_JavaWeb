@@ -19,11 +19,11 @@
             <div class="content">
                 <form action="LoginServlet" method="post" autocomplete="off" class="form">
                     <div class="input-wrapper">
-                        <input readonly onfocus="this.removeAttribute('readonly');" id="user" autocomplete="one-time-code" required>
+                        <input readonly onfocus="this.removeAttribute('readonly');" id="username" name="username" autocomplete="one-time-code" required>
                         <label>Username</label>
                     </div>
                     <div class="input-wrapper">
-                        <input readonly onfocus="this.removeAttribute('readonly');" id="pass" type="password" autocomplete="new-password" required>
+                        <input readonly onfocus="this.removeAttribute('readonly');" id="password" name="password" type="password" autocomplete="new-password" required>
                         <label>Password</label>
                     </div>
                     <button class='btn' type='submit' name="login">

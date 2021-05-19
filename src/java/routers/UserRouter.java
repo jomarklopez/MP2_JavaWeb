@@ -30,7 +30,7 @@ public class UserRouter {
         // Encrypting the Password
         String encryptedPassword = Security.encrypt(passwordInput);
         
-        String sql = "SELECT * FROM USERS WHERE username = ?";
+        String sql = "SELECT * FROM USERS WHERE USERNAME = ?";
         PreparedStatement statement = con.prepareStatement(sql);
         statement.setString(1, usernameInput);
         // Executes query
