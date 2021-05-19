@@ -53,7 +53,7 @@ public class LoginServlet extends HttpServlet{
             session.setAttribute("username", user.getName());
             session.setAttribute("role", user.getRole());
             
-            if(user.getRole() == prem || user.getRole() == free || user.getRole() == review ) {
+            if(user.getRole().equals(prem) || user.getRole().equals(free) || user.getRole().equals(review) ) {
                 RequestDispatcher success = request.getRequestDispatcher("studenthome.jsp");
                 success.forward(request, response);
             }
