@@ -54,10 +54,11 @@ public class SignupServlet extends HttpServlet
         
         String username = request.getParameter("username");
         String password = request.getParameter("password");
+        String role = request.getParameter("role");
         
         UserRouter userRouter = new UserRouter();
         try {
-            userRouter.createUser(con, username, password);
+            userRouter.createUser(con, username, password, role);
             RequestDispatcher success = request.getRequestDispatcher("signup_success.jsp");
             success.forward(request, response);
         } catch (SQLException sqle){

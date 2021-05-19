@@ -7,8 +7,8 @@
 <!-- the Compile on Save feature is turned off for the project. -->
 <!-- You can turn off the Compile on Save (or Deploy on Save) setting -->
 <!-- in the project's Project Properties dialog box.-->
-<project name="ICS2609_MP3" default="default" basedir=".">
-    <description>Builds, tests, and runs the project ICS2609_MP3.</description>
+<project name="2CSB_MP3_Lacsamana_Lopez_Polloso" default="default" basedir=".">
+    <description>Builds, tests, and runs the project 2CSB_MP3_Lacsamana_Lopez_Polloso.</description>
     <import file="nbproject/build-impl.xml"/>
     <!--
 

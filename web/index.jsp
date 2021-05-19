@@ -8,7 +8,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
-        <link rel="stylesheet" href="style.css" />
     </head>
     <body>
         <div class="sideheader">
@@ -41,7 +40,7 @@
             </div>
             <footer>
                 <p>
-                    © <% out.print(getServletContext().getInitParameter("copyrightYear")); %>
+                    Â© <% out.print(getServletContext().getInitParameter("copyrightYear")); %>
                     Made with <3 by: <% out.print(getServletContext().getInitParameter("company")); %>
                     &nbsp;&nbsp;&nbsp;
                     Reach us: <% out.print(getServletContext().getInitParameter("companyEmail")); %>
@@ -54,8 +53,8 @@
               <div class="modal-content">
                 <span class="close">&times;</span>
                 <div class="content">
+                    <h3>We've got plans for you!</h3>
                     <div class="plan-cards">
-                        <h3>We've got plans for you!</h3>
                         <div class="card">
                             <div class="title">Free</div>
                             <div class="icon">
@@ -69,7 +68,7 @@
                                 <li><span>1</span> Hour free support</li>
                               </ul>
                             </div>
-                            <a href="#" class="btn">Check it out</a>
+                            <a href="#" class="btn" onclick="roleFree()">Select</a>
                           </div>
                           <div class="card">
                             <div class="title">Review+</div>
@@ -84,7 +83,7 @@
                                 <li><span>5</span> Hour free support</li>
                               </ul>
                             </div>
-                            <a href="#" class="btn">Check it out</a>
+                            <a href="#" class="btn" onclick="roleReview()">Select</a>
                           </div>
                           <div class="card">
                             <div class="title">Premium</div>
@@ -99,32 +98,28 @@
                                 <li><span>Unlimited</span> free support</li>
                               </ul>
                             </div><!--/features-->
-                            <a href="#" class="btn">Check it out</a>
+                            <a id="premium" value="premium" href="#" class="btn" onclick="rolePremium()">Select</a>
                           </div><!--/card-->
 
 
 
                     </div>
                     <form id='signupForm' action="SignupServlet" method="post" autocomplete="off" class="form">
-                        <div>
-                            <label>Username</label>
-                            <input class="formInput" id='us' name='username' type='text'>
+                        <div class="input-wrapper">
+                            <input id="us" placeholder="Username" name='username' required>
                         </div>
-                        <div>
-                            <label>Password</label>
-                            <input class="formInput" id='pw' name='password' type='password'>
+                        <div class="input-wrapper">
+                            <input id="pw" placeholder="Password" name='password'required>
                         </div>
-                        <div>
-                            <label>Confirm Password</label>
-                            <input class="formInput" id='pw2' name='passwordconfirm' type='password'>
+                        <div class="input-wrapper">
+                            <input id="pw2" placeholder="Retype Password" required>
                         </div>
-                        <div>
-                            <label></label>
-                            <img id="captcha" src="/ICS2609_MP2/Captcha"/>
+                        <div class="input-wrapper">
+                            <input id="r" placeholder="Choose Role Above" name='role' readOnly>
                         </div>
-                        <div>
-                            <label>Captcha</label>
-                            <input id='answer' class="formInput" type="text" name="answer">
+                        <img id="captcha" src="/ICS2609_MP2/Captcha"/>
+                        <div class="input-wrapper">
+                            <input id='answer' placeholder="Captcha" name="answer" required>
                         </div>
                         <button class='btn' type='button' name="login" onclick="validatePassword()">
                             <div class='text'>
@@ -165,16 +160,341 @@
         
         var signupForm = document.getElementById("signupForm");
 
-
+        const prem = "premium"
+        const free = "free"
+        const review = "review+"
+        
         function validatePassword() {
             const password = document.getElementById("pw").value
             const password2 = document.getElementById("pw2").value
             const username  = document.getElementById("us").value
-            if (password != password2) {
+            const role  = document.getElementById("r").value
+            
+            if(role != prem && role != free && role != review) {
+                alert('Please choose a membership plan')
+            } else if (password != password2) {
                 alert('Password do not match. Confirm your password again')
             } else {
                 signupForm.submit();
             }
         }
+        
+        function rolePremium() {
+            document.getElementById("r").value = prem
+        }
+        
+        function roleReview() {
+            document.getElementById("r").value = review
+        }
+        
+        function roleFree() {
+            document.getElementById("r").value = free
+        }
     </script>
+        <style>
+            html,body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        }
+
+        body {
+            display: flex;
+            background-color: #FFFFFF;
+        }
+
+        .sideheader {
+            display: flex;
+            flex-direction: column;
+            width: 50vw;
+            background-color: #4ABDAC;
+        }
+
+        #wordartimg, #groupstudsimg {
+            max-width: 75%;
+            height: auto;
+            align-self: center;
+        }
+
+        #wordartimg {
+            margin-bottom: auto;
+        }
+
+        .header-title {
+            font-family: 'Roboto', sans-serif;
+            font-size: 6rem;
+            margin-top: auto;
+            cursor: default;
+        }
+
+        a {
+          color: blue;
+          text-decoration: none; /* no underline */
+        }
+
+        footer {
+            font-family: 'Roboto', sans-serif;
+            width: 100%;
+            color: black;
+            margin-top: auto;
+        }
+
+        /*SIGN IN FORM*/
+
+        .login-container {
+            height: 100%;
+            align-self: center;
+            font-family: 'Roboto', sans-serif;
+            font-size: 20px;
+            text-align: center;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .form {
+            width: 300px;
+            display: inline-block;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-wrapper input {
+            width: 100%;
+            padding: 10px 0;
+            font-size: 16px;
+            color: #000;
+            margin-bottom: 30px;
+            border: none;
+            border-bottom: 1px solid #000;
+            outline: none;
+            background: transparent;
+        }
+
+        .input-wrapper label {
+            position: absolute;
+            top: 0;
+            left: 0;
+            padding: 10px 0;
+            font-size: 16px;
+            color: #000;
+            pointer-events: none;
+            transition: .25s;
+        }
+
+        .input-wrapper input:focus ~ label,
+        .input-wrapper input:valid ~ label {
+            top: -20px;
+            left: 0;
+            color: #000;
+            font-size: 12px;
+        }
+
+        .form .control input:hover, .form .control input:focus {
+            outline: none;
+            border: 0;
+        }
+
+        .btn {
+            border-radius: 4px;
+            background-color: #FFC534;
+            border: none;
+            color: #FFFFFF;
+            text-align: center;
+            font-size: 20px;
+            padding: 10px;
+            width: 150px;
+            cursor: pointer;
+            margin: 5px;
+        }
+
+        .btn span {
+            cursor: pointer;
+            display: inline-block;
+            position: relative;
+            transition: 0.5s;
+        }
+
+        .btn span:after {
+            content: '\00bb';
+            position: absolute;
+            opacity: 0;
+            top: 0;
+            right: -20px;
+            transition: 0.5s;
+        }
+
+        .btn:hover span {
+            padding-right: 25px;
+        }
+
+        .btn:hover span:after {
+            opacity: 1;
+            right: 0;
+        }
+        .signupMessage {
+            margin-top: 20px;
+            font-size: 1rem;
+        }
+        #signupBtn {
+            color: #FC4A1A;
+            cursor: pointer;
+        }
+
+        .formInput {
+            padding: 12px 20px;
+            font-size: 1rem;
+            border-width: 1px;
+            border-radius: 3px;
+            outline: transparent;
+        }
+
+        /* The Modal (background) */
+        .modal {
+          display: none; 
+          position: fixed; 
+          z-index: 1; 
+          left: 0;
+          top: 0;
+          width: 100%; 
+          height: 100%; 
+          overflow: auto; 
+          background-color: rgb(0,0,0); 
+          background-color: rgba(0,0,0,0.4);
+        }
+
+        /* Modal Content/Box */
+        .modal-content {
+          background-color: #fefefe;
+          margin: 0 auto; 
+          position: relative;
+          top: 50%;
+          transform: translateY(-50%);
+          padding: 20px;
+          border: 1px solid #888;
+          max-width: 60%; 
+        }
+
+        .content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #signupForm {
+            width: 100%; 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #signupForm input { 
+            width: 50vw;
+            font-family: 'Roboto', sans-serif;
+            font-size: 1rem; 
+        }
+
+        #signupForm img {
+            display: table-cell;
+        }
+
+        /* CARDS */
+        .plan-cards {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
+        .content h3 {
+            font-family: 'Roboto', sans-serif;    
+            font-size: 3rem;
+            margin: 0;
+        }
+
+        .card {
+          background: #FFFFFF;
+          box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+          border-radius: 5px;
+          margin: 50px 20px 20px 20px;
+          width: 200px;
+          padding: 20px;
+          text-align: center;
+          color: black;
+          float: left;
+          font-family: 'Roboto', sans-serif;
+        }
+        @media (max-width: 768px) {
+           .modal-content {
+            background-color: #fefefe;
+            margin: 0 auto; 
+            position: relative;
+            top: 50%;
+            transform: translateY(-50%);
+            padding: 20px;
+            border: 1px solid #888;
+            max-width: 75%; 
+          }
+
+          .card {
+            margin: 10px 20px;
+            width: calc(100% - 40px);
+          }
+        }
+
+        .card .title {
+          font-size: 25px;
+        }
+        .card .icon {
+          margin: 10px 0;
+        }
+        .card .icon svg {
+          width: 100px;
+          height: 100px;
+        }
+        .card .icon svg path {
+          fill: #4ABDAC;
+        }
+        .card .features ul {
+          padding: 0;
+          margin: 20px 0 50px 0;
+          list-style-type: none;
+        }
+        .card .features ul li {
+          margin: 10px 0;
+          font-size: 14px;
+        }
+        .card .features ul li span {
+
+        }
+        .card .btn {
+          display: block;
+          background: #4ABDAC;
+          color: white;
+          border-radius: 5px;
+          box-shadow: rgba(0, 0, 0, 0.9);
+          transition: all 100ms ease-in-out;
+          text-decoration: none;
+        }
+        .card .btn:hover {
+          background: #278e7f;
+        }
+
+        /* The Close Button */
+        .close {
+          color: #aaa;
+          font-size: 28px;
+          font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+          color: black;
+          text-decoration: none;
+          cursor: pointer;
+        }
+    </style>
 </html>

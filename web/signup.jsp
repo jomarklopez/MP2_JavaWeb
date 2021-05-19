@@ -45,6 +45,7 @@
                   <input id='us' name='username' placeholder='Username' type='text'>
                   <input id='pw' name='password' placeholder='Password' type='password'>
                   <input id='pw2' name='passwordconfirm' placeholder='Retype Password' type='password'>
+                  <input id='role' name='role' placeholder='Role' type='role'>
                 </form>
                 <button id='mdlBtn' class='btn block-cube block-cube-hover' type='button' name="signup" onclick="validatePassword()">
                     <div class='bg-top'>
@@ -74,7 +75,7 @@
                         <div class='bg-inner'></div>
                     </div>
                     <div class='text'>
-                      Go back to Login Page
+                      Go back to Captcha
                     </div>
             </button>
            <% }%>

@@ -12,6 +12,10 @@
         <param-name>companyEmail</param-name>
         <param-value>papayacorp@gmail.com</param-value>
     </context-param>
+    <context-param>
+        <param-name>appName</param-name>
+        <param-value>Project: LIBRA</param-value>
+    </context-param>
     
     <servlet>
         <servlet-name>LoginServlet</servlet-name>
@@ -162,8 +166,5 @@
         <error-code>404</error-code>
         <location>/error_4.jsp</location>
     </error-page>
-    <error-page>
-        <error-code>500</error-code>
-        <location>/error_5.jsp</location>
-    </error-page>
+
 </web-app>

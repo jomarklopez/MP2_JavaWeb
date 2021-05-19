@@ -59,7 +59,7 @@ public class UserRouter {
         return user;
     }
     
-    public void createUser(Connection con, String usernameInput, String passwordInput) throws SQLException, NullValueException {
+    public void createUser(Connection con, String usernameInput, String passwordInput, String roleInput) throws SQLException, NullValueException {
         
         if(usernameInput.equals("") && passwordInput.equals("")) {
             throw new NullValueException("Username and Password cannot be blank.");
@@ -69,11 +69,12 @@ public class UserRouter {
             throw new NullValueException("Password cannot be blank.");
         }
         
-        String query = "INSERT INTO USER_INFO VALUES (?,?,'guest')";
+        String query = "INSERT INTO USER_INFO VALUES (?,?,?)";
         PreparedStatement statement = con.prepareStatement(query);
   
         statement.setString(1, usernameInput);
         statement.setString(2, Security.encrypt(passwordInput));
+        statement.setString(3, roleInput);
             
         int c = statement.executeUpdate();
     }
