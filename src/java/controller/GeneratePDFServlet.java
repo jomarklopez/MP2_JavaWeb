@@ -72,6 +72,7 @@ public class GeneratePDFServlet extends HttpServlet {
         //Current date in digit only form ex. "20210501081012"
         String calendarDigitForm = calendarDate.replaceAll("[^a-zA-Z0-9]", "");
         
+        response.setHeader("Content-Disposition", "inline;filename=\"" + calendarDigitForm + ".pdf\"");
         try {
             HttpSession session = request.getSession();
             String username = (String)session.getAttribute("username");

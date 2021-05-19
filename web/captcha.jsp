@@ -19,26 +19,7 @@
     </head>
     <body>
         <header>
-            <h3>
-                <% out.print(getServletContext().getInitParameter("company")); %>
-            </h3>            
-                <div class="libra-container">
-                <div class='star libra-star-1'></div>
-                <div class='star libra-star-2'></div>
-                <div class='star libra-star-3'></div>
-                <div class='star libra-star-4'></div>
-                <div class='star libra-star-5'></div>
-                <div class='star libra-star-6'></div>
-                <div class='star libra-star-7'></div>
-                <div class="line libra-line-1"></div>
-                <div class="line libra-line-2"></div>
-                <div class="line libra-line-3"></div>
-                <div class="line libra-line-4"></div>
-                <div class="line libra-line-5"></div>
-                <div class="line libra-line-6"></div>
-                <div class="line libra-line-7"></div>
-            </div>
-            <h2>Enter Captcha</h2>
+            <h2>Enter Captchaadfadfa</h2>
         </header>
         <form action="signup.jsp" method="post" autocomplete="off" class="form">
             <img id="captcha" src="/MP2_JavaWeb/Captcha" width="250"/>

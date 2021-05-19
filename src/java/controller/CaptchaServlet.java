@@ -35,6 +35,7 @@ public class CaptchaServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("image/jpg");
         Captcha captcha = new Captcha.Builder(200, 50)
         .addText(new DefaultTextProducer()) 
         .addBackground(new GradiatedBackgroundProducer())
