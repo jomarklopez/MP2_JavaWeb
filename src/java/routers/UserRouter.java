@@ -30,7 +30,7 @@ public class UserRouter {
         // Encrypting the Password
         String encryptedPassword = Security.encrypt(passwordInput);
         
-        String sql = "SELECT * FROM USER_INFO WHERE username = ?";
+        String sql = "SELECT * FROM USERS WHERE username = ?";
         PreparedStatement statement = con.prepareStatement(sql);
         statement.setString(1, usernameInput);
         // Executes query
@@ -69,7 +69,7 @@ public class UserRouter {
             throw new NullValueException("Password cannot be blank.");
         }
         
-        String query = "INSERT INTO USER_INFO VALUES (?,?,?)";
+        String query = "INSERT INTO USERS VALUES (?,?,?)";
         PreparedStatement statement = con.prepareStatement(query);
   
         statement.setString(1, usernameInput);
@@ -82,7 +82,7 @@ public class UserRouter {
     public List<User> getAllUsers(Connection con) throws SQLException, NullValueException {
         List<User> users = new ArrayList<>();
         try {
-            String query = "SELECT * FROM USER_INFO";
+            String query = "SELECT * FROM USERS";
             PreparedStatement statement = con.prepareStatement(query);
             ResultSet rs = statement.executeQuery();
             ResultSetMetaData md = rs.getMetaData();
