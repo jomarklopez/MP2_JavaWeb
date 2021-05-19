@@ -69,7 +69,7 @@ public class UserRouter {
             throw new NullValueException("Password cannot be blank.");
         }
         
-        String query = "INSERT INTO USERS VALUES (?,?,?)";
+        String query = "INSERT INTO USERS (Username, Password, Role) VALUES (?,?,?)";
         PreparedStatement statement = con.prepareStatement(query);
   
         statement.setString(1, usernameInput);
