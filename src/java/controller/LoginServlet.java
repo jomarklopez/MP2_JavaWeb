@@ -38,6 +38,9 @@ public class LoginServlet extends HttpServlet{
         
         String username = request.getParameter("username");
         String password = request.getParameter("password");
+        String prem = "Premium";
+        String free = "Free";
+        String review = "Review+";
         System.out.println(username);
         UserRouter userRouter = new UserRouter();
         
@@ -50,8 +53,15 @@ public class LoginServlet extends HttpServlet{
             session.setAttribute("username", user.getName());
             session.setAttribute("role", user.getRole());
             
-            RequestDispatcher success = request.getRequestDispatcher("success.jsp");
-            success.forward(request, response);
+            if(user.getRole() == prem || user.getRole() == free || user.getRole() == review ) {
+                RequestDispatcher success = request.getRequestDispatcher("studenthome.jsp");
+                success.forward(request, response);
+            }
+            else {
+                RequestDispatcher success = request.getRequestDispatcher("reviewerhome.jsp");
+                success.forward(request, response);
+            }
+                
         } catch (SQLException | ClassNotFoundException ex) {
             System.out.println("LoginServlet Error: "+ ex.getMessage());
         } catch (AuthException ex) {
