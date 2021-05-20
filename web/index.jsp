@@ -34,7 +34,7 @@
                 </form>
                 <div class="signupMessage">Don't have an account yet?
                 <a id='signupBtn' name="captcha">
-                    SIGNUP HERE
+                    <b>SIGN-UP HERE</b>
                 </a>
                 </div>
             </div>
@@ -94,7 +94,7 @@
                               <ul>
                                 <li><span>Unlimited</span> Edits</li>
                                 <li><span>20GB</span> Storage</li>
-                                <li><span>unlimited</span> Pages</li>
+                                <li><span>Unlimited</span> Pages</li>
                                 <li><span>Unlimited</span> free support</li>
                               </ul>
                             </div><!--/features-->
@@ -123,7 +123,7 @@
                         </div>
                         <button class='btn' type='button' name="login" onclick="validatePassword()">
                             <div class='text'>
-                                Sign Up
+                                Sign-Up
                             </div>
                         </button>
                      </form>
@@ -370,12 +370,13 @@
         /* Modal Content/Box */
         .modal-content {
           background-color: #fefefe;
-          margin: 0 auto; 
+          margin: 100px auto; 
           position: relative;
           top: 50%;
-          transform: translateY(-50%);
+          transform: translateY(-32.5%);
           padding: 20px;
           border: 1px solid #888;
+          border-radius: 10px;
           max-width: 60%; 
         }
 
