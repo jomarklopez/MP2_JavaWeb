@@ -41,26 +41,23 @@ public class LoginServlet extends HttpServlet{
         String prem = "Premium";
         String free = "Free";
         String review = "Review+";
-        System.out.println(username);
         UserRouter userRouter = new UserRouter();
-        
         try {
             // Authenticate user by calling method which returns a User object
             User user = userRouter.authenticateUser(con, username, password);
-
-            // Since user is logged in we can now proceed to success page
-            HttpSession session = request.getSession();
-            session.setAttribute("username", user.getName());
-            session.setAttribute("role", user.getRole());
-            
-            if(user.getRole().equals(prem) || user.getRole().equals(free) || user.getRole().equals(review) ) {
-                RequestDispatcher success = request.getRequestDispatcher("studenthome.jsp");
-                success.forward(request, response);
+            String destPage = "index.jsp";
+            if (user != null) {
+                // Since user is logged in we can now proceed to success page
+                HttpSession session = request.getSession();
+                session.setAttribute("username", user.getName());
+                if(user.getRole().equals(prem) || user.getRole().equals(free) || user.getRole().equals(review) ) {
+                    destPage = "studenthome.jsp";
+                } else {
+                    destPage = "authorhome.jsp";
+                }
             }
-            else {
-                RequestDispatcher success = request.getRequestDispatcher("authorhome.jsp");
-                success.forward(request, response);
-            }
+            RequestDispatcher dispatcher = request.getRequestDispatcher(destPage);
+            dispatcher.forward(request, response);
                 
         } catch (SQLException | ClassNotFoundException ex) {
             System.out.println("LoginServlet Error: "+ ex.getMessage());

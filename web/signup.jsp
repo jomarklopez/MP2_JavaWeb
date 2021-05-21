@@ -206,6 +206,7 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            overflow: auto;
         }
 
         .form {
@@ -261,7 +262,7 @@
             text-align: center;
             font-size: 20px;
             padding: 10px;
-            width: 150px;
+            width: 100px;
             cursor: pointer;
             margin: 5px;
         }

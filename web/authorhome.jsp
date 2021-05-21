@@ -39,22 +39,30 @@
             <!-- Modal content -->
             <div class="modal-content">
                 <span class="close">&times;</span>
-                <form method="post" action="fileUpload" enctype="multipart/form-data">
+                <form method="post" action="upload" enctype="multipart/form-data">
                     <div class="input-wrapper">
                         Title: 
-                        <input class="title-input"type="text" name="Title" size="10" required />
+                        <input class="form-input"type="text" name="title" size="10" required />
+                    </div>
+                    <div class="input-wrapper">
+                        Subject: 
+                        <input class="form-input"type="text" name="subject" size="10" required />
+                    </div>
+                    <div class="input-wrapper">
+                        Language: 
+                        <input class="form-input"type="text" name="language" size="10" required />
                     </div>
                     <div class="input-wrapper">
                         Description: 
-                        <textarea id="desc-textArea" rows="10" cols="70"></textarea>
+                        <textarea id="desc-textArea" name="description" rows="10" cols="70"></textarea>
                     </div>
                     <div class="input-wrapper fileupload-btns">
                         <div>
                         Upload Preview Image:<br>
-                        <input type="file" name="photo" size="10" required/></div>
+                        <input type="file" name="file_data" size="10" required/></div>
                         <div>
                         Upload PDF:<br>
-                        <input type="file" name="pdf" size="10" required/></div>
+                        <input type="file" name="file_image" size="10" required/></div>
                     </div>
                     <div class="form-actions">
                         <input class="btn" type="submit" value="Upload">
@@ -62,7 +70,6 @@
                     </div>
                 </form>
             </div>
-
         </div>
     </body>
     
@@ -280,7 +287,7 @@
         .modal {
             display: none; /* Hidden by default */
             position: fixed; /* Stay in place */
-            z-index: 1; /* Sit on top */
+            z-index: 100; /* Sit on top */
             left: 0;
             top: 0;
             width: 100%; /* Full width */
@@ -292,12 +299,20 @@
 
           /* Modal Content/Box */
         .modal-content {
+            display: flex;
+            flex-direction: column;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 100;
             border-radius: 12px;
             background-color: #fefefe;
-            margin: 15% auto; /* 15% from the top and centered */
             padding: 20px;
             border: 1px solid #888;
+            position: absolute;
             width: 50%; /* Could be more or less, depending on screen size */
+            left: 50%;
+            top: 50%;
+            -webkit-transform: translateX(-50%) translateY(-50%);
+            transform: translateX(-50%) translateY(-50%);
         }
 
         /* The Close Button */
@@ -318,15 +333,14 @@
         .modal-content textarea {
             resize: none;
             width: 100%;
-        }
-        
-        .modal-content {
-            display: flex;
-            flex-direction: column;
             font-family: 'Roboto', sans-serif;
-            font-weight: 100;
+            font-weight: 500;
         }
         
+        .modal-content input {
+            font-family: 'Roboto', sans-serif;
+            font-weight: 500;
+        }
         .modal-content .form-actions{
             text-align: end;
         }
@@ -340,10 +354,10 @@
             flex-direction: row;
         }
         
-        .title-input {
+        .form-input {
             font-family: 'Roboto', sans-serif;
             width: 100%;
-            padding: 10px 0;
+            padding: 5px 0;
             font-size: 16px;
             color: #000;
             border: none;
