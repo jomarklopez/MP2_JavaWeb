@@ -59,10 +59,10 @@
                     <div class="input-wrapper fileupload-btns">
                         <div>
                         Upload Preview Image:<br>
-                        <input type="file" name="file_data" size="10" required/></div>
+                        <input type="file" name="file_image" size="10" required/></div>
                         <div>
                         Upload PDF:<br>
-                        <input type="file" name="file_image" size="10" required/></div>
+                        <input type="file" name="file_data" size="10" required/></div>
                     </div>
                     <div class="form-actions">
                         <input class="btn" type="submit" value="Upload">
