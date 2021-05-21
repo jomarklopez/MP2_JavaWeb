@@ -233,10 +233,10 @@ html,body {
         /* Modal Content/Box */
         .modal-content {
           background-color: #fefefe;
-          margin: 100px auto; 
+          margin: 0 auto; 
           position: relative;
           top: 50%;
-          transform: translateY(-32.5%);
+          transform: translateY(-50%);
           padding: 20px;
           border: 1px solid #888;
           border-radius: 10px;

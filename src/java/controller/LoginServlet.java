@@ -38,25 +38,19 @@ public class LoginServlet extends HttpServlet{
         
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-        String prem = "Premium";
-        String free = "Free";
-        String review = "Review+";
         UserRouter userRouter = new UserRouter();
         try {
             // Authenticate user by calling method which returns a User object
             User user = userRouter.authenticateUser(con, username, password);
-            String destPage = "index.jsp";
+            String destination = "index.jsp";
             if (user != null) {
                 // Since user is logged in we can now proceed to success page
                 HttpSession session = request.getSession();
                 session.setAttribute("username", user.getName());
-                if(user.getRole().equals(prem) || user.getRole().equals(free) || user.getRole().equals(review) ) {
-                    destPage = "studenthome.jsp";
-                } else {
-                    destPage = "authorhome.jsp";
-                }
+                session.setAttribute("role", user.getRole());
+                destination = "ReviewerServlet";
             }
-            RequestDispatcher dispatcher = request.getRequestDispatcher(destPage);
+            RequestDispatcher dispatcher = request.getRequestDispatcher(destination);
             dispatcher.forward(request, response);
                 
         } catch (SQLException | ClassNotFoundException ex) {
