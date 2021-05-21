@@ -46,4 +46,30 @@ public class ReviewerRouter
         }
         return reviewers;
     }
+    
+    public ArrayList<Reviewer> getAllUserReviewer(Connection con, String userID)throws SQLException,
+            ClassNotFoundException, NullValueException, AuthException {       
+        
+        String sql = "SELECT * FROM REVIEWERS WHERE USER_ID = ?";
+        PreparedStatement statement = con.prepareStatement(sql);
+        statement.setString(1, userID);
+        ResultSet res = statement.executeQuery();
+        Reviewer reviewer = null;
+        
+        ArrayList<Reviewer> reviewers = new ArrayList<Reviewer>();
+        
+        if (res.next() == false) {
+            throw new AuthException("Reviewer does not exist.");
+        } else {
+          do {
+            reviewer = new Reviewer();
+            reviewer.setTitle(res.getString("title"));
+            reviewer.setDescription(res.getString("description"));
+            reviewer.setSubject(res.getString("subject"));
+            reviewer.setLanguage(res.getString("language"));
+            reviewers.add(reviewer);
+          } while (res.next());
+        }
+        return reviewers;
+    }
 }
