@@ -47,8 +47,11 @@ public class LoginServlet extends HttpServlet{
                 // Since user is logged in we can now proceed to success page
                 HttpSession session = request.getSession();
                 session.setAttribute("username", user.getName());
-                session.setAttribute("role", user.getRole());
-                destination = "ReviewerServlet";
+                if(user.getRole().equals("Premium") || user.getRole().equals("Free") || user.getRole().equals("Review+") ) {
+                    destination = "studenthome.jsp";
+                } else {
+                    destination = "authorhome.jsp";
+                }
             }
             RequestDispatcher dispatcher = request.getRequestDispatcher(destination);
             dispatcher.forward(request, response);

@@ -45,18 +45,8 @@ public class ReviewerServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
             
-            ReviewerRouter reviewerRouter = new ReviewerRouter();
+            ReviewerRouter reviewerRouter = new ReviewerRouter();           
             Reviewer reviewer = reviewerRouter.findReviewer(con, subjectInput);
             
-            HttpSession session = request.getSession();
-            String role = (String)session.getAttribute("role");
-            if(role.equals("Premium") || role.equals("Free") || role.equals("Review+") ) {
-                
-                RequestDispatcher dispatcher = request.getRequestDispatcher("studenthome.jsp");
-                dispatcher.forward(request,response);
-            } else {
-                RequestDispatcher dispatcher = request.getRequestDispatcher("authorhome.jsp");
-                dispatcher.forward(request,response);
-            }
     }
 }
