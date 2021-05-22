@@ -80,6 +80,28 @@ public class UserRouter {
         int c = statement.executeUpdate();
     }
     
+    public void changePassword(Connection con, String newPassword, String userID) throws SQLException, NullValueException {       
+        
+        String query = "UPDATE USERS SET PASSWORD=? WHERE USERID=?";
+        PreparedStatement statement = con.prepareStatement(query);
+  
+        statement.setString(1, Security.encrypt(newPassword));
+        statement.setString(2, userID);
+            
+        int c = statement.executeUpdate();
+    }
+    
+    public void changeUsername(Connection con, String newUsername, String userID) throws SQLException, NullValueException {       
+        
+        String query = "UPDATE USERS SET USERNAME=? WHERE USERID=?";
+        PreparedStatement statement = con.prepareStatement(query);
+  
+        statement.setString(1, newUsername);
+        statement.setString(2, userID);
+            
+        int c = statement.executeUpdate();
+    }
+    
     public List<User> getAllUsers(Connection con) throws SQLException, NullValueException {
         List<User> users = new ArrayList<>();
         try {
