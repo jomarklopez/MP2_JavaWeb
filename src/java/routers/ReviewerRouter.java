@@ -52,14 +52,14 @@ public class ReviewerRouter
         return reviewers;
     }
     
-    public int uploadReviewer(Connection con, String title, String subject, String language, String description, InputStream file_data, InputStream file_image) throws SQLException,
+    public int uploadReviewer(Connection con, String title, String subject, String language, String description, InputStream file_data, InputStream file_image, int userID) throws SQLException,
             ClassNotFoundException, AuthException, NullValueException {
         String sql = "INSERT INTO REVIEWERS (user_id, title, description, subject, language, file_data, file_image) values (?, ?, ?, ?, ?, ?, ?)";
         int row = 0;
 
         PreparedStatement preparedStatement = con.prepareStatement(sql);
 
-        preparedStatement.setInt(1, 2);
+        preparedStatement.setInt(1, userID);
         preparedStatement.setString(2, title);
         preparedStatement.setString(3, description);
         preparedStatement.setString(4, subject);
