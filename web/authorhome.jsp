@@ -32,19 +32,16 @@
         <div class="content">
             <div class="content-header">
                 <p class="content-title">My Reviewers: </p>
-                <button id='mdlBtn' class='btn' type='submit' name="login">
+                <button id='uploadBtn' class='btn'>
                     <i class="fas fa-upload"></i>
                     Upload Reviewer
                 </button>
-                <div class="alert alert-success">
-                    <strong>
-                        <%
-                            if(request.getAttribute("SuccessMessage") != null) {
-                                request.getAttribute("SuccessMessage");
-                            }
-                        %>
-                    </strong>
-                </div>
+                <%
+                    if(session.getAttribute("SuccessMessage") != null) {
+                        out.print("<div class=\"alert\">"+ session.getAttribute("SuccessMessage") +"</div>");
+                        session.removeAttribute("SuccessMessage");
+                    }
+                %>
             </div>
             <div class="reviewer-wrapper">
                 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -61,9 +58,11 @@
                                     <div class="card-header">
                                         <p class="reviewer-title"><c:out value="${reviewer.getTitle()}"/></p>
                                         <p class="reviewer-author">by <c:out value="${username}"/> </p>
-                                        <p class="reviewer-descriptionLabel">Description: </p>
-                                        <p class="reviewer-description">De<c:out value="${reviewer.getDescription()}"/></p>
                                     </div>
+                                    <form action="deletereviewer" method="get">
+                                        <input type="hidden" name="reviewer_title" value="${reviewer.getTitle()}">
+                                        <button type="submit" class="btn" id="editBtn"><i class="fas fa-trash"></i></button>
+                                    </form>
                                 </div>
                             </td>
                         </c:forEach>
@@ -71,7 +70,7 @@
                 </table>
             </div>
         </div>
-        <div id="myModal" class="modal">
+        <div id="uploadModal" class="modal">
             <!-- Modal content -->
             <div class="modal-content">
                 <span class="close">&times;</span>
@@ -90,7 +89,7 @@
                     </div>
                     <div class="input-wrapper">
                         Description: 
-                        <textarea id="desc-textArea" name="description" rows="10" cols="70"></textarea>
+                        <textarea id="desc-textArea" name="description" rows="5" cols="30"></textarea>
                     </div>
                     <div class="input-wrapper fileupload-btns">
                         <div>
@@ -102,6 +101,42 @@
                     </div>
                     <div class="form-actions">
                         <input class="btn" type="submit" value="Upload">
+                        <input class="btn" type="reset" value="Clear" />
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div id="editModal" class="modal">
+            <!-- Modal content -->
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <form method="post" action="EditReviewer" enctype="multipart/form-data">
+                    <div class="input-wrapper">
+                        Title: 
+                        <input class="form-input"type="text" name="title" size="10" required />
+                    </div>
+                    <div class="input-wrapper">
+                        Subject: 
+                        <input class="form-input"type="text" name="subject" size="10" required />
+                    </div>
+                    <div class="input-wrapper">
+                        Language: 
+                        <input class="form-input"type="text" name="language" size="10" required />
+                    </div>
+                    <div class="input-wrapper">
+                        Description: 
+                        <textarea id="desc-textArea" name="description" rows="5" cols="30"></textarea>
+                    </div>
+                    <div class="input-wrapper fileupload-btns">
+                        <div>
+                        Upload Preview Image:<br>
+                        <input type="file" name="file_image" size="10" required/></div>
+                        <div>
+                        Upload PDF:<br>
+                        <input type="file" name="file_data" size="10" required/></div>
+                    </div>
+                    <div class="form-actions">
+                        <input class="btn" type="submit" value="Update">
                         <input class="btn" type="reset" value="Clear" />
                     </div>
                 </form>
@@ -125,29 +160,23 @@
             }
         }
         
-        // Get the modal
-        var modal = document.getElementById("myModal");
-
-        // Get the button that opens the modal
-        var btn = document.getElementById("mdlBtn");
-
-        // Get the <span> element that closes the modal
+        var uploadModal = document.getElementById("uploadModal");
+        var uploadBtn = document.getElementById("uploadBtn");
         var span = document.getElementsByClassName("close")[0];
-
-        // When the user clicks on the button, open the modal
-        btn.onclick = function() {
-          modal.style.display = "block";
+        uploadBtn.onclick = function() {
+            console.log('asdasd')
+          uploadModal.style.display = "block";
         }
-
+        
         // When the user clicks on <span> (x), close the modal
         span.onclick = function() {
-          modal.style.display = "none";
+          uploadModal.style.display = "none";
         }
 
         // When the user clicks anywhere outside of the modal, close it
         window.onclick = function(event) {
-          if (event.target == modal) {
-            modal.style.display = "none";
+          if (event.target == uploadModal) {
+            uploadModal.style.display = "none";
           }
         }
     </script>

@@ -9,6 +9,15 @@ body {
     background-color: #FFFFFF;
 }
 
+.alert {
+    background-color: #4ABDAC;
+    border-radius: 4px;
+    padding: 13px;
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+}
+
 .header {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -158,6 +167,7 @@ p {
 .content-header {
     display: flex;
     flex-direction: row;
+    align-items: center;
 }
 
 .content-title {
@@ -174,10 +184,11 @@ p {
 
 .reviewer-wrapper table {
     border-spacing: 15px;
-    margin: 0 auto;
 } 
 
 .reviewer-card {
+    display: flex;
+    flex-direction: column;
     border-radius: 10px;
     padding: 10px;
     box-shadow: rgb(50 50 93 / 25%) 0px 2px 5px -1px, rgb(0 0 0 / 30%) 0px 1px 3px -1px;
@@ -205,12 +216,23 @@ p {
 
 .reviewer-description {
     font-weight: 100;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 14em;
 }
 
-
-.reviewer-card img {
+.reviewer-card .card-header {
+    margin: 10px 0;
 }
 
+#editBtn {
+    width: 100%;
+    height: auto;
+    margin: 0px;
+    padding: 5px;
+    background-color: coral;
+}
 
 .modal {
     display: none; /* Hidden by default */
@@ -236,7 +258,6 @@ p {
     padding: 20px;
     border: 1px solid #888;
     position: absolute;
-    width: 50%; /* Could be more or less, depending on screen size */
     left: 50%;
     top: 50%;
     -webkit-transform: translateX(-50%) translateY(-50%);

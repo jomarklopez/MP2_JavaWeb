@@ -30,7 +30,7 @@ import routers.ReviewerRouter;
  * @author jomarklopez
  */
 @MultipartConfig(maxFileSize = 16177215) // upload file's size up to 16MB
-public class UploadServlet extends HttpServlet {
+public class UploadReviewerServlet extends HttpServlet {
     
     Connection con;
     @Override
@@ -100,16 +100,12 @@ public class UploadServlet extends HttpServlet {
         }
         
         try {
-            // sends the statement to the database server
+            HttpSession session = request.getSession();         
             int row = reviewerRouter.uploadReviewer(con, title, subject, language, description, file_data, file_image);
             if (row > 0) {
                 message = "File uploaded and saved into database";
             }
-            HttpSession session = request.getSession();         
-            ArrayList<Reviewer> userReviewers = reviewerRouter.getAllUserReviewer(con, (String) session.getAttribute("user_id"));
-            System.out.println(session.getAttribute("user_id"));
-            request.setAttribute("userReviewers", userReviewers);
-            request.setAttribute("SuccessMessage", message);
+            session.setAttribute("SuccessMessage", message);
             response.sendRedirect(request.getContextPath() + "/home");
                 
         } catch (SQLException | ClassNotFoundException ex) {

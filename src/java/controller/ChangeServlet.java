@@ -18,8 +18,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.servlet.*;
 import javax.servlet.http.*;
-import model.Reviewer;
-import routers.ReviewerRouter;
 import routers.UserRouter;
 
 public class ChangeServlet extends HttpServlet {

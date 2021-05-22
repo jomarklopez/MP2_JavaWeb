@@ -122,4 +122,20 @@ public class ReviewerRouter
         
         return reviewers;
     }
+    
+    public int deleteReviewer(Connection con, int user_id, String title) throws SQLException,
+            ClassNotFoundException, AuthException, NullValueException {
+        String sql = "DELETE FROM REVIEWERS WHERE user_id = ? AND title = ?";
+        int row = 0;
+
+        PreparedStatement preparedStatement = con.prepareStatement(sql);
+
+        preparedStatement.setInt(1, user_id);
+        preparedStatement.setString(2, title);
+
+        // sends the statement to the database server
+        row = preparedStatement.executeUpdate();
+        return row;
+    }
+    
 }
