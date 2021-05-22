@@ -5,8 +5,11 @@ import exceptions.AuthException;
 import model.User;
 import java.sql.*;
 import java.io.*;
+import java.util.ArrayList;
 import javax.servlet.*;
 import javax.servlet.http.*;
+import model.Reviewer;
+import routers.ReviewerRouter;
 import routers.UserRouter;
 
 public class LoginServlet extends HttpServlet{
@@ -42,20 +45,14 @@ public class LoginServlet extends HttpServlet{
         try {
             // Authenticate user by calling method which returns a User object
             User user = userRouter.authenticateUser(con, username, password);
-            String destination = "index.jsp";
             if (user != null) {
                 // Since user is logged in we can now proceed to success page
                 HttpSession session = request.getSession();
                 session.setAttribute("username", user.getName());
-                if(user.getRole().equals("Premium") || user.getRole().equals("Free") || user.getRole().equals("Review+") ) {
-                    destination = "studenthome.jsp";
-                } else {
-                    destination = "authorhome.jsp";
-                }
+                session.setAttribute("user_id", user.getUserID());
+                session.setAttribute("role", user.getRole());
             }
-            RequestDispatcher dispatcher = request.getRequestDispatcher(destination);
-            dispatcher.forward(request, response);
-                
+            response.sendRedirect(request.getContextPath() + "/home");
         } catch (SQLException | ClassNotFoundException ex) {
             System.out.println("LoginServlet Error: "+ ex.getMessage());
         } catch (AuthException ex) {

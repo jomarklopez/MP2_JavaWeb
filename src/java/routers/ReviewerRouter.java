@@ -8,11 +8,16 @@ package routers;
 import exceptions.AuthException;
 import model.Reviewer;
 import exceptions.NullValueException;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Base64;
 import model.User;
 
 /**
@@ -27,49 +32,94 @@ public class ReviewerRouter
         String sql = "SELECT * FROM REVIEWERS WHERE subject = ?";
         PreparedStatement statement = con.prepareStatement(sql);
         statement.setString(1, subjectInput);
-        ResultSet res = statement.executeQuery();
+        ResultSet rs = statement.executeQuery();
         Reviewer reviewer = null;
         
         ArrayList<Reviewer> reviewers = new ArrayList<Reviewer>();
         
-        if (res.next() == false) {
+        if (rs.next() == false) {
             throw new AuthException("Reviewer does not exist.");
         } else {
           do {
             reviewer = new Reviewer();
-            reviewer.setTitle(res.getString("title"));
-            reviewer.setDescription(res.getString("description"));
-            reviewer.setSubject(res.getString("subject"));
-            reviewer.setLanguage(res.getString("language"));
+            reviewer.setTitle(rs.getString("title"));
+            reviewer.setDescription(rs.getString("description"));
+            reviewer.setSubject(rs.getString("subject"));
+            reviewer.setLanguage(rs.getString("language"));
             reviewers.add(reviewer);
-          } while (res.next());
+          } while (rs.next());
         }
         return reviewers;
     }
     
+    public int uploadReviewer(Connection con, String title, String subject, String language, String description, InputStream file_data, InputStream file_image) throws SQLException,
+            ClassNotFoundException, AuthException, NullValueException {
+        String sql = "INSERT INTO REVIEWERS (user_id, title, description, subject, language, file_data, file_image) values (?, ?, ?, ?, ?, ?, ?)";
+        int row = 0;
+
+        PreparedStatement preparedStatement = con.prepareStatement(sql);
+
+        preparedStatement.setInt(1, 2);
+        preparedStatement.setString(2, title);
+        preparedStatement.setString(3, description);
+        preparedStatement.setString(4, subject);
+        preparedStatement.setString(5, language);
+        if (file_data != null && file_image != null) {
+            // fetches input stream of the upload file for the blob column
+            preparedStatement.setBlob(6, file_data);
+            preparedStatement.setBlob(7, file_image);
+        }
+
+        // sends the statement to the database server
+        row = preparedStatement.executeUpdate();
+        return row;
+    }
+    
     public ArrayList<Reviewer> getAllUserReviewer(Connection con, String userID)throws SQLException,
-            ClassNotFoundException, NullValueException, AuthException {       
+            IOException {       
         
         String sql = "SELECT * FROM REVIEWERS WHERE USER_ID = ?";
         PreparedStatement statement = con.prepareStatement(sql);
         statement.setString(1, userID);
-        ResultSet res = statement.executeQuery();
+        ResultSet rs = statement.executeQuery();
         Reviewer reviewer = null;
         
         ArrayList<Reviewer> reviewers = new ArrayList<Reviewer>();
-        
-        if (res.next() == false) {
-            throw new AuthException("Reviewer does not exist.");
+        if (rs.next() == false) {
+            System.out.println("ResultSet in empty in Java");
         } else {
-          do {
+            do {
             reviewer = new Reviewer();
-            reviewer.setTitle(res.getString("title"));
-            reviewer.setDescription(res.getString("description"));
-            reviewer.setSubject(res.getString("subject"));
-            reviewer.setLanguage(res.getString("language"));
+            
+            Blob blob = rs.getBlob("file_image");
+            InputStream inputStream = blob.getBinaryStream();
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            byte[] buffer = new byte[4096];
+            int bytesRead = -1;
+
+            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                outputStream.write(buffer, 0, bytesRead);                  
+            }
+
+            byte[] imageBytes = outputStream.toByteArray();
+            String base64Image = Base64.getEncoder().encodeToString(imageBytes);
+
+
+            inputStream.close();
+            outputStream.close();
+            
+            reviewer.setTitle(rs.getString("title"));
+            reviewer.setDescription(rs.getString("description"));
+            reviewer.setSubject(rs.getString("subject"));
+            reviewer.setLanguage(rs.getString("language"));
+            reviewer.setBase64Image(base64Image);
             reviewers.add(reviewer);
-          } while (res.next());
+            } while (rs.next());
         }
+        
+        statement.close();
+        rs.close();
+        
         return reviewers;
     }
 }

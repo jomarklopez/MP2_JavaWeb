@@ -18,10 +18,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import routers.UploadRouter;
 import java.io.InputStream;
+import java.util.ArrayList;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.Part;
+import model.Reviewer;
+import routers.ReviewerRouter;
 
 /**
  *
@@ -64,8 +66,7 @@ public class UploadServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        UploadRouter uploadRouter = new UploadRouter();
-        
+        ReviewerRouter reviewerRouter = new ReviewerRouter();          
         String title = request.getParameter("title");
         String subject = request.getParameter("subject");
         String language = request.getParameter("language");
@@ -100,17 +101,16 @@ public class UploadServlet extends HttpServlet {
         
         try {
             // sends the statement to the database server
-            int row = uploadRouter.uploadFile(con, title, subject, language, description, file_data, file_image);
+            int row = reviewerRouter.uploadReviewer(con, title, subject, language, description, file_data, file_image);
             if (row > 0) {
                 message = "File uploaded and saved into database";
             }
-
-            // sets the message in request scope
-            request.setAttribute("Message", message);
-
-            // forwards to the message page
-            getServletContext().getRequestDispatcher("/message.jsp")
-                .forward(request, response);
+            HttpSession session = request.getSession();         
+            ArrayList<Reviewer> userReviewers = reviewerRouter.getAllUserReviewer(con, (String) session.getAttribute("user_id"));
+            System.out.println(session.getAttribute("user_id"));
+            request.setAttribute("userReviewers", userReviewers);
+            request.setAttribute("SuccessMessage", message);
+            response.sendRedirect(request.getContextPath() + "/home");
                 
         } catch (SQLException | ClassNotFoundException ex) {
             System.out.println("LoginServlet Error: "+ ex.getMessage());

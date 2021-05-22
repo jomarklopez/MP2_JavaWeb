@@ -48,6 +48,7 @@ public class UserRouter {
                 user.setName(res.getString("username"));
                 user.setPassword(res.getString("password"));
                 user.setRole(res.getString("role"));
+                user.setUserID(res.getString("user_id"));
             } else {
                 // Error-2
                 throw new AuthException("Check your password.");

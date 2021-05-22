@@ -18,7 +18,7 @@
         <div class="login-container">
             <h1 class="header-title">Review.io</h1>
             <div class="content">
-                <form action="LoginServlet" method="post" autocomplete="off" class="form">
+                <form action="login" method="post" autocomplete="off" class="form">
                     <div class="input-wrapper">
                         <input readonly onfocus="this.removeAttribute('readonly');" id="username" name="username" autocomplete="one-time-code" required>
                         <label>Username</label>

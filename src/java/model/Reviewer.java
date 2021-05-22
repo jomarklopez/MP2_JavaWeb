@@ -15,7 +15,10 @@ public class Reviewer
     private String description;
     private String subject;
     private String language;
-
+    private String base64Image;
+ 
+ 
+   
     public void setTitle(String title) {
         this.title = title;
     }
@@ -48,4 +51,13 @@ public class Reviewer
     public String getLanguage() {
         return language;
     }
+     
+    public void setBase64Image(String base64Image) {
+        this.base64Image = base64Image;
+    }
+    
+    public String getBase64Image() {
+        return base64Image;
+    }
+
 }
