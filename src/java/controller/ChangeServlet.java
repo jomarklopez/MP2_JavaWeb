@@ -50,18 +50,12 @@ public class ChangeServlet extends HttpServlet {
             throws ServletException, IOException {
             
             HttpSession session = request.getSession();
-            String userID = (String)session.getAttribute("userID");
+            int userID = Integer.parseInt((String)session.getAttribute("user_id"));
             UserRouter userRouter = new UserRouter();
             
             try {
-                if(request.getParameter("changePass").equals("cp")){ 
-                    String newPassword = request.getParameter("");
-                    userRouter.changePassword(con, newPassword, userID);
-                }
-                if(request.getParameter("changeName").equals("cn")){
-                    String newUsername = request.getParameter("");
-                    userRouter.changeUsername(con, newUsername, userID);
-                }
+                String newPassword = "";  
+                userRouter.changePassword(con, newPassword, userID);
             
             } catch (SQLException ex) {
                 System.out.println("LoginServlet Error: "+ ex.getMessage());
@@ -70,4 +64,43 @@ public class ChangeServlet extends HttpServlet {
                 throw new ServletException(ex);
             }
     }
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
 }
+

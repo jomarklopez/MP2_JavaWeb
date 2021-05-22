@@ -71,6 +71,8 @@ public class UploadServlet extends HttpServlet {
         String subject = request.getParameter("subject");
         String language = request.getParameter("language");
         String description = request.getParameter("description");
+        HttpSession session = request.getSession();
+        int userID = Integer.parseInt((String)session.getAttribute("user_id"));
         InputStream file_data = null; 
         InputStream file_image = null;
         String message = null;
@@ -101,11 +103,11 @@ public class UploadServlet extends HttpServlet {
         
         try {
             // sends the statement to the database server
-            int row = reviewerRouter.uploadReviewer(con, title, subject, language, description, file_data, file_image);
+            int row = reviewerRouter.uploadReviewer(con, title, subject, language, description, file_data, file_image, userID);
             if (row > 0) {
                 message = "File uploaded and saved into database";
             }
-            HttpSession session = request.getSession();         
+                    
             ArrayList<Reviewer> userReviewers = reviewerRouter.getAllUserReviewer(con, (String) session.getAttribute("user_id"));
             System.out.println(session.getAttribute("user_id"));
             request.setAttribute("userReviewers", userReviewers);
