@@ -9,10 +9,13 @@ package controller;
  *
  * @author jlopez
  */
+import exceptions.AuthException;
+import exceptions.NullValueException;
 import java.io.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import model.Reviewer;
@@ -45,8 +48,21 @@ public class ReviewerServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
             
-            ReviewerRouter reviewerRouter = new ReviewerRouter();           
-            Reviewer reviewer = reviewerRouter.findReviewer(con, subjectInput);
+            HttpSession session = request.getSession();
+            String userID = (String)session.getAttribute("userID");
             
+            try {
+                ReviewerRouter reviewerRouter = new ReviewerRouter();           
+                ArrayList<Reviewer> reviewers = reviewerRouter.getAllUserReviewer(con, userID);
+                
+            } catch (SQLException | ClassNotFoundException ex) {
+                System.out.println("LoginServlet Error: "+ ex.getMessage());
+            } catch (AuthException ex) {
+                request.setAttribute("errorMessage", ex.getMessage());
+                throw new ServletException(ex);
+            } catch (NullValueException ex) {
+                request.setAttribute("errorMessage", ex.getMessage());
+                throw new ServletException(ex);
+            }
     }
 }

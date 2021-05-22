@@ -84,8 +84,8 @@ public class UserRouter {
         String query = "UPDATE USERS SET PASSWORD=? WHERE USERID=?";
         PreparedStatement statement = con.prepareStatement(query);
   
-        statement.setString(1, newPassword);
-        statement.setString(1, userID);
+        statement.setString(1, Security.encrypt(newPassword));
+        statement.setString(2, userID);
             
         int c = statement.executeUpdate();
     }
@@ -96,7 +96,7 @@ public class UserRouter {
         PreparedStatement statement = con.prepareStatement(query);
   
         statement.setString(1, newUsername);
-        statement.setString(1, userID);
+        statement.setString(2, userID);
             
         int c = statement.executeUpdate();
     }

@@ -48,9 +48,13 @@
             <param-value>UserDB</param-value>
         </init-param>
     </servlet>
+    <servlet-mapping>
+        <servlet-name>LoginServlet</servlet-name>
+        <url-pattern>/LoginServlet</url-pattern>
+    </servlet-mapping>
     <servlet>
-        <servlet-name>UploadServlet</servlet-name>
-        <servlet-class>controller.UploadServlet</servlet-class>
+        <servlet-name>ReviewerServlet</servlet-name>
+        <servlet-class>controller.ReviewerServlet</servlet-class>
         <init-param>
             <param-name>jdbcDriverURL</param-name>
             <param-value>jdbc:derby</param-value>
@@ -81,9 +85,46 @@
         </init-param>
     </servlet>
     <servlet-mapping>
-        <servlet-name>LoginServlet</servlet-name>
-        <url-pattern>/LoginServlet</url-pattern>
+        <servlet-name>ReviewerServlet</servlet-name>
+        <url-pattern>/ReviewerServlet</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>ChangeServlet</servlet-name>
+        <servlet-class>controller.ChangeServlet</servlet-class>
+        <init-param>
+            <param-name>jdbcDriverURL</param-name>
+            <param-value>jdbc:derby</param-value>
+        </init-param>
+        <init-param>
+            <param-name>databaseUsername</param-name>
+            <param-value>app</param-value>
+        </init-param>
+        <init-param>
+            <param-name>databasePassword</param-name>
+            <param-value>app</param-value>
+        </init-param>
+        <init-param>
+            <param-name>databaseDriver</param-name>
+            <param-value>org.apache.derby.jdbc.ClientDriver</param-value>
+        </init-param>
+        <init-param>
+            <param-name>dbHostName</param-name>
+            <param-value>localhost</param-value>
+        </init-param>
+        <init-param>
+            <param-name>dbPort</param-name>
+            <param-value>1527</param-value>
+        </init-param>
+        <init-param>
+            <param-name>dbName</param-name>
+            <param-value>UserDB</param-value>
+        </init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ChangeServlet</servlet-name>
+        <url-pattern>/ChangeServlet</url-pattern>
+    </servlet-mapping>
+    <servlet>
     <servlet>
         <servlet-name>LogoutServlet</servlet-name>
         <servlet-class>controller.LogoutServlet</servlet-class>
@@ -172,6 +213,38 @@
         <servlet-name>Captcha</servlet-name>
         <url-pattern>/Captcha</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>UploadServlet</servlet-name>
+        <servlet-class>controller.UploadServlet</servlet-class>
+        <init-param>
+            <param-name>jdbcDriverURL</param-name>
+            <param-value>jdbc:derby</param-value>
+        </init-param>
+        <init-param>
+            <param-name>databaseUsername</param-name>
+            <param-value>app</param-value>
+        </init-param>
+        <init-param>
+            <param-name>databasePassword</param-name>
+            <param-value>app</param-value>
+        </init-param>
+        <init-param>
+            <param-name>databaseDriver</param-name>
+            <param-value>org.apache.derby.jdbc.ClientDriver</param-value>
+        </init-param>
+        <init-param>
+            <param-name>dbHostName</param-name>
+            <param-value>localhost</param-value>
+        </init-param>
+        <init-param>
+            <param-name>dbPort</param-name>
+            <param-value>1527</param-value>
+        </init-param>
+        <init-param>
+            <param-name>dbName</param-name>
+            <param-value>UserDB</param-value>
+        </init-param>
+    </servlet>
     <servlet-mapping>
         <servlet-name>UploadServlet</servlet-name>
         <url-pattern>/upload</url-pattern>

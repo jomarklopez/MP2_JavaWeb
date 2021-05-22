@@ -20,7 +20,7 @@
                 </div>
                 <div class="dropdown">
                   <p><i class="fas fa-user-edit"></i> Profile</p>
-                  <p><i class="fas fa-user-lock"></i> Change Password</p>
+                  <p><i class="fas fa-user-lock"></i> <a name="changePass" onclick="window.location='ChangeServlet'" value="cp">Change Password</a></p>
                   <p><i class="fas fa-sign-out-alt"></i> Sign Out</p>
                 </div>
             </div>
