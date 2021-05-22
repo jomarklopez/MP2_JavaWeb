@@ -75,7 +75,7 @@
                     <div class="input-wrapper">
                         <input id="r" placeholder="Choose Role Above" name='role' readOnly>
                     </div>
-                    <img id="captcha" src="/ICS2609_MP2/Captcha"/>
+                    <img id="captcha" src="/2CSB_MP3_Lacsamana_Lopez_Polloso/Captcha"/>
                     <div class="input-wrapper">
                         <input id='answer' placeholder="Captcha" name="answer" required>
                     </div>

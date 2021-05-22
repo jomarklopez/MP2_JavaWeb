@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.User;
+import nl.captcha.Captcha;
 import routers.UserRouter;
 
 /**
@@ -55,19 +56,26 @@ public class SignupServlet extends HttpServlet
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         String role = request.getParameter("role");
+        String answer = request.getParameter("answer");
+        HttpSession session = request.getSession();
+        Captcha captcha = (Captcha) session.getAttribute(Captcha.NAME);
         
         UserRouter userRouter = new UserRouter();
-        try {
-            userRouter.createUser(con, username, password, role);
-            RequestDispatcher success = request.getRequestDispatcher("signup_success.jsp");
-            success.forward(request, response);
-        } catch (SQLException sqle){
-                System.out.println("SQLException error occured - " 
-                + sqle.getMessage());
-                throw new ServletException(sqle);
-        } catch (NullValueException ex) {
-            request.setAttribute("errorMessage", ex.getMessage());
-            throw new ServletException(ex);
+        if(captcha.isCorrect(answer)) {
+            try {
+                userRouter.createUser(con, username, password, role);
+                RequestDispatcher success = request.getRequestDispatcher("signup_success.jsp");
+                success.forward(request, response);
+            } catch (SQLException sqle){
+                    System.out.println("SQLException error occured - " 
+                    + sqle.getMessage());
+                    throw new ServletException(sqle);
+            } catch (NullValueException ex) {
+                request.setAttribute("errorMessage", ex.getMessage());
+                throw new ServletException(ex);
+            }
+        } else {
+            response.sendRedirect("index.jsp");   
         }
     }
     
