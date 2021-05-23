@@ -336,4 +336,39 @@ p {
         margin: 10px 20px;
         width: calc(100% - 40px);
     }
+    
+    .content-title {
+        font-family: 'Roboto', sans-serif;
+        color: #4ABDAC;
+        font-weight: 400;
+        font-size: 5vw;
+    }
+    
+    .btn {
+        border-radius: 4px;
+        background-color: #FFC534;
+        border: none;
+        color: #FFFFFF;
+        text-align: center;
+        font-size: 15px;
+        padding: 10px;
+        width: 15vw;
+        height: 8vh;
+        cursor: pointer;
+        margin: 5px;
+    }
+    
+    .title {
+        font-family: 'Roboto', sans-serif;
+        width: 15vw;
+        font-size:12px;
+        height: 4vh;
+        box-sizing: border-box;
+        background: #FC4A1A;
+        padding: 14px;
+        border-radius: 4px;
+        position: relative;
+        color: #FFFFFF;
+    }
+   
 }
