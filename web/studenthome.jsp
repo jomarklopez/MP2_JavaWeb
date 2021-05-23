@@ -22,10 +22,10 @@
             } 
         %>
         <div class="header">
-            <div></div>
+            <div class="filler"></div>
             <h1 class="header-title">Review.io</h1>
             <div class="menu">
-                <div class="title" onclick="f()"><i class="fas fa-user"></i> Account <span style="float:right;" class="fa fa-bars"></span>
+                <div class="title" onclick="f()"><i class="fas fa-user"></i><div class="text"> Account </div><bar class="fa fa-bars"></bar>
                   <div class="arrow"></div>
                 </div>
                 <div class="dropdown">
@@ -39,11 +39,13 @@
             <div class="content-header">
                 <p class="content-title">Search: </p>
                 <div class="search-wrap">
+                    <div style="display:flex; flex-direction:column;">
                     <form class="search" action="SearchReviewer" method="post" autocomplete="off" class="form">
                         <input name="searchQuery" type="text" class="searchTerm" placeholder="Search for a topic" required>
                         <button type="submit" class="searchButton">
                           <i class="fa fa-search"></i>
                         </button>
+                    </div>
                         <select class="select-language" name="languageSelect">
                             <option value="" disabled selected>Select a language</option>
                             <option value="filipino">Filipino</option>
@@ -182,7 +184,8 @@
         .header {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            height: 100px;
+            height: 13.5vw;
+            width: 100%;
             background-color: #FFFFFF;
             text-align: center;
             position: relative;
@@ -202,7 +205,7 @@
 
         .header-title {
             font-family: 'Roboto', sans-serif;
-            font-size: 4rem;
+            font-size: 5.5vw;
             margin: 0;
             cursor: default;
             font-weight: 100;    
@@ -256,27 +259,36 @@
         }
 
         .menu {
-            width: 200px;
+            width: 15vw;
+            height: 4vw;
+            padding: 10px;
             cursor: pointer;
             justify-self: end;
-            margin-top: 24px;
-            margin-right: 30px;
-            height: 76px;
+            margin-top: 15px;
+            margin-right: 15px;
         }
 
         .menu i {
             float: left;
         }
+        
+        .menu bar {
+            float: right;
+        }
 
         .title {
+            display: flex;
+            justify-content: space-between;
             font-family: 'Roboto', sans-serif;
             width: 100%;
+            height: 3.25vw;
             box-sizing: border-box;
             background: #FC4A1A;
-            padding: 14px;
+            padding: 0.5vw;
             border-radius: 4px;
             position: relative;
             color: #FFFFFF;
+            font-size: 2vw;
         }
 
 
@@ -329,9 +341,9 @@
             width: 75vw;
             background-color: white;
             margin: 0 auto;
-            margin-top: 30px;
+            margin-top: 20px;
             border-radius: 12px;
-            padding: 20px;
+            padding: 10px;
             box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
         }
 
@@ -339,7 +351,6 @@
             font-family: 'Roboto', sans-serif;
             color: #4ABDAC;
             font-weight: 400;
-            font-size: 2rem;
         }
 
 
@@ -349,7 +360,7 @@
         }
 
         .content-header p {
-            font-size: 1.5rem;
+            font-size: 5vh;
         }
 
         .search {
@@ -391,12 +402,12 @@
         }
 
         .select-language {
+            width: 100%;
             padding: 5px;
             align-self: center;
             border: 0px solid black;
             border-radius: 5px;
             box-shadow: rgb(60 64 67 / 30%) 0px 1px 2px 0px, rgb(60 64 67 / 15%) 0px 1px 3px 1px;
-            margin-left: 10px;
             height: 30px;
         }
 
@@ -537,7 +548,11 @@
         .input-wrapper {
             margin-bottom: 20px;
         }
-
+        
+        .text{
+            font-size: 1.75vw;
+        }
+        
         .form-actions .btn {
             border-radius: 4px;
             background-color: #FFC534;
@@ -553,6 +568,75 @@
         }
 
         @media (max-width: 768px) {
+            
+            .search {
+                width: 100%;
+                position: relative;
+            }
+            
+            .content {
+                position: relative;
+                min-height: 500px;
+                width: 90vw;
+                background-color: white;
+                margin: 0 auto;
+                margin-top: 20px;
+                border-radius: 12px;
+                padding: 10px;
+                box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+            }
+            
+            .header {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                height: 16.5vw;
+                width: 100%;
+                background-color: #FFFFFF;
+                text-align: center;
+                position: relative;
+                z-index: 10;
+                box-shadow: rgb(50 50 93 / 25%) 0px 13px 27px -5px, rgb(0 0 0 / 30%) 0px 8px 16px -8px;
+                font-family: 'Roboto', sans-serif;
+            }
+            
+            .filler {
+                display:none;
+            }
+            
+            .select-language {
+                width: 100%;
+                padding: 5px;
+                align-self: center;
+                border: 0px solid black;
+                border-radius: 5px;
+                box-shadow: rgb(60 64 67 / 30%) 0px 1px 2px 0px, rgb(60 64 67 / 15%) 0px 1px 3px 1px;
+                height: 30px;
+            }
+            
+            .menu {
+                align-self: center;
+                width: 35vw;
+                height: 8vw;
+                cursor: pointer;
+                justify-self: end;
+            }
+            
+            .title {
+                align-items: center;
+                display: flex;
+                justify-content: space-between;
+                font-family: 'Roboto', sans-serif;
+                width: 100%;
+                height: 100%;
+                box-sizing: border-box;
+                background: #FC4A1A;
+                padding: 0.5vw;
+                border-radius: 4px;
+                position: relative;
+                color: #FFFFFF;
+                font-size: 2vw;
+            }
+            
             .modal-content {
                 background-color: #fefefe;
                 margin: 0 auto; 
@@ -567,6 +651,28 @@
             .card {
                 margin: 10px 20px;
                 width: calc(100% - 40px);
+            }
+            
+            .content-header p{
+                display: none;
+            }
+            
+            .menu i{
+                margin: 0 auto;
+                font-size: 6.5vw;
+            }
+            
+            .menu bar {
+                display: none;
+            }
+            
+            .search-wrap {
+                width: 100%;
+                align-self: center;
+            }
+            
+            .text{
+                display:none;
             }
         }
         </style>

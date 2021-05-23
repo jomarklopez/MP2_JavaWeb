@@ -25,10 +25,10 @@
             } 
         %>
         <div class="header">
-            <div></div>
+            <div class="filler"></div>
             <h1 class="header-title">Review.io</h1>
             <div class="menu">
-                <div class="title" onclick="f()"><i class="fas fa-user"></i> Account <span style="float:right;" class="fa fa-bars"></span>
+                <div class="title" onclick="f()"><i class="fas fa-user"></i><div class="text"> Account </div><bar class="fa fa-bars"></bar>
                   <div class="arrow"></div>
                 </div>
                 <div class="dropdown">
