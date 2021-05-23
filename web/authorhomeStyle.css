@@ -21,7 +21,7 @@ body {
 .header {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    height: 13.5vw;
+    height: 6.5vw;
     width: 100%;
     background-color: #FFFFFF;
     text-align: center;
@@ -192,9 +192,7 @@ p {
 }
 
 .content-header button{
-    font-size: 0px;
-    width: 50px;
-    height: 50px;
+    font-size: 20px;
 }
 
 .content-header i{
@@ -344,6 +342,8 @@ p {
     background: transparent;
 }
 
+
+
 @media (max-width: 768px) {
     
     .reviewer-wrapper tr {
@@ -378,7 +378,11 @@ p {
     .filler {
         display:none;
     }
-    
+
+    .content-header p {
+        font-size: 3vh;
+    }
+
     .menu {
         align-self: center;
         width: 35vw;
@@ -464,5 +468,14 @@ p {
     .text{
         display:none;
     }
-   
+    
+    .content-header button{
+        font-size: 0px;
+        width: 50px;
+        height: 50px;
+    }
+
+   .reviewer-wrapper table {
+        margin: 0 auto;
+    }
 }

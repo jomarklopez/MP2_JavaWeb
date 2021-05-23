@@ -26,8 +26,8 @@
                         </div>
                         <div class="features">
                           <ul>
-                            <li><span>5</span> Edits</li>
-                            <li><span>3</span> Pages</li>
+                            <li><span>With</span> Ads</li>
+                            <li><span>Free</span> Downloads</li>
                             <li><span>1</span> Hour free support</li>
                           </ul>
                         </div>
@@ -40,8 +40,8 @@
                       </div>
                         <div class="features">
                           <ul>
-                            <li><span>10</span> Downloads Daily </li>
-                            <li><span>10GB</span> Cloud Storage </li>
+                            <li><span>NO</span> Ads </li>
+                            <li><span>100MB</span> Cloud Storage </li>
                             <li><span>5</span> Hour free support</li>
                           </ul>
                         </div>
@@ -54,8 +54,8 @@
                       </div>
                       <div class="features">
                         <ul>
-                          <li><span>Unlimited</span> Downloads</li>
-                          <li><span>20GB</span> Storage</li>
+                          <li><span>NO</span> Ads</li>
+                          <li><span>1GB</span> Cloud Storage </li>
                           <li><span>Unlimited</span> free support</li>
                         </ul>
                       </div><!--/features-->

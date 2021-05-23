@@ -39,8 +39,8 @@
             <div class="content-header">
                 <p class="content-title">Search: </p>
                 <div class="search-wrap">
-                    <div style="display:flex; flex-direction:column;">
                     <form class="search" action="SearchReviewer" method="post" autocomplete="off" class="form">
+                    <div class="search-input-wrapper">
                         <input name="searchQuery" type="text" class="searchTerm" placeholder="Search for a topic" required>
                         <button type="submit" class="searchButton">
                           <i class="fa fa-search"></i>
@@ -202,7 +202,7 @@
         .header {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            height: 13.5vw;
+            height: 6.5vw;
             width: 100%;
             background-color: #FFFFFF;
             text-align: center;
@@ -612,11 +612,20 @@
             color: black;
             align-self: flex-start;
         }
+        
+        
+        .search-input-wrapper {
+            display:flex; 
+            flex-direction:row;
+            margin-right: 10px;
+            width: 100%;
+        }
         @media (max-width: 768px) {
             
             .search {
                 width: 100%;
                 position: relative;
+                flex-direction: column;
             }
             
             .content {
@@ -702,6 +711,10 @@
                 display: none;
             }
             
+            .menu {
+                margin-top: 0px;
+            }
+            
             .menu i{
                 margin: 0 auto;
                 font-size: 6.5vw;
@@ -719,6 +732,12 @@
             .text{
                 display:none;
             }
+            
+            .search-input-wrapper {
+                margin-right: 0px;
+                margin-bottom: 10px;
+            }
+            
         }
         </style>
         
