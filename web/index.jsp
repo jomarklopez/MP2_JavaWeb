@@ -38,6 +38,7 @@
                         SIGNUP HERE
                     </a>
                 </div>
+                <img id="groupstudsimg2" src="students.png" alt="Group of Students">
             </div>
             <footer>
                 <p>
@@ -60,6 +61,7 @@
         
         body {
             background-color: #4ABDAC;
+            
         }
 
         .sideheader {
@@ -74,6 +76,13 @@
             max-width: 75%;
             min-height: 10vh;
             align-self: center;
+        }
+        
+        #groupstudsimg2 {
+            max-width: 75%;
+            min-height: 10vh;
+            align-self: center;
+            display: none;
         }
 
         #wordartimg {
@@ -307,7 +316,69 @@
             margin: 10px 20px;
             width: calc(100% - 40px);
           }
+          
+          .sideheader {
+            float: left;
+            display: none;
+            flex-direction: column;
+            width: 50vw;
+            height: 100vh;
+          }
+          
+          body {
+            background-color: #FFFFFF;  
+          }
+          
+          #groupstudsimg2 {
+            max-width: 75%;
+            min-height: 10vh;
+            align-self: center;
+            display: flex
+         }
+          
         }
+        
+        @media (max-width: 387px) {
+           .header-title {
+            font-family: 'Roboto', sans-serif;
+            font-size: 20vw;
+            margin-top: auto;
+            cursor: default;
+          } 
+          
+          .signupMessage {
+            margin-top: 20px;
+            font-size: 5vw;
+           }
+           
+           .btn {
+            border-radius: 4px;
+            background-color: #FFC534;
+            border: none;
+            color: #FFFFFF;
+            text-align: center;
+            font-size: 5vw;
+            padding: 10px;
+            width: 150px;
+            cursor: pointer;
+            margin: 5px;
+           }
+           
+           .input-wrapper input {            
+            font-family: 'Roboto', sans-serif;
+            width: 80vw;
+            padding: 10px 0;
+            font-size: 5vw;
+            color: #000;
+            margin-bottom: 30px;
+            border: none;
+            border-bottom: 1px solid #000;
+            outline: none;
+            background: transparent;
+           }
+
+        }
+        
 
         .card .title {
           font-size: 25px;

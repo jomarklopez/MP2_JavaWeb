@@ -157,7 +157,7 @@
         }
         
         body {
-            background-color: #4ABDAC;
+            background-color: #FFFFFF;
         }
 
         .sideheader {
@@ -166,6 +166,7 @@
             flex-direction: column;
             width: 50vw;
             height: 100vh;
+            background-color: #4ABDAC;
         }
 
         #wordartimg, #groupstudsimg {
@@ -192,7 +193,7 @@
 
         footer {
             font-family: 'Roboto', sans-serif;
-            font-size: 1rem;
+            font-size: 1vw;
             width: 100%;
             color: black;
             margin-top: auto;
@@ -201,7 +202,6 @@
         /*SIGN IN FORM*/
 
         .login-container {
-            height: 100vh;
             background-color: #FFFFFF;
             align-self: center;
             font-family: 'Roboto', sans-serif;
@@ -221,6 +221,7 @@
         }
 
         .input-wrapper {
+            width: 100%;
             position: relative;
         }
 
@@ -229,7 +230,7 @@
             padding: 10px 0;
             font-size: 16px;
             color: #000;
-            margin-bottom: 30px;
+            margin-bottom: 10px;
             border: none;
             border-bottom: 1px solid #000;
             outline: none;
@@ -266,9 +267,8 @@
             border: none;
             color: #FFFFFF;
             text-align: center;
-            font-size: 20px;
             padding: 10px;
-            width: 100px;
+            width: 15vw;
             cursor: pointer;
             margin: 5px;
         }
@@ -317,6 +317,7 @@
         }
 
         .content {
+            width: 100%;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -331,7 +332,7 @@
         }
 
         #signupForm input { 
-            width: 25vw;
+            width: 45vw;
             font-family: 'Roboto', sans-serif;
             font-size: 1rem; 
         }
@@ -353,10 +354,11 @@
         .card {
             background: #FFFFFF;
             box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-            border-radius: 20px;
-            margin: 10px;
+            border-radius: 10px;
+            margin: 20px;
             padding: 20px;
             text-align: center;
+            align-content: center;
             color: black;
             float: left;
             font-family: 'Roboto', sans-serif;
@@ -379,40 +381,45 @@
 
           .card {
             margin: 10px 20px;
-            width: calc(100% - 40px);
+            width: 30%;
+            height: 40%;
           }
         }
 
         .card .title {
-          font-size: 25px;
+          font-size: 2vw;
         }
         .card .icon {
           margin: 10px 0;
         }
         .card .icon svg {
-          width: 100px;
-          height: 100px;
+          width: 8vw;
+          height: 8vw;
         }
         .card .icon svg path {
           fill: #4ABDAC;
         }
         .card .features ul {
           padding: 0;
-          margin: 20px 0 50px 0;
+          margin: 1vw 0 1vw 0;
           list-style-type: none;
         }
         .card .features ul li {
           margin: 10px 0;
-          font-size: 14px;
+          font-size: 1vw;
         }
         .card .features ul li span {
 
         }
         .card .btn {
+          margin: 0 auto;
+          width: 8vw;
+          height: 2vw;
           display: block;
           background: #4ABDAC;
           color: white;
           border-radius: 5px;
+          font-size: 1.5vw;
           box-shadow: rgba(0, 0, 0, 0.9);
           text-decoration: none;
         }
@@ -432,6 +439,10 @@
           color: black;
           text-decoration: none;
           cursor: pointer;
+        }
+        
+        .text {
+            font-size: 2vw;
         }
     </style>
 </html>
