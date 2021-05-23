@@ -79,11 +79,12 @@
                     <div class="input-wrapper">
                         <input id='answer' placeholder="Captcha" name="answer" required>
                     </div>
+                </form>
                     <div>
                         Clicking the signup button means you accept our
-                        <form id="getTNC" method="get" action="GeneratePDFServlet" target="_blank">
+                        <form id="getTNCForm" method="get" action="GeneratePDFServlet" target="_blank">
                             <input type="hidden" name="recordtype" value="userrecord">
-                            <a id="signupBtn" href="#" onclick="document.getElementById('getTNC').submit();" target="_blank">Terms and Conditions</a>
+                            <a id="signupBtn" onclick="getTNC()" target="_blank">Terms and Conditions</a>
                         </form>
                     </div>    
                     <button class='btn' type='button' name="login" onclick="validatePassword()">
@@ -91,7 +92,6 @@
                             Sign Up
                         </div>
                     </button>
-                </form>
                 <div>
                     Want to be an author instead? 
                     <a id="signupBtn" value="author" onclick="roleAuthor()">Become an Author</a>
@@ -116,7 +116,6 @@
     <script>
         
         var signupForm = document.getElementById("signupForm");
-
         const free = "Free";
         const review = "Review+";
         const prem = "Premium";
@@ -151,6 +150,10 @@
         
         function roleFree() {
             document.getElementById("r").value = free;
+        }
+        
+        function getTNC() {
+            document.getElementById("getTNCForm").submit();
         }
     </script>
     <style>
