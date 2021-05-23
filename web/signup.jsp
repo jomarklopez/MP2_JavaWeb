@@ -82,8 +82,7 @@
                 </form>
                     <div>
                         Clicking the signup button means you accept our
-                        <form id="getTNCForm" method="get" action="GeneratePDFServlet" target="_blank">
-                            <input type="hidden" name="recordtype" value="userrecord">
+                        <form id="getTNCForm" method="get" action="TermsAndConditions" target="_blank">
                             <a id="signupBtn" onclick="getTNC()" target="_blank">Terms and Conditions</a>
                         </form>
                     </div>    

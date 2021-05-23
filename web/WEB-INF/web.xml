@@ -324,6 +324,14 @@
         <servlet-name>Captcha</servlet-name>
         <url-pattern>/Captcha</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>GeneratePDFServlet</servlet-name>
+        <servlet-class>controller.GeneratePDFServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GeneratePDFServlet</servlet-name>
+        <url-pattern>/TermsAndConditions</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             20

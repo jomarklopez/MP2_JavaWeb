@@ -25,29 +25,7 @@ import java.sql.SQLException;
  * @author Patrick
  */
 public class GeneratePDFServlet extends HttpServlet {
-    
-    Connection con;
-    @Override
-    public void init(ServletConfig config) throws ServletException {
-            super.init(config);
-
-            try {	
-                Class.forName(config.getInitParameter("databaseDriver"));
-                String username = config.getInitParameter("databaseUsername");
-                String password = config.getInitParameter("databasePassword");
-                String url = config.getInitParameter("jdbcDriverURL") + "://" + config.getInitParameter("dbHostName") + ":" + config.getInitParameter("dbPort") + "/" + config.getInitParameter("dbName");
-
-                con = DriverManager.getConnection(url,username,password);
-            } catch (SQLException sqle){
-                    System.out.println("SQLException error occured - " 
-                    + sqle.getMessage());
-                    throw new ServletException(sqle);
-            } catch (ClassNotFoundException nfe){
-                    System.out.println("ClassNotFoundException error occured - " 
-                    + nfe.getMessage());
-            }
-    }
-    
+   
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -68,11 +46,12 @@ public class GeneratePDFServlet extends HttpServlet {
         //Code to generate a calendar digit form for No. 8 requirement of MP3
         DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         Calendar calendar = Calendar.getInstance();
+        String tnc = "Terms and Conditions";
         //Current date according to the DateFormat
         String calendarDate = df.format(calendar.getTime());
         //Current date in digit only form ex. "20210501081012"
         String calendarDigitForm = calendarDate.replaceAll("[^a-zA-Z0-9]", "");
-        response.setHeader("Content-Disposition", "inline; filename=" + calendarDigitForm + ".pdf");
+        response.setHeader("Content-Disposition", "inline; filename=" + tnc + ".pdf");
         
         try {
             // Generate pdf 
@@ -86,13 +65,43 @@ public class GeneratePDFServlet extends HttpServlet {
             writer.setPageEvent(event);
             doc.open();
             //Name PDF in a digit form according to date (No. 8 Requirement)
-            doc.addTitle(calendarDigitForm);
+            doc.addTitle(tnc);
             //Print username in PDF (No. 1 Requirement)
             //Print date and time the report was generated in PDF (No. 2 Requirement)
             doc.add(new Paragraph("The current date and time: " + calendarDate));
             doc.add(new Paragraph("    "));
-            
-            
+           
+            doc.add(new Paragraph("Terms and Conditions"));
+            doc.add(new Paragraph("Last updated: May 23, 2021"));
+            doc.add(new Paragraph("Please read these terms and conditions carefully before using Our Service"));
+            doc.add(new Paragraph("Interpretation and Definitions"));
+            doc.add(new Paragraph("Interpretation"));
+            doc.add(new Paragraph("The words of which the initial letter is capitalized have meanings defined under the following conditions. The following definitions shall have the same meaning regardless of whether they appear in singular or in plural."));
+            doc.add(new Paragraph("Definitions"));
+            doc.add(new Paragraph("For the purposes of these Terms and Conditions:"));
+            doc.add(new Paragraph("Affiliate means an entity that controls, is controlled by or is under common control with a party, where &quot;control&quot; means ownership of 50% or more of the shares, equity interest or other securities entitled to vote for election of directors or other managing authority."));
+            doc.add(new Paragraph("Country refers to:  Philippines"));
+            doc.add(new Paragraph("Company refers to StudyAid Corp, EspaÃ±a Blvd, Sampaloc, Manila, 1008 Metro Manila."));
+            doc.add(new Paragraph("Device means any device that can access the Service such as a computer, a cellphone or a digital tablet."));
+            doc.add(new Paragraph("Service refers to the Website"));
+            doc.add(new Paragraph("Terms and Conditions mean these Terms and Conditions that form the entire agreement between You and the Company regarding the use of the Service. This Terms and Conditions agreement has been created with the help of the Terms and Conditions Generator"));
+            doc.add(new Paragraph("Third-party Social Media Service means any services or content (including data, information, products or services) provided by a third-party that may be displayed, included or made available by the Service."));
+            doc.add(new Paragraph("Website refers to Review.io, accessible from http://www.review.io"));
+            doc.add(new Paragraph("You means the individual accessing or using the Service, or the company, or other legal entity on behalf of which such individual is accessing or using the Service, as applicable."));
+            doc.add(new Paragraph("Acknowledgment"));
+            doc.add(new Paragraph("These are the Terms and Conditions governing the use of this Service and the agreement that operates between You and the Company. These Terms and Conditions set out the rights and obligations of all users regarding the use of the Service."));
+            doc.add(new Paragraph("Your access to and use of the Service is conditioned on Your acceptance of and compliance with these Terms and Conditions. These Terms and Conditions apply to all visitors, users and others who access or use the Service."));
+            doc.add(new Paragraph("By accessing or using the Service You agree to be bound by these Terms and Conditions. If You disagree with any part of these Terms and Conditions then You may not access the Service."));
+            doc.add(new Paragraph("You represent that you are over the age of 18. The Company does not permit those under 18 to use the Service."));
+            doc.add(new Paragraph("Your access to and use of the Service is also conditioned on Your acceptance of and compliance with the Privacy Policy of the Company. Our Privacy Policy describes Our policies and procedures on the collection, use and disclosure of Your personal information when You use the Application or the Website and tells You about Your privacy rights and how the law protects You. Please read Our Privacy Policy carefully before using Our Service."));
+            doc.add(new Paragraph("uility, for any reason whatsoever, including without limitation if You breach these Terms and Conditions."));
+            doc.add(new Paragraph("Upon termination, Your right to use the Service will cease immediately."));
+            doc.add(new Paragraph("Changes to These Terms and Conditions"));
+            doc.add(new Paragraph("We reserve the right, at Our sole discretion, to modify or replace these Terms at any time. If a revision is material We will make reasonable efforts to provide at least 30 days' notice prior to any new terms taking effect. What constitutes a material change will be determined at Our sole discretion."));
+            doc.add(new Paragraph("By continuing to access or use Our Service after those revisions become effective, You agree to be bound by the revised terms. If You do not agree to the new terms, in whole or in part, please stop using the website and the Service."));
+            doc.add(new Paragraph("Contact Us"));
+            doc.add(new Paragraph("If you have any questions about these Terms and Conditions, You can contact us:"));
+            doc.add(new Paragraph("By email: reviewio@gmail.com"));
             
             doc.close();
             OutputStream os = response.getOutputStream();
