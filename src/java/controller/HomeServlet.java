@@ -55,10 +55,15 @@ public class HomeServlet extends HttpServlet {
                     RequestDispatcher dispatcher = request.getRequestDispatcher("/");
                     dispatcher.forward(request, response);
                 }
-                
-                if(role.equals("Premium") || role.equals("Free") || role.equals("Review+") ) {
+                System.out.println(role);
+                if(role.equals("Free")) {
                     destination = "studenthome.jsp";
+                    request.setAttribute("showAds", true);
+                } else if (role.equals("Premium") || role.equals("Review+")) {
+                    destination = "studenthome.jsp";
+                    request.setAttribute("showAds", false);
                 } else {
+                    request.setAttribute("showAds", false);
                     destination = "authorhome.jsp";
                     ReviewerRouter reviewerRouter = new ReviewerRouter();           
                     ArrayList<Reviewer> userReviewers = reviewerRouter.getAllUserReviewer(con, user_id);

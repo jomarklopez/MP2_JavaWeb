@@ -76,6 +76,7 @@
                                     <div class="card-header">
                                         <p class="reviewer-title"><c:out value="${reviewer.getTitle()}"/></p>
                                         <p class="reviewer-author">by <c:out value="${reviewer.getAuthor()}"/> </p>
+                                        <p class="reviewer-author"><c:out value="${reviewer.getSubject()}"/> </p>
                                         <p class="reviewer-author"><c:out value="${reviewer.getLanguage()}"/> </p>
                                         <p class="reviewer-descriptionLabel">Description: </p>
                                         <p class="reviewer-description"><c:out value="${reviewer.getDescription()}"/> </p>
@@ -112,6 +113,20 @@
                 </form>
             </div>
         </div>
+        <footer>
+            <% 
+                Boolean showAds = (Boolean) request.getAttribute("showAds");
+                if (showAds) {
+                    out.print("<div class=\"adFooter\">" + "<img src=\""+ getServletContext().getInitParameter("adLink") + "\"/><span class=\"close closeAd\">&times;</span></div>");
+                } 
+            %>
+            <p>
+                © <% out.print(getServletContext().getInitParameter("copyrightYear")); %>
+                Made with <3 by: <% out.print(getServletContext().getInitParameter("company")); %>
+                &nbsp;&nbsp;&nbsp;
+                Reach us: <% out.print(getServletContext().getInitParameter("companyEmail")); %>
+            </p>
+        </footer>
     </body>
     
     <script>
@@ -141,26 +156,29 @@
             }
         }
         
-        // Get the modal
         var modal = document.getElementsByClassName("modal");
-
-        // Get the button that opens the modal
         var btn = document.getElementsByClassName("myBtn");
-
-        // Get the <span> element that closes the modal
         var span = document.getElementsByClassName("close");
-
-        // When the user clicks the button, open the modal 
+        var footer = document.querySelector("footer");
+        var adFooter = document.querySelector(".adFooter");
+        
         btn[0].onclick = function() {
             modal[0].style.display = "block";
         }
 
-        // When the user clicks on <span> (x), close the modal
         span[0].onclick = function() {
             modal[0].style.display = "none";
         }
+        
+        span[0].onclick = function() {
+            modal[0].style.display = "none";
+        }
+        
+        span[1].onclick = function() {
+            adFooter.style.display = "none";
+            footer.style.justifyContent = "flex-end";
+        }
 
-        // When the user clicks anywhere outside of the modal, close it
         window.onclick = function(event) {
             if (event.target == modal[0]) {
                  modal[0].style.display = "none";
@@ -405,7 +423,6 @@
             font-weight: 300;
         }
 
-
         .reviewer-wrapper {
             display: flex;
             overflow-y: auto;
@@ -486,15 +503,15 @@
         }
 
         /* The Close Button */
-        .close {
+        .close, .closeAd {
             color: #aaa;
             font-size: 28px;
             font-weight: bold;
             align-self: flex-end;
         }
 
-        .close:hover,
-        .close:focus {
+        .close:hover, .closeAd:hover,
+        .close:focus, .closeAd:focus {
             color: black;
             text-decoration: none;
             cursor: pointer;
@@ -551,7 +568,35 @@
             cursor: pointer;
             margin: 5px;
         }
-
+        .adFooter {
+            display: flex;
+        }
+        
+        footer {
+            position: fixed;
+            font-family: 'Roboto', sans-serif;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            color: black;
+            text-align: center;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+        
+        footer img {
+            width: 40vw;
+            filter: brightness(150%);
+        }
+        
+        .closeAd {
+            font-size: 2vw;
+            left: 38vw;
+            position: absolute;
+            color: black;
+            align-self: flex-start;
+        }
         @media (max-width: 768px) {
             .modal-content {
                 background-color: #fefefe;

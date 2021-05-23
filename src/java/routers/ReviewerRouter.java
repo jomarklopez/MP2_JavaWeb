@@ -18,7 +18,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Base64;
-import model.User;
 
 /**
  *
@@ -31,17 +30,17 @@ public class ReviewerRouter
         String sql;
         PreparedStatement statement;
         
-        if(language == null) {
-            sql = "SELECT * FROM REVIEWERS WHERE title LIKE ?";
-            String wildquery = '%' + subjectInput + '%';
-            statement = con.prepareStatement(sql);
-            statement.setString(1, wildquery);
-        } else {
+        if(language != null) {
             sql = "SELECT * FROM REVIEWERS WHERE title LIKE ? and language = ?";
             String wildquery = '%' + subjectInput + '%';
             statement = con.prepareStatement(sql);
             statement.setString(1, wildquery);
             statement.setString(2, language);
+        } else {
+            sql = "SELECT * FROM REVIEWERS WHERE title LIKE ?";
+            String wildquery = '%' + subjectInput + '%';
+            statement = con.prepareStatement(sql);
+            statement.setString(1, wildquery);
         }
         
         ResultSet rs = statement.executeQuery();
