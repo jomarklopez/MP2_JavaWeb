@@ -74,7 +74,7 @@
                                     <form action="downloadreviewer" method="get">
                                         <input type="hidden" name="reviewer_title" value="${reviewer.getTitle()}">
                                         <input type="hidden" name="reviewer_author" value="${reviewer.getAuthor()}">
-                                        <button type="submit" class="btn" id="editBtn" formtarget="_blank"><i class="fas fa-download"></i></button>
+                                        <button type="submit" class="btn" formtarget="_blank"><i class="fas fa-download"></i></button>
                                     </form>
                                 </div>
                             </td>
@@ -121,24 +121,30 @@
             }
         }
         
-        document.querySelector('.select-wrapper').addEventListener('click', function() {
-            this.querySelector('.select').classList.toggle('open');
-        })
-        
-        for (const option of document.querySelectorAll(".option")) {
-            option.addEventListener('click', function() {
-                if (!this.classList.contains('selected')) {
-                    this.parentNode.querySelector('.option.selected').classList.remove('selected');
-                    this.classList.add('selected');
-                    this.closest('.select').querySelector('.select__trigger span').textContent = this.textContent;
-                }
-            })
+        // Get the modal
+        var modal = document.getElementsByClassName("modal");
+
+        // Get the button that opens the modal
+        var btn = document.getElementsByClassName("myBtn");
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close");
+
+        // When the user clicks the button, open the modal 
+        btn[0].onclick = function() {
+            modal[0].style.display = "block";
         }
-        window.addEventListener('click', function(e) {
-            const select = document.querySelector('.select')
-            if (!select.contains(e.target)) {
-                select.classList.remove('open');
-            }
-        });
+
+        // When the user clicks on <span> (x), close the modal
+        span[0].onclick = function() {
+            modal[0].style.display = "none";
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target == modal[0]) {
+                 modal[0].style.display = "none";
+             }
+        }
     </script>
 </html>
