@@ -86,7 +86,7 @@ public class DownloadReviewerServlet extends HttpServlet {
             String mimeType = context.getMimeType(fileName);
             if (mimeType == null) {        
                 mimeType = "application/pdf";
-            }              
+            }
 
             // set content properties and header attributes for the response
             response.setContentType(mimeType);

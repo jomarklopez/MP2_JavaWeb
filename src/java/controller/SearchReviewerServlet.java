@@ -69,6 +69,7 @@ public class SearchReviewerServlet extends HttpServlet {
         ReviewerRouter reviewerRouter = new ReviewerRouter(); 
         try {
             HttpSession session = request.getSession();
+            String role = (String) session.getAttribute("role");
             ArrayList<Reviewer> userReviewers = reviewerRouter.findReviewers(con, query, language);
             
             if(userReviewers.isEmpty()) {
@@ -77,8 +78,14 @@ public class SearchReviewerServlet extends HttpServlet {
                 request.setAttribute("userReviewers", userReviewers);
             }
             
+            if(role.equals("Free")) {
+                request.setAttribute("showAds", true);
+            } else if (role.equals("Premium") || role.equals("Review+")) {
+                request.setAttribute("showAds", false);
+            }
+
             RequestDispatcher dispatcher = request.getRequestDispatcher("studenthome.jsp");
-            dispatcher.include(request, response);
+            dispatcher.forward(request, response);
         } catch (SQLException sqle) {
             System.out.println("SQLException error occured - " 
             + sqle.getMessage());

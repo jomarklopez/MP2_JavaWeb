@@ -16,6 +16,10 @@
         <param-name>appName</param-name>
         <param-value>Review.io</param-value>
     </context-param>
+    <context-param>
+        <param-name>adLink</param-name>
+        <param-value>shoppeefooterad.png</param-value>
+    </context-param>
     <servlet>
         <servlet-name>LoginServlet</servlet-name>
         <servlet-class>controller.LoginServlet</servlet-class>
@@ -320,9 +324,17 @@
         <servlet-name>Captcha</servlet-name>
         <url-pattern>/Captcha</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>GeneratePDFServlet</servlet-name>
+        <servlet-class>controller.GeneratePDFServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GeneratePDFServlet</servlet-name>
+        <url-pattern>/TermsAndConditions</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
-            10
+            20
         </session-timeout>
     </session-config>
     <welcome-file-list>
@@ -343,5 +355,9 @@
     <error-page>
         <error-code>404</error-code>
         <location>/error_4.jsp</location>
+    </error-page>
+    <error-page>
+        <error-code>500</error-code>
+        <location>/error_5.jsp</location>
     </error-page>
 </web-app>

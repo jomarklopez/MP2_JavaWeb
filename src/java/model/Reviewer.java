@@ -42,7 +42,7 @@ public class Reviewer
     }
 
     public String getSubject() {
-        return author;
+        return subject;
     }
     
     public void setAuthor(String author) {
