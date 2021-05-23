@@ -79,6 +79,13 @@
                     <div class="input-wrapper">
                         <input id='answer' placeholder="Captcha" name="answer" required>
                     </div>
+                    <div>
+                        Click this to accept our
+                        <form method="get" action="GeneratePDFServlet" target="_blank">
+                            <input type="hidden" name="recordtype" value="userrecord">
+                            <button type="button" class="btn" formtarget="_blank">Terms and Condition</button>
+                        </form>
+                    </div>    
                     <button class='btn' type='button' name="login" onclick="validatePassword()">
                         <div class='text'>
                             Sign Up
