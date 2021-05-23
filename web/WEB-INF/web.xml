@@ -84,6 +84,78 @@
         <servlet-name>DeleteReviewer</servlet-name>
         <url-pattern>/deletereviewer/*</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>DownloadReviewerServlet</servlet-name>
+        <servlet-class>controller.DownloadReviewerServlet</servlet-class>
+        <init-param>
+            <param-name>jdbcDriverURL</param-name>
+            <param-value>jdbc:derby</param-value>
+        </init-param>
+        <init-param>
+            <param-name>databaseUsername</param-name>
+            <param-value>app</param-value>
+        </init-param>
+        <init-param>
+            <param-name>databasePassword</param-name>
+            <param-value>app</param-value>
+        </init-param>
+        <init-param>
+            <param-name>databaseDriver</param-name>
+            <param-value>org.apache.derby.jdbc.ClientDriver</param-value>
+        </init-param>
+        <init-param>
+            <param-name>dbHostName</param-name>
+            <param-value>localhost</param-value>
+        </init-param>
+        <init-param>
+            <param-name>dbPort</param-name>
+            <param-value>1527</param-value>
+        </init-param>
+        <init-param>
+            <param-name>dbName</param-name>
+            <param-value>UserDB</param-value>
+        </init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DownloadReviewerServlet</servlet-name>
+        <url-pattern>/downloadreviewer/*</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>SearchReviewerServlet</servlet-name>
+        <servlet-class>controller.SearchReviewerServlet</servlet-class>
+        <init-param>
+            <param-name>jdbcDriverURL</param-name>
+            <param-value>jdbc:derby</param-value>
+        </init-param>
+        <init-param>
+            <param-name>databaseUsername</param-name>
+            <param-value>app</param-value>
+        </init-param>
+        <init-param>
+            <param-name>databasePassword</param-name>
+            <param-value>app</param-value>
+        </init-param>
+        <init-param>
+            <param-name>databaseDriver</param-name>
+            <param-value>org.apache.derby.jdbc.ClientDriver</param-value>
+        </init-param>
+        <init-param>
+            <param-name>dbHostName</param-name>
+            <param-value>localhost</param-value>
+        </init-param>
+        <init-param>
+            <param-name>dbPort</param-name>
+            <param-value>1527</param-value>
+        </init-param>
+        <init-param>
+            <param-name>dbName</param-name>
+            <param-value>UserDB</param-value>
+        </init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SearchReviewerServlet</servlet-name>
+        <url-pattern>/SearchReviewer</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -125,8 +197,8 @@
         <url-pattern>/upload</url-pattern>
     </servlet-mapping>
     <servlet>
-        <servlet-name>ChangeServlet</servlet-name>
-        <servlet-class>controller.ChangeServlet</servlet-class>
+        <servlet-name>ChangePasswordServlet</servlet-name>
+        <servlet-class>controller.ChangePasswordServlet</servlet-class>
         <init-param>
             <param-name>jdbcDriverURL</param-name>
             <param-value>jdbc:derby</param-value>
@@ -157,8 +229,8 @@
         </init-param>
     </servlet>
     <servlet-mapping>
-        <servlet-name>ChangeServlet</servlet-name>
-        <url-pattern>/ChangeServlet</url-pattern>
+        <servlet-name>ChangePasswordServlet</servlet-name>
+        <url-pattern>/changepassword</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>LogoutServlet</servlet-name>
@@ -258,11 +330,15 @@
     </welcome-file-list>
     <error-page>
         <exception-type>exceptions.AuthException</exception-type>
-        <location>/authenticationException.jsp</location>
+        <location>/loginsignupError.jsp</location>
     </error-page>
     <error-page>
         <exception-type>exceptions.NullValueException</exception-type>
         <location>/nullValueException.jsp</location>
+    </error-page>
+    <error-page>
+        <exception-type>java.sql.SQLException</exception-type>
+        <location>/loginsignupError.jsp</location>
     </error-page>
     <error-page>
         <error-code>404</error-code>

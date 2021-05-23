@@ -5,7 +5,6 @@
  */
 package controller;
 
-import exceptions.AuthException;
 import exceptions.NullValueException;
 import java.io.IOException;
 import java.sql.Connection;
@@ -18,7 +17,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.User;
 import nl.captcha.Captcha;
 import routers.UserRouter;
 
@@ -64,18 +62,25 @@ public class SignupServlet extends HttpServlet
         if(captcha.isCorrect(answer)) {
             try {
                 userRouter.createUser(con, username, password, role);
-                RequestDispatcher success = request.getRequestDispatcher("signup_success.jsp");
-                success.forward(request, response);
+                RequestDispatcher rd = request.getRequestDispatcher("signup_success.jsp");
+                rd.forward(request, response);
             } catch (SQLException sqle){
-                    System.out.println("SQLException error occured - " 
-                    + sqle.getMessage());
-                    throw new ServletException(sqle);
+                System.out.println("SQLException error occured - " 
+                + sqle.getMessage());
+                if (sqle.getMessage().contains("duplicate")) {
+                    request.setAttribute("errorMessage", "Username is already taken");
+                } else {
+                    request.setAttribute("errorMessage", sqle.getMessage());
+                }
+                throw new ServletException(sqle);
             } catch (NullValueException ex) {
                 request.setAttribute("errorMessage", ex.getMessage());
                 throw new ServletException(ex);
-            }
+            } 
         } else {
-            response.sendRedirect("index.jsp");   
+            request.setAttribute("errorMessage", "Captcha is incorrect");
+            RequestDispatcher rd = request.getRequestDispatcher("loginsignupError.jsp");
+            rd.forward(request, response); 
         }
     }
     

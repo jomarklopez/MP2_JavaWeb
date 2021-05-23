@@ -34,14 +34,14 @@
                     </button>
                 </form>
                 <div class="signupMessage">Don't have an account yet?
-                    <a id='signupBtn' name="captcha" onclick="window.location='signup.jsp'">
+                    <a id='signupBtn' onclick="window.location='signup.jsp'">
                         SIGNUP HERE
                     </a>
                 </div>
             </div>
             <footer>
                 <p>
-                    Â© <% out.print(getServletContext().getInitParameter("copyrightYear")); %>
+                    © <% out.print(getServletContext().getInitParameter("copyrightYear")); %>
                     Made with <3 by: <% out.print(getServletContext().getInitParameter("company")); %>
                     &nbsp;&nbsp;&nbsp;
                     Reach us: <% out.print(getServletContext().getInitParameter("companyEmail")); %>
@@ -51,7 +51,7 @@
     </body>
 
         <style>
-html,body {
+        html,body {
             margin: 0;
             padding: 0;
             height: 100vh;

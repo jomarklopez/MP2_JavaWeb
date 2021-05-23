@@ -7,7 +7,9 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="preconnect" href="https://fonts.gstatic.com">
-        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500&display=swap" rel="stylesheet">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="studenthomeStyle.css" />
     </head>
     <body>
         <div class="header">
@@ -18,293 +20,125 @@
                   <div class="arrow"></div>
                 </div>
                 <div class="dropdown">
-                  <p><i class="fas fa-user-edit"></i> Profile</p>
-                  <p><i class="fas fa-user-lock"></i> Change Password</p>
-                  <p><i class="fas fa-sign-out-alt"></i> Sign Out</p>
+                  <p><i class="fas fa-user-lock"></i> <a name="changePass" class='myBtn' >Change Password</a></p>
+                  <p><i class="fas fa-sign-out-alt"></i> <a name="signOut" onclick="window.location='LogoutServlet'" > Sign Out</a></p>
                 </div>
             </div>
         </div>
         <div class="background"></div>
         <div class="content">
             <div class="content-header">
-                <p>Search Reviewers: </p>
-                <form class="" action="">
-                    <input type="text" placeholder="Search..." name="searchBar">
-                    <button type="submit"><i class="fa fa-search"></i></button>
+                <p class="content-title">Search: </p>
+                <div class="search-wrap">
+                    <form class="search" action="SearchReviewer" method="post" autocomplete="off" class="form">
+                        <input name="searchQuery" type="text" class="searchTerm" placeholder="Search for a topic" required>
+                        <button type="submit" class="searchButton">
+                          <i class="fa fa-search"></i>
+                        </button>
+                        <select class="select-language" name="languageSelect">
+                            <option value="" disabled selected>Select a language</option>
+                            <option value="filipino">Filipino</option>
+                            <option value="english">English</span>
+                            <option value="cebuano">Cebuano</span>
+                            <option value="kapampangan">Kapampangan</option>
+                            <option value="pangasinan">Pangasinan</option>
+                        </select>
+                    </form>
+                </div>
+            </div>
+            <div class="reviewer-wrapper">
+                <%
+                    if(session.getAttribute("SuccessMessage") != null) {
+                        out.print("<div class=\"alert\">"+ session.getAttribute("SuccessMessage") +"</div>");
+                        session.removeAttribute("SuccessMessage");
+                    }
+                %>
+                <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+                <table>
+                    <tr>
+                        <c:forEach items="${userReviewers}" var="reviewer" varStatus="loop">
+                            <c:if test="${not loop.first and loop.index % 4 == 0}">
+                                </tr>
+                                <tr>
+                            </c:if>
+                            <td>
+                                <div class="reviewer-card">
+                                    <img src="data:image/jpg;base64,<c:out value="${reviewer.getBase64Image()}"/>" width="240" height="300"/>
+                                    <div class="card-header">
+                                        <p class="reviewer-title"><c:out value="${reviewer.getTitle()}"/></p>
+                                        <p class="reviewer-author">by <c:out value="${reviewer.getAuthor()}"/> </p>
+                                        <p class="reviewer-author"><c:out value="${reviewer.getLanguage()}"/> </p>
+                                        <p class="reviewer-descriptionLabel">Description: </p>
+                                        <p class="reviewer-description"><c:out value="${reviewer.getDescription()}"/> </p>
+                                    </div>
+                                    <form action="downloadreviewer" method="get">
+                                        <input type="hidden" name="reviewer_title" value="${reviewer.getTitle()}">
+                                        <input type="hidden" name="reviewer_author" value="${reviewer.getAuthor()}">
+                                        <button type="submit" class="btn" id="editBtn" formtarget="_blank"><i class="fas fa-download"></i></button>
+                                    </form>
+                                </div>
+                            </td>
+                        </c:forEach>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div id="changepasswordModal" class="modal">
+            <!-- Modal content -->
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <form id="changepassForm" method="post" action="changepassword">
+                    <div class="input-wrapper">
+                        New password
+                        <input class="form-input" type="password" id="newpass" name="newpass" size="10" required />
+                    </div>
+                    <div class="input-wrapper">
+                        Confirm new password
+                        <input class="form-input" type="password" id="confirmpass"  name="confirmpass" size="10" required />
+                    </div>
+                    <div class="form-actions">
+                        <input class="btn" onclick="validatePassword()" type="button" value="Submit">
+                        <input class="btn" type="reset" value="Clear" />
+                    </div>
                 </form>
             </div>
         </div>
     </body>
     
     <script>
+        function f() {
+            document.getElementsByClassName('dropdown')[0].classList.toggle('down');
+            if (document.getElementsByClassName('dropdown')[0].classList.contains('down')) {
+              document.getElementsByClassName('arrow')[0].classList.toggle('gone');
+              setTimeout(function() {
+                document.getElementsByClassName('dropdown')[0].style.overflow = 'visible'
+              }, 500)
+            } else {
+              setTimeout(function() {
+                document.getElementsByClassName('arrow')[0].classList.toggle('gone');
+              }, 500)
+              document.getElementsByClassName('dropdown')[0].style.overflow = 'hidden'
+            }
+        }
+        
+        document.querySelector('.select-wrapper').addEventListener('click', function() {
+            this.querySelector('.select').classList.toggle('open');
+        })
+        
+        for (const option of document.querySelectorAll(".option")) {
+            option.addEventListener('click', function() {
+                if (!this.classList.contains('selected')) {
+                    this.parentNode.querySelector('.option.selected').classList.remove('selected');
+                    this.classList.add('selected');
+                    this.closest('.select').querySelector('.select__trigger span').textContent = this.textContent;
+                }
+            })
+        }
+        window.addEventListener('click', function(e) {
+            const select = document.querySelector('.select')
+            if (!select.contains(e.target)) {
+                select.classList.remove('open');
+            }
+        });
     </script>
-    
-    <style>
-        html,body {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-        }
-
-        body {
-            background-color: #FFFFFF;
-        }
-        
-
-        .header {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            height: 100px;
-            background-color: #FFFFFF;
-            text-align: center;
-            position: relative;
-            z-index: 10;
-            box-shadow: rgb(50 50 93 / 25%) 0px 13px 27px -5px, rgb(0 0 0 / 30%) 0px 8px 16px -8px;
-            font-family: 'Roboto', sans-serif;
-        }
-        
-        .header-title {
-            font-family: 'Roboto', sans-serif;
-            font-size: 4rem;
-            margin: 0;
-            cursor: default;
-            font-weight: 100;    
-            align-self: center;
-        }
-
-        .background {
-            position:absolute;
-            width:100%;
-            height: 50vh;
-            background-color: #4ABDAC;
-        }
-        
-        .btn {
-            border-radius: 4px;
-            background-color: #FFC534;
-            border: none;
-            color: #FFFFFF;
-            text-align: center;
-            font-size: 20px;
-            padding: 10px;
-            width: 200px;
-            height: 50px;
-            cursor: pointer;
-            margin: 5px;
-        }
-
-        .btn span {
-            cursor: pointer;
-            display: inline-block;
-            position: relative;
-            transition: 0.5s;
-        }
-
-        .btn span:after {
-            content: '\00bb';
-            position: absolute;
-            opacity: 0;
-            top: 0;
-            right: -20px;
-            transition: 0.5s;
-        }
-
-        .btn:hover span {
-            padding-right: 25px;
-        }
-
-        .btn:hover span:after {
-            opacity: 1;
-            right: 0;
-        }
-        
-        .menu {
-            width: 200px;
-            cursor: pointer;
-            justify-self: end;
-            margin-top: 24px;
-            margin-right: 30px;
-            height: 76px;
-        }
-        
-        .menu i {
-            float: left;
-        }
-        
-        .title {
-            font-family: 'Roboto', sans-serif;
-            width: 100%;
-            box-sizing: border-box;
-            background: #FC4A1A;
-            padding: 14px;
-            border-radius: 4px;
-            position: relative;
-            color: #FFFFFF;
-        }
-        
-        
-        .dropdown {
-            width: 100%;
-            background: #fff;
-            border-radius: 4px;
-            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-            color: #505050;
-            max-height: 0;
-            overflow: hidden;
-            transition: all 0.3s;
-            margin-top: 24px;
-        }
-        
-        .down {
-            max-height: 150px;
-        }
-        
-        .arrow {
-            border-left: 10px solid transparent;
-            border-right: 10px solid transparent;
-            border-bottom: 10px solid #fff;
-            position: absolute;
-            right: 20px;
-            bottom: -24px;
-            display: none;
-        }
-        
-        .arrow.gone {
-            display: block;
-        }
-        
-        p {
-            font-family: 'Roboto', sans-serif;
-            padding: 15px 14px;
-            margin: 0;
-        }
-        
-        .menu p:hover {
-            color: white;
-            background: coral;
-            -webkit-transform: scale(1.02);
-            box-shadow: 0 0 30px -10px #000;
-        }
-
-        .content {
-            position: relative;
-            height: 500px;
-            width: 75vw;
-            background-color: white;
-            margin: 0 auto;
-            margin-top: 30px;
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-        }
-        
-        .content-header {
-            display: flex;
-            flex-direction: row;
-        }
-        
-        .content-header p {
-            font-size: 1.5rem;
-        }
-        
-        .modal {
-            display: none; /* Hidden by default */
-            position: fixed; /* Stay in place */
-            z-index: 100; /* Sit on top */
-            left: 0;
-            top: 0;
-            width: 100%; /* Full width */
-            height: 100%; /* Full height */
-            overflow: auto; /* Enable scroll if needed */
-            background-color: rgb(0,0,0); /* Fallback color */
-            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-        }
-
-          /* Modal Content/Box */
-        .modal-content {
-            display: flex;
-            flex-direction: column;
-            font-family: 'Roboto', sans-serif;
-            font-weight: 100;
-            border-radius: 12px;
-            background-color: #fefefe;
-            padding: 20px;
-            border: 1px solid #888;
-            position: absolute;
-            width: 50%; /* Could be more or less, depending on screen size */
-            left: 50%;
-            top: 50%;
-            -webkit-transform: translateX(-50%) translateY(-50%);
-            transform: translateX(-50%) translateY(-50%);
-        }
-
-        /* The Close Button */
-        .close {
-            color: #aaa;
-            font-size: 28px;
-            font-weight: bold;
-            align-self: flex-end;
-        }
-
-        .close:hover,
-        .close:focus {
-            color: black;
-            text-decoration: none;
-            cursor: pointer;
-        }
-        
-        .modal-content textarea {
-            resize: none;
-            width: 100%;
-            font-family: 'Roboto', sans-serif;
-            font-weight: 500;
-        }
-        
-        .modal-content input {
-            font-family: 'Roboto', sans-serif;
-            font-weight: 500;
-        }
-        .modal-content .form-actions{
-            text-align: end;
-        }
-        
-        .input-wrapper {
-            margin-bottom: 20px;
-        }
-        
-        .fileupload-btns {
-            display: flex;
-            flex-direction: row;
-        }
-        
-        .form-input {
-            font-family: 'Roboto', sans-serif;
-            width: 100%;
-            padding: px 0;
-            font-size: 16px;
-            color: #000;
-            border: none;
-            border-bottom: 1px solid #000;
-            outline: none;
-            background: transparent;
-        }
-        
-        @media (max-width: 768px) {
-            .modal-content {
-                background-color: #fefefe;
-                margin: 0 auto; 
-                position: relative;
-                top: 50%;
-                transform: translateY(-50%);
-                padding: 20px;
-                border: 1px solid #888;
-                max-width: 75%; 
-            }
-
-            .card {
-                margin: 10px 20px;
-                width: calc(100% - 40px);
-            }
-        }
-    </style>
 </html>

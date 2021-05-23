@@ -54,7 +54,7 @@
                       </div>
                       <div class="features">
                         <ul>
-                          <li><span>Unlimited</span> Dowanloads</li>
+                          <li><span>Unlimited</span> Downloads</li>
                           <li><span>20GB</span> Storage</li>
                           <li><span>Unlimited</span> free support</li>
                         </ul>
@@ -67,10 +67,10 @@
                         <input id="us" placeholder="Username" name='username' required>
                     </div>
                     <div class="input-wrapper">
-                        <input id="pw" placeholder="Password" name='password'required>
+                        <input id="pw" type="password" placeholder="Password" name='password'required>
                     </div>
                     <div class="input-wrapper">
-                        <input id="pw2" placeholder="Retype Password" required>
+                        <input id="pw2" type="password" placeholder="Retype Password" required>
                     </div>
                     <div class="input-wrapper">
                         <input id="r" placeholder="Choose Role Above" name='role' readOnly>
@@ -87,9 +87,15 @@
                 </form>
                 <div>
                     Want to be an author instead? 
-                    <a id="signupBtn" value="author" onclick="roleAuthor()">CLICK HERE</a>
+                    <a id="signupBtn" value="author" onclick="roleAuthor()">Become an Author</a>
                 </div>
+                    
+                <div class="signupMessage">Already have an account?
+                    <a id='signupBtn' onclick="window.location='index.jsp'">
+                        Login Here
+                    </a>
                 </div>
+            </div>
             <footer>
                 <p>
                     © <% out.print(getServletContext().getInitParameter("copyrightYear")); %>
@@ -408,7 +414,6 @@
           color: white;
           border-radius: 5px;
           box-shadow: rgba(0, 0, 0, 0.9);
-          transition: all 100ms ease-in-out;
           text-decoration: none;
         }
         .card .btn:hover {

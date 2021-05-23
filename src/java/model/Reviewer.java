@@ -15,6 +15,7 @@ public class Reviewer
     private String description;
     private String subject;
     private String language;
+    private String author;
     private String base64Image;
  
  
@@ -41,7 +42,15 @@ public class Reviewer
     }
 
     public String getSubject() {
-        return subject;
+        return author;
+    }
+    
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public String getAuthor() {
+        return author;
     }
 
     public void setLanguage(String language) {

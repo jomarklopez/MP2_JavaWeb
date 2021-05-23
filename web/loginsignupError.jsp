@@ -1,6 +1,6 @@
 <%-- 
-    Document   : error_4
-    Created on : 02 26, 21, 3:26:05 PM
+    Document   : authenticationException
+    Created on : 02 25, 21, 2:41:15 PM
     Author     : Patrick
 --%>
 
@@ -24,7 +24,7 @@
             <h1 class="header-title">Review.io</h1>
             <div class="content">
                 <h1 class="error-message">
-                    ERROR 404
+                    <% out.print(request.getAttribute("errorMessage")); %>
                 </h1>
                 <form method="get" action="index.jsp">
                     <button class="btn" type="submit">Back to Login</button>
@@ -32,7 +32,7 @@
             </div>
             <footer>
                 <p>
-                    Â© <% out.print(getServletContext().getInitParameter("copyrightYear")); %>
+                    © <% out.print(getServletContext().getInitParameter("copyrightYear")); %>
                     Made with <3 by: <% out.print(getServletContext().getInitParameter("company")); %>
                     &nbsp;&nbsp;&nbsp;
                     Reach us: <% out.print(getServletContext().getInitParameter("companyEmail")); %>

@@ -9,18 +9,16 @@ package controller;
  *
  * @author jlopez
  */
-import exceptions.AuthException;
 import exceptions.NullValueException;
 import java.io.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import routers.UserRouter;
 
-public class ChangeServlet extends HttpServlet {
+public class ChangePasswordServlet extends HttpServlet {
     
     Connection con;
     @Override
@@ -49,12 +47,16 @@ public class ChangeServlet extends HttpServlet {
             
             HttpSession session = request.getSession();
             int userID = Integer.parseInt((String)session.getAttribute("user_id"));
+            String role = (String) session.getAttribute("role");
+
             UserRouter userRouter = new UserRouter();
+            String newpass = request.getParameter("newpass");
+            System.out.println(newpass);
             
-            try {
-                String newPassword = "";  
-                userRouter.changePassword(con, newPassword, userID);
-            
+            try { 
+                userRouter.changePassword(con, newpass, userID);
+                session.setAttribute("SuccessMessage", "Password successfuly changed");
+                response.sendRedirect(request.getContextPath() + "/home");
             } catch (SQLException ex) {
                 System.out.println("LoginServlet Error: "+ ex.getMessage());
             } catch (NullValueException ex) {

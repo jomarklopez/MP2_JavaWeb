@@ -5,12 +5,14 @@
  */
 package controller;
 
-import exceptions.AuthException;
-import exceptions.NullValueException;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -18,10 +20,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.InputStream;
-import java.util.ArrayList;
-import javax.servlet.annotation.MultipartConfig;
-import javax.servlet.http.Part;
 import model.Reviewer;
 import routers.ReviewerRouter;
 
@@ -29,8 +27,7 @@ import routers.ReviewerRouter;
  *
  * @author jomarklopez
  */
-@MultipartConfig(maxFileSize = 16177215) // upload file's size up to 16MB
-public class UploadReviewerServlet extends HttpServlet {
+public class SearchReviewerServlet extends HttpServlet {
     
     Connection con;
     @Override
@@ -65,60 +62,31 @@ public class UploadReviewerServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        ReviewerRouter reviewerRouter = new ReviewerRouter();          
-        String title = request.getParameter("title");
-        String subject = request.getParameter("subject");
-        String language = request.getParameter("language");
-        String description = request.getParameter("description");
-        HttpSession session = request.getSession();
-        String author = (String) session.getAttribute("username");
-        int userID = Integer.parseInt((String)session.getAttribute("user_id"));
-        InputStream file_data = null; 
-        InputStream file_image = null;
-        String message = null;
-        
-        Part file_dataPart = request.getPart("file_data");
-        
-        if (file_dataPart != null) {
-            // prints out some information for debugging
-            System.out.println(file_dataPart.getName());
-            System.out.println(file_dataPart.getSize());
-            System.out.println(file_dataPart.getContentType());
 
-            // obtains input stream of the upload file
-            file_data = file_dataPart.getInputStream();
-        }
+        String query = request.getParameter("searchQuery");
+        String language = request.getParameter("languageSelect");
         
-        Part file_imagePart = request.getPart("file_image");
-        
-        if (file_imagePart != null) {
-            // prints out some information for debugging
-            System.out.println(file_imagePart.getName());
-            System.out.println(file_imagePart.getSize());
-            System.out.println(file_imagePart.getContentType());
-
-            // obtains input stream of the upload file
-            file_image = file_imagePart.getInputStream();
-        }
-        
+        ReviewerRouter reviewerRouter = new ReviewerRouter(); 
         try {
-            int row = reviewerRouter.uploadReviewer(con, title, subject, language, description, author, file_data, file_image, userID);
-            if (row > 0) {
-                message = "File uploaded and saved into database";
+            HttpSession session = request.getSession();
+            ArrayList<Reviewer> userReviewers = reviewerRouter.findReviewers(con, query, language);
+            
+            if(userReviewers.isEmpty()) {
+                session.setAttribute("SuccessMessage", "No reviewers with the phrase \" " + query + " \" exist");
+            } else {
+                request.setAttribute("userReviewers", userReviewers);
             }
-            session.setAttribute("SuccessMessage", message);
-            response.sendRedirect(request.getContextPath() + "/home");
-                
-        } catch (SQLException | ClassNotFoundException ex) {
-            System.out.println("LoginServlet Error: "+ ex.getMessage());
-        } catch (AuthException ex) {
-            request.setAttribute("errorMessage", ex.getMessage());
-            throw new ServletException(ex);
-        } catch (NullValueException ex) {
-            request.setAttribute("errorMessage", ex.getMessage());
-            throw new ServletException(ex);
+            
+            RequestDispatcher dispatcher = request.getRequestDispatcher("studenthome.jsp");
+            dispatcher.include(request, response);
+        } catch (SQLException sqle) {
+            System.out.println("SQLException error occured - " 
+            + sqle.getMessage());
+            request.setAttribute("errorMessage", "SQL Database Error!");
+            throw new ServletException(sqle);
         }
+        
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
